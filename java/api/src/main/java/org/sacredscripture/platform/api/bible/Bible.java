@@ -21,7 +21,9 @@ package org.sacredscripture.platform.api.bible;
 
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
+import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
+import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
 
 import java.awt.print.Book;
 import java.util.List;
@@ -31,17 +33,20 @@ import java.util.Locale;
  * This interface defines an edition of the bible.
  *
  * @author Paul Benedict
+ * @see BibleLocalizedProperties
  * @since Sacred Scripture Platform 1.0
  */
-public interface Bible extends Entity<Long>, Named {
+public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizedProperties>, LocaleProvider, Named {
 
     /**
-     * Retrieves the abbreviation of this bible edition. The abbreviation is a
-     * shortened textual description of the <code>name</code> property (e.g.,
-     * "RSV-CE").
+     * Retrieves the localized abbreviation of this bible edition. The
+     * abbreviation is a shortened textual description of the <code>name</code>
+     * property (e.g., "RSV-CE").
      *
      * @return the abbreviation
+     * @see BibleLocalizedProperties#getAbbreviation()
      */
+    @LocaleSensitive
     String getAbbreviation();
 
     /**
@@ -56,32 +61,54 @@ public interface Bible extends Entity<Long>, Named {
      * collection must be sorted according to the table of contents of this
      * edition.
      *
-     * @return the collection; never {@code null}
+     * @return the collection (never {@code null})
      */
     List<Book> getBooks();
 
     /**
-     * Retrieves the locale of this bible edition. The locale can be used, for
-     * instance, in sorting bible versions by language.
+     * Retrieves the localized copyright notice for this bible edition.
+     *
+     * @return the copyright
+     * @see BibleLocalizedProperties#getCopyrightNotice()
+     */
+    @LocaleSensitive
+    String getCopyrightNotice();
+
+    /**
+     * Retrieves the localized license agreement for this bible edition.
+     *
+     * @return the license
+     * @see BibleLocalizedProperties#getLicense()
+     */
+    @LocaleSensitive
+    String getLicense();
+
+    /**
+     * Retrieves the native locale of this bible edition. The locale can be
+     * used, for instance, in sorting bible versions by language.
      *
      * @return the locale
      */
+    @Override
     Locale getLocale();
 
     /**
-     * Retrieves the name of this bible edition (e.g., "King James Version").
+     * Retrieves the localized name of this bible edition (e.g.,
+     * "King James Version").
      *
      * @return the name
+     * @see BibleLocalizedProperties#getName()
      */
     @Override
     @LocaleSensitive
     String getName();
 
     /**
-     * Retrieves the title of this bible edition. The title is such as
+     * Retrieves the localized title of this bible edition. The title is such as
      * "The Holy Bible" or "Sacra Biblia".
      *
      * @return the title
+     * @see BibleLocalizedProperties#getTitle()
      */
     @LocaleSensitive
     String getTitle();
@@ -95,5 +122,13 @@ public interface Bible extends Entity<Long>, Named {
      * @return {@code true} if right-to-left or {@code false}
      */
     boolean isRightToLeftReading();
+
+    /**
+     * Sets whether this bible edition requires right-to-left reading.
+     *
+     * @param rtl {@code true} for right-to-left; otherwise {@code false}
+     * @see #isRightToLeftReading()
+     */
+    void setRightToLeftReading(boolean rtl);
 
 }
