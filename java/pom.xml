@@ -55,7 +55,8 @@
   </scm>
   
   <modules>
-    <module>api</module>  
+    <module>api</module>
+    <module>impl</module>
   </modules>
 
   <dependencyManagement>
