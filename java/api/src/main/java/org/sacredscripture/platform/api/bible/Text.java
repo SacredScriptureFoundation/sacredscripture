@@ -24,7 +24,7 @@ package org.sacredscripture.platform.api.bible;
  *
  * @author Paul Benedict
  * @see VerseContentType#TEXT
- * @version 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public interface Text extends VerseContent {
 

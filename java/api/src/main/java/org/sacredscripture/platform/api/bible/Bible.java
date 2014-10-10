@@ -31,7 +31,7 @@ import java.util.Locale;
  * This interface defines an edition of the bible.
  *
  * @author Paul Benedict
- * @since 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public interface Bible extends Entity<Long>, Named {
 

@@ -22,7 +22,7 @@ package org.sacredscripture.platform.api.bible;
 /**
  * @author Paul Benedict
  * @see VerseContent#getType()
- * @since 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public enum VerseContentType {
 

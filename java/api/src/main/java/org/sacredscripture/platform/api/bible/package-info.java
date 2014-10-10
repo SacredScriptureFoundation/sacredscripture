@@ -22,7 +22,7 @@
  * This package contains core definitions to represent a bible edition and
  * its composition.
  *
- * @version $Rev: 148 $
+ * @since Sacred Scripture Platform 1.0
  */
 package org.sacredscripture.platform.api.bible;
 

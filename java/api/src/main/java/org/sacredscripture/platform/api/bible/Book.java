@@ -32,7 +32,7 @@ import java.util.List;
  * @author Paul Benedict
  * @see Bible#getBooks()
  * @see BookGroup#getBooks()
- * @since 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public interface Book extends Entity<Long>, Named, Coded<String> {
 

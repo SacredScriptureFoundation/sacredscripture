@@ -30,7 +30,7 @@ package org.sacredscripture.platform.api.bible;
  * @see org.sacredscripture.platform.api.bible.Book
  * @see org.sacredscripture.platform.api.bible.Chapter
  * @see org.sacredscripture.platform.api.bible.Verse
- * @since 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public interface Bookmark {
 

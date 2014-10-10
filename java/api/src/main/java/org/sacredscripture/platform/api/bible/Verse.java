@@ -30,7 +30,7 @@ import java.util.List;
  * @author Paul Benedict
  * @version $Rev: 173 $
  * @see Chapter#getVerses()
- * @since 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public interface Verse extends Entity<Long>, Named {
 

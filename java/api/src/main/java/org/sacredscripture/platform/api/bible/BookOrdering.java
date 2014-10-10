@@ -23,7 +23,7 @@ package org.sacredscripture.platform.api.bible;
  * This enumeration defines the kinds of ordering a bible may sort its books.
  *
  * @author Paul Benedict
- * @since 1.0
+ * @since Sacred Scripture Platform 1.0
  */
 public enum BookOrdering {
 
