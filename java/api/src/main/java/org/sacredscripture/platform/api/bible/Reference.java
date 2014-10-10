@@ -26,13 +26,13 @@ package org.sacredscripture.platform.api.bible;
  * @see VerseContentType#REFERENCE
  * @since 1.0
  */
-public interface Reference {
+public interface Reference extends VerseContent {
 
     /**
      * Retrieves the referenced verse.
      *
      * @return the verse
      */
-    Verse getVerse();
+    Verse getReferencedVerse();
 
 }
