@@ -24,13 +24,13 @@ import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
 /**
- * This interface defines the properties of a {@link Bible} that are translated
- * into each acceptable locale.
+ * This interface defines the properties of a {@link Bible} that must be
+ * translated into each supported locale.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface BibleLocalizedProperties extends Entity<Long>, Named, LocaleProvider {
+public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
 
     /**
      * Retrieves the abbreviation of this localized bible properties. The

@@ -33,10 +33,10 @@ import java.util.Locale;
  * This interface defines an edition of the bible.
  *
  * @author Paul Benedict
- * @see BibleLocalizedProperties
+ * @see BibleLocalization
  * @since Sacred Scripture Platform 1.0
  */
-public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizedProperties>, LocaleProvider, Named {
+public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalization>, LocaleProvider, Named {
 
     /**
      * Retrieves the localized abbreviation of this bible edition. The
@@ -44,7 +44,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalized
      * property (e.g., "RSV-CE").
      *
      * @return the abbreviation
-     * @see BibleLocalizedProperties#getAbbreviation()
+     * @see BibleLocalization#getAbbreviation()
      */
     @LocaleSensitive
     String getAbbreviation();
@@ -69,7 +69,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalized
      * Retrieves the localized copyright notice for this bible edition.
      *
      * @return the copyright
-     * @see BibleLocalizedProperties#getCopyrightNotice()
+     * @see BibleLocalization#getCopyrightNotice()
      */
     @LocaleSensitive
     String getCopyrightNotice();
@@ -78,7 +78,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalized
      * Retrieves the localized license agreement for this bible edition.
      *
      * @return the license
-     * @see BibleLocalizedProperties#getLicense()
+     * @see BibleLocalization#getLicense()
      */
     @LocaleSensitive
     String getLicense();
@@ -97,7 +97,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalized
      * "King James Version").
      *
      * @return the name
-     * @see BibleLocalizedProperties#getName()
+     * @see BibleLocalization#getName()
      */
     @Override
     @LocaleSensitive
@@ -108,7 +108,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalized
      * "The Holy Bible" or "Sacra Biblia".
      *
      * @return the title
-     * @see BibleLocalizedProperties#getTitle()
+     * @see BibleLocalization#getTitle()
      */
     @LocaleSensitive
     String getTitle();
