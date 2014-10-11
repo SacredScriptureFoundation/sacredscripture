@@ -27,12 +27,12 @@ package org.sacredscripture.platform.api.bible;
 public enum VerseContentType {
 
     /**
-     * Text.
+     * VerseText.
      */
     TEXT,
 
     /**
-     * Reference to another verse.
+     * VerseReference to another verse.
      */
     REFERENCE,
 

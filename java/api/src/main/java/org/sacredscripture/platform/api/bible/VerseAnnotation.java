@@ -20,19 +20,21 @@
 package org.sacredscripture.platform.api.bible;
 
 /**
- * This interface defines a reference to another verse.
+ * This interface defines an annotated piece of information within a verse. This
+ * is usually something of particular importance that the translator wanted to
+ * mention.
  *
  * @author Paul Benedict
- * @see VerseContentType#REFERENCE
+ * @see VerseContentType#ANNOTATION
  * @since Sacred Scripture Platform 1.0
  */
-public interface Reference extends VerseContent {
+public interface VerseAnnotation extends VerseContent {
 
     /**
-     * Retrieves the referenced verse.
+     * Retrieves the annotated text of this content.
      *
-     * @return the verse
+     * @return the annotated text
      */
-    Verse getReferencedVerse();
+    String getAnnotatedText();
 
 }

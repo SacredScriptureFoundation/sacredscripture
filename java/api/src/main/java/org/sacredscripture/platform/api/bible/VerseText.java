@@ -26,7 +26,7 @@ package org.sacredscripture.platform.api.bible;
  * @see VerseContentType#TEXT
  * @since Sacred Scripture Platform 1.0
  */
-public interface Text extends VerseContent {
+public interface VerseText extends VerseContent {
 
     /**
      * Retrieves the text of this content.
