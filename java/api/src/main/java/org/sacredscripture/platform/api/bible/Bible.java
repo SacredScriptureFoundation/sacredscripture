@@ -25,7 +25,6 @@ import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Locale;
 
