@@ -84,6 +84,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * used, for instance, in sorting bible versions by language.
      *
      * @return the locale
+     * @see #setLocale(Locale)
      */
     @Override
     Locale getLocale();
@@ -116,6 +117,14 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * @return {@code true} if right-to-left or {@code false}
      */
     boolean isRightToLeftReading();
+
+    /**
+     * Stores the native locale for this bible edition.
+     *
+     * @param locale the locale
+     * @see #getLocale()
+     */
+    void setLocale(Locale locale);
 
     /**
      * Sets whether this bible edition requires right-to-left reading.
