@@ -27,7 +27,7 @@ import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
 import java.util.List;
 
 /**
- * This interface defines a bible book.
+ * This interface defines a bible book inside a particular bible edition.
  *
  * @author Paul Benedict
  * @see Bible#getBooks()
