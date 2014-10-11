@@ -37,9 +37,22 @@ import java.util.List;
 public interface Book extends Entity<Long>, Named, Coded<String> {
 
     /**
-     * Retrieves the abbreviations of this book.
+     * Retrieves the primary abbreviation of this book.
+     *
+     * @return the abbreviation
+     * @see #getAbbreviations()
+     */
+    @LocaleSensitive
+    String getAbbreviation();
+
+    /**
+     * Retrieves the abbreviations of this book. The order is important. The
+     * first one is the primary abbreviation, the second is secondary, and so
+     * forth. The first should be used when only one is to be displayed to the
+     * user.
      *
      * @return the abbreviations
+     * @see #getAbbreviation()
      */
     @LocaleSensitive
     List<String> getAbbreviations();
@@ -52,6 +65,13 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
     Bible getBible();
 
     /**
+     * Retrieves the type of this book.
+     *
+     * @return the book type
+     */
+    BookType getBookType();
+
+    /**
      * Retrieves the collection of chapters that belong to this book. The
      * collection is sorted accordingly to the bible edition.
      *
@@ -60,28 +80,10 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
     List<Chapter> getChapters();
 
     /**
-     * Retrieves the internal code of this book.
-     *
-     * @return the bible book code
-     */
-    @Override
-    String getCode();
-
-    /**
-     * Returns the formal name of this book. The formal name is a long
-     * description like "The Gospel of Jesus Christ according to Matthew".
-     *
-     * @return the formal name
-     */
-    @LocaleSensitive
-    String getFormalName();
-
-    /**
-     * Retrieves the typical name of this book. The typical name is the name
-     * which the book is commonly known as in everyday life.
+     * Retrieves the common name of this book. The common name is the name which
+     * the book is commonly known as in everyday life.
      *
      * @return the name
-     * @see #getFormalName()
      */
     @Override
     @LocaleSensitive
@@ -95,5 +97,14 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
      * @return the order value
      */
     int getOrder();
+
+    /**
+     * Returns the title of this book. The title is a long description like
+     * "The Gospel of Jesus Christ according to Matthew".
+     *
+     * @return the formal name
+     */
+    @LocaleSensitive
+    String getTitle();
 
 }
