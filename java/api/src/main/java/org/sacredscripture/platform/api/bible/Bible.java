@@ -44,7 +44,6 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * property (e.g., "RSV-CE").
      *
      * @return the abbreviation
-     * @see BibleLocalization#getAbbreviation()
      */
     @LocaleSensitive
     String getAbbreviation();
@@ -69,7 +68,6 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * Retrieves the localized copyright notice for this bible edition.
      *
      * @return the copyright
-     * @see BibleLocalization#getCopyrightNotice()
      */
     @LocaleSensitive
     String getCopyrightNotice();
@@ -78,7 +76,6 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * Retrieves the localized license agreement for this bible edition.
      *
      * @return the license
-     * @see BibleLocalization#getLicense()
      */
     @LocaleSensitive
     String getLicense();
@@ -97,7 +94,6 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * "King James Version").
      *
      * @return the name
-     * @see BibleLocalization#getName()
      */
     @Override
     @LocaleSensitive
@@ -108,7 +104,6 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * "The Holy Bible" or "Sacra Biblia".
      *
      * @return the title
-     * @see BibleLocalization#getTitle()
      */
     @LocaleSensitive
     String getTitle();
