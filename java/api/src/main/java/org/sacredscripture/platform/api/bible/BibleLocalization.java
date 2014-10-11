@@ -43,6 +43,13 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     String getAbbreviation();
 
     /**
+     * Retrieves the owning bible of this localization.
+     *
+     * @return the bible
+     */
+    Bible getBible();
+
+    /**
      * Retrieves the copyright notice of this localized bible properties.
      *
      * @return the copyright
@@ -74,6 +81,14 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
      * @see #getAbbreviation()
      */
     void setAbbreviation(String abbreviation);
+
+    /**
+     * Stores the new bible that owns this localization.
+     *
+     * @param bible the bible
+     * @see #getBible()
+     */
+    void setBible(Bible bible);
 
     /**
      * Stores the new copyright for this localized bible properties.
