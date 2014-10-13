@@ -1,0 +1,136 @@
+/*
+ * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * "All scripture is given by inspiration of God, and is profitable for
+ * doctrine, for reproof, for correction, for instruction in righteousness:
+ * That the man of God may be perfect, throughly furnished unto all good
+ * works." (2 Tim 3:16-17)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.sacredscripture.platform.impl.bible;
+
+import org.sacredscripture.platform.api.bible.BookType;
+import org.sacredscripture.platform.api.bible.BookTypeLocalization;
+import org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable;
+
+import org.sacredscripturefoundation.commons.locale.entity.LocalizedContentEntity;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+/**
+ * This class is the stock implementation of {@link BookTypeLocalization}.
+ *
+ * @author Paul Benedict
+ * @see BookType
+ * @since Sacred Scripture Platform 1.0
+ */
+@Entity
+@Table(name = BookTypeLocalizationTable.TABLE_NAME)
+@AttributeOverride(name = "locale", column = @Column(name = BookTypeLocalizationTable.COLUMN_LOCALE))
+public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> implements BookTypeLocalization {
+
+    @ManyToOne(targetEntity = BookTypeImpl.class, optional = false)
+    @JoinColumn(name = BookTypeLocalizationTable.COLUMN_BOOK_TYPE_ID)
+    private BookType bookType;
+
+    @Column(name = BookTypeLocalizationTable.COLUMN_NAME)
+    private String name;
+
+    @Column(name = BookTypeLocalizationTable.COLUMN_TITLE)
+    private String title;
+
+    @Column(name = BookTypeLocalizationTable.COLUMN_ABBREVIATION1)
+    private String abbreviation1;
+
+    @Column(name = BookTypeLocalizationTable.COLUMN_ABBREVIATION2)
+    private String abbreviation2;
+
+    @Column(name = BookTypeLocalizationTable.COLUMN_ABBREVIATION3)
+    private String abbreviation3;
+
+    @Transient
+    private List<String> abbreviations;
+
+    @Override
+    public void addAbbreviation(String abbreviation) {
+        if (abbreviation1 == null) {
+            abbreviation1 = abbreviation;
+        } else if (abbreviation2 == null) {
+            abbreviation2 = abbreviation;
+        } else if (abbreviation3 == null) {
+            abbreviation3 = abbreviation;
+        } else {
+            throw new IllegalArgumentException("Only 3 abbreviations supported");
+        }
+    }
+
+    @Override
+    public List<String> getAbbreviations() {
+        return abbreviations;
+    }
+
+    @Override
+    public BookType getBookType() {
+        return bookType;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @PostConstruct
+    private void rebuildAbbreviationList() {
+        List<String> list = new ArrayList<>(3);
+        list.add(abbreviation1);
+        if (abbreviation2 != null) {
+            list.add(abbreviation2);
+        }
+        if (abbreviation3 != null) {
+            list.add(abbreviation3);
+        }
+        abbreviations = Collections.unmodifiableList(list);
+    }
+
+    @Override
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+}

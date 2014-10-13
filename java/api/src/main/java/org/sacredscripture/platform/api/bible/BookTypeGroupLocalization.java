@@ -21,41 +21,19 @@ package org.sacredscripture.platform.api.bible;
 
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
-import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
-
-import java.util.List;
+import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
 /**
- * This interface represents a grouping of books within a bible edition.
- *
  * @author Paul Benedict
- * @see Bible#getBookGroups()
  * @since Sacred Scripture Platform 1.0
  */
-public interface BookGroup extends Entity<Long>, Named {
+public interface BookTypeGroupLocalization extends Entity<Long>, Named, LocaleProvider {
 
     /**
-     * Retrieves the owning bible of this group.
+     * Retrieves the owning group of this localization.
      *
-     * @return the bible
+     * @return the group
      */
-    Bible getBible();
-
-    /**
-     * Retrieves the list of books belonging to this group.
-     *
-     * @return list of books; never {@code null}
-     */
-    List<Book> getBooks();
-
-    /**
-     * Retrieves the localized name of this group. Each group must have a unique
-     * name within its owning bible.
-     *
-     * @return the name
-     */
-    @Override
-    @LocaleSensitive
-    String getName();
+    BookTypeGroup getBookTypeGroup();
 
 }

@@ -22,7 +22,6 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.Bible;
 import org.sacredscripture.platform.api.bible.BibleLocalization;
 import org.sacredscripture.platform.api.bible.Book;
-import org.sacredscripture.platform.api.bible.BookGroup;
 import org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BibleTable;
 
@@ -33,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +42,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * This class represents a Bible edition.
+ * This class is the stock implementation of {@link Bible}.
  *
  * @author Paul Benedict
  * @see BibleLocalizationImpl
@@ -58,16 +58,10 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @OneToMany
     @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
     @MapKey(name = "locale")
-    Map<Locale, BibleLocalization> localizedContent;
+    Map<Locale, BibleLocalization> localizedContents;
 
     @Column(name = BibleTable.COLUMN_RTOL)
     private boolean rightToLeftReading;
-
-    // FIXME
-    // @OneToMany(targetEntity = BookGroupImpl.class, mappedBy = "bible")
-    // @JoinColumn(name = BookGroupTable.COLUMN_BIBLE_ID)
-    // @OrderColumn(name = BookGroupTable.COLUMN_LIST_POSITION)
-    private List<BookGroup> bookGroups;
 
     // FIXME
     // @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
@@ -75,16 +69,15 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     private List<Book> books;
 
     @Override
-    public String getAbbreviation() {
-        return localize(getLocale()).getAbbreviation();
+    public void addBook(Book book) {
+        Objects.requireNonNull(book);
+        books.add(book);
+        book.setBible(this);
     }
 
     @Override
-    public List<BookGroup> getBookGroups() {
-        if (bookGroups == null) {
-            bookGroups = new LinkedList<>();
-        }
-        return bookGroups;
+    public String getAbbreviation() {
+        return localize(getLocale()).getAbbreviation();
     }
 
     @Override
@@ -113,15 +106,12 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
         return locale;
     }
 
-    /**
-     * @see #setLocalizedContent(Map)
-     */
     @Override
-    public Map<Locale, BibleLocalization> getLocalizedContent() {
-        if (localizedContent == null) {
-            localizedContent = new HashMap<>();
+    public Map<Locale, BibleLocalization> getLocalizedContents() {
+        if (localizedContents == null) {
+            localizedContents = new HashMap<>();
         }
-        return localizedContent;
+        return localizedContents;
     }
 
     @Override
@@ -142,11 +132,6 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Override
     public void setLocale(Locale locale) {
         this.locale = locale;
-    }
-
-    @Override
-    public void setLocalizedContent(Map<Locale, BibleLocalization> localizedContent) {
-        this.localizedContent = localizedContent;
     }
 
     @Override

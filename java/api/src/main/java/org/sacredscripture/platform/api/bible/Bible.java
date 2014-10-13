@@ -32,10 +32,19 @@ import java.util.Locale;
  * This interface defines an edition of the bible.
  *
  * @author Paul Benedict
- * @see BibleLocalization
  * @since Sacred Scripture Platform 1.0
  */
 public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalization>, LocaleProvider, Named {
+
+    /**
+     * Adds the specified book to this bible edition. In turn, the book's bible
+     * backreference will be set to this instance.
+     *
+     * @param book the book to add
+     * @throws NullPointerException if book is {@code null}
+     * @see #getBooks()
+     */
+    void addBook(Book book);
 
     /**
      * Retrieves the localized abbreviation of this bible edition. The
@@ -48,18 +57,12 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
     String getAbbreviation();
 
     /**
-     * Retrieves the collection of book groups in this bible.
-     *
-     * @return the list of book groups
-     */
-    List<BookGroup> getBookGroups();
-
-    /**
      * Retrieves the collection of books that belong to this bible edition. The
      * collection must be sorted according to the table of contents of this
      * edition.
      *
      * @return the collection (never {@code null})
+     * @see #addBook(Book)
      */
     List<Book> getBooks();
 
@@ -90,7 +93,7 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
     Locale getLocale();
 
     /**
-     * Retrieves the localized name of this bible edition (e.g.,
+     * Retrieves the localized common name of this bible edition (e.g.,
      * "King James Version").
      *
      * @return the name
@@ -115,11 +118,12 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * associated with this Bible.
      *
      * @return {@code true} if right-to-left or {@code false}
+     * @see #setRightToLeftReading(boolean)
      */
     boolean isRightToLeftReading();
 
     /**
-     * Stores the native locale for this bible edition.
+     * Stores the new native locale for this bible edition.
      *
      * @param locale the locale
      * @see #getLocale()

@@ -33,9 +33,9 @@ import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
 
     /**
-     * Retrieves the abbreviation of this localized bible properties. The
-     * abbreviation is a shortened textual description of the <code>name</code>
-     * property (e.g., "RSV-CE").
+     * Retrieves the abbreviation of this localization. The abbreviation is a
+     * shortened textual description of the <code>name</code> property (e.g.,
+     * "RSV-CE").
      *
      * @return the abbreviation
      * @see #setAbbreviation(String)
@@ -50,7 +50,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     Bible getBible();
 
     /**
-     * Retrieves the copyright notice of this localized bible properties.
+     * Retrieves the copyright notice of this localization.
      *
      * @return the copyright
      * @see #setCopyrightNotice(String)
@@ -58,7 +58,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     String getCopyrightNotice();
 
     /**
-     * Retrieves the license agreement of this localized bible properties.
+     * Retrieves the license agreement of this localization.
      *
      * @return the license
      * @see #setLicense(String)
@@ -66,8 +66,8 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     String getLicense();
 
     /**
-     * Retrieves the title of this bible edition. The title is such as
-     * "The Holy Bible" or "Sacra Biblia".
+     * Retrieves the title of this bible edition of this localization. The title
+     * is such as "The Holy Bible" or "Sacra Biblia".
      *
      * @return the title
      * @see #setTitle(String)
@@ -75,7 +75,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     String getTitle();
 
     /**
-     * Stores the new abbreviation for this localized bible properties.
+     * Stores the new abbreviation for this localization.
      *
      * @param abbreviation the abbreviation
      * @see #getAbbreviation()
@@ -83,7 +83,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     void setAbbreviation(String abbreviation);
 
     /**
-     * Stores the new bible that owns this localization.
+     * Stores the new bible owning this localization.
      *
      * @param bible the bible
      * @see #getBible()
@@ -91,7 +91,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     void setBible(Bible bible);
 
     /**
-     * Stores the new copyright for this localized bible properties.
+     * Stores the new copyright for this localization.
      *
      * @param copyright the copyright notice
      * @see #getCopyrightNotice()
@@ -99,7 +99,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     void setCopyrightNotice(String copyright);
 
     /**
-     * Stores the new licese for thsi localized bible properties.
+     * Stores the new licese for this localization.
      *
      * @param license the license
      * @see #getLicense()
@@ -107,7 +107,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     void setLicense(String license);
 
     /**
-     * Stores the new name for this localized bible properties.
+     * Stores the new name for this localization.
      *
      * @param name the name
      * @see #getName()
@@ -115,7 +115,7 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
     void setName(String name);
 
     /**
-     * Stores the new title for this localized bible properties.
+     * Stores the new title for this localization.
      *
      * @param title the title
      * @see #getTitle()

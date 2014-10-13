@@ -50,7 +50,62 @@ public final class DataModel {
         public static final String COLUMN_RTOL = "rtol";
     }
 
+    /**
+     * @see org.sacredscripture.platform.impl.bible.BookImpl
+     */
+    public static final class BookTable {
+        public static final String TABLE_NAME = "book";
+        public static final String COLUMN_BIBLE_ID = "bible_id";
+        public static final String COLUMN_BOOK_TYPE_ID = "book_type_id";
+        public static final String COLUMN_CHAPTER_COUNT = "chapter_count";
+        public static final String COLUMN_LIST_POSITION = "list_position";
+    }
+
+    /**
+     * @see org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl
+     */
+    public static final class BookTypeGroupLocalizationTable {
+        public static final String TABLE_NAME = "book_type_group_loc";
+        public static final String COLUMN_BOOK_GROUP_TYPE_ID = "book_group_type_id";
+        public static final String COLUMN_LOCALE = "locale_lang";
+        public static final String COLUMN_NAME = "name";
+    }
+
+    /**
+     * @see org.sacredscripture.platform.impl.bible.BookTypeGroupImpl
+     */
+    public static final class BookTypeGroupTable {
+        public static final String TABLE_NAME = "book_type_group";
+        public static final String COLUMN_BOOK_GROUP_TYPE_ID = "book_group_type_id";
+        public static final String COLUMN_LIST_POSITION = "list_position";
+        public static final String COLUMN_PARENT_ID = "parent_id";
+    }
+
+    /**
+     * @see org.sacredscripture.platform.impl.bible.BookTypeLocalizationImpl
+     */
+    public static final class BookTypeLocalizationTable {
+        public static final String TABLE_NAME = "book_type_loc";
+        public static final String COLUMN_ABBREVIATION1 = "abbreviation1";
+        public static final String COLUMN_ABBREVIATION2 = "abbreviation2";
+        public static final String COLUMN_ABBREVIATION3 = "abbreviation3";
+        public static final String COLUMN_BOOK_TYPE_ID = "book_type_id";
+        public static final String COLUMN_LOCALE = "locale_lang";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_TITLE = "title";
+    }
+
+    /**
+     * @see org.sacredscripture.platform.impl.bible.BookTypeImpl
+     */
+    public static final class BookTypeTable {
+        public static final String TABLE_NAME = "book_type";
+        public static final String COLUMN_BOOK_GROUP_TYPE_ID = "book_group_type_id";
+        public static final String COLUMN_CODE = "type_code";
+    }
+
     public static final String AUDIT_COLUMN_CREATED = "created";
+
     public static final String AUDIT_COLUMN_UPDATED = "updated";
 
 }

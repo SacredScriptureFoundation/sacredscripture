@@ -19,30 +19,24 @@
  */
 package org.sacredscripture.platform.api.bible;
 
-import org.sacredscripturefoundation.commons.Coded;
+import org.sacredscripturefoundation.commons.ParentProvider;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
 
+import java.util.List;
+
 /**
- * This interface defines a {@link Book} in absolute terms. This is necessary
- * because some books have been historically titled differently, combined with
- * other books, or split into smaller books. Because this is to be expected
- * among bible editions, this type allows tracking books across variations.
- * <p>
- * This is a pure lookup entity. All instances can be cached permanently.
- *
  * @author Paul Benedict
- * @see Book
- * @see BookTypeLocalization
  * @since Sacred Scripture Platform 1.0
  */
-public interface BookType extends Entity<Long>, LocalizableContainer<BookTypeLocalization>, Coded<String> {
+public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTypeGroupLocalization>,
+        ParentProvider<BookTypeGroup> {
 
     /**
-     * Retrieves the grouping of this type.
+     * Retrieves the list of books types belonging to this group.
      *
-     * @return the book type group
+     * @return list of books types (never {@code null})
      */
-    BookTypeGroup getBookTypeGroup();
+    List<BookType> getBookTypes();
 
 }

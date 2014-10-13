@@ -19,7 +19,6 @@
  */
 package org.sacredscripture.platform.api.bible;
 
-import org.sacredscripturefoundation.commons.Coded;
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
@@ -31,13 +30,12 @@ import java.util.List;
  *
  * @author Paul Benedict
  * @see Bible#getBooks()
- * @see BookGroup#getBooks()
  * @since Sacred Scripture Platform 1.0
  */
-public interface Book extends Entity<Long>, Named, Coded<String> {
+public interface Book extends Entity<Long>, Named {
 
     /**
-     * Retrieves the primary abbreviation of this book.
+     * Retrieves the primary localized abbreviation of this book.
      *
      * @return the abbreviation
      * @see #getAbbreviations()
@@ -46,10 +44,10 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
     String getAbbreviation();
 
     /**
-     * Retrieves the abbreviations of this book. The order is important. The
-     * first one is the primary abbreviation, the second is secondary, and so
-     * forth. The first should be used when only one is to be displayed to the
-     * user.
+     * Retrieves the localized abbreviations of this book. The order is
+     * important. The first one is the primary abbreviation, the second is
+     * secondary, and so forth. The first should be used when only one is to be
+     * displayed to the user.
      *
      * @return the abbreviations
      * @see #getAbbreviation()
@@ -61,6 +59,7 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
      * Retrieves the owning bible of this book.
      *
      * @return the bible
+     * @see #setBible(Bible)
      */
     Bible getBible();
 
@@ -80,8 +79,8 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
     List<Chapter> getChapters();
 
     /**
-     * Retrieves the common name of this book. The common name is the name which
-     * the book is commonly known as in everyday life.
+     * Retrieves the localized common name of this book. The common name is the
+     * name which the book is commonly known as in everyday life.
      *
      * @return the name
      */
@@ -99,12 +98,22 @@ public interface Book extends Entity<Long>, Named, Coded<String> {
     int getOrder();
 
     /**
-     * Returns the title of this book. The title is a long description like
-     * "The Gospel of Jesus Christ according to Matthew".
+     * Returns the localized title of this book. The title is a long description
+     * like "The Gospel of Jesus Christ according to Matthew".
      *
      * @return the formal name
      */
     @LocaleSensitive
     String getTitle();
+
+    /**
+     * Stores the new bible owner for this book.
+     *
+     * @param bible the bible
+     * @see #getBible()
+     */
+    void setBible(Bible bible);
+
+    void setBookType(BookType type);
 
 }
