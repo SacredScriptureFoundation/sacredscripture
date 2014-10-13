@@ -20,19 +20,27 @@
 package org.sacredscripture.platform.api.bible;
 
 import org.sacredscripturefoundation.commons.Named;
-import org.sacredscripturefoundation.commons.entity.Entity;
 
 import java.util.List;
 
 /**
- * This interface defines a Bible verse.
+ * This interface defines a verse within a chapter.
  *
  * @author Paul Benedict
- * @version $Rev: 173 $
  * @see Chapter#getVerses()
  * @since Sacred Scripture Platform 1.0
  */
-public interface Verse extends Entity<Long>, Named {
+public interface Verse extends Content, Named {
+
+    /**
+     * Adds the specified content to the end of this verse.
+     *
+     * @param content the content to add
+     * @throws NullPointerException if the content is {@code null}
+     * @throws IllegalArgumentException if the content type is not supported
+     * @see #getContent()
+     */
+    void addContent(Content content);
 
     /**
      * Retrieves the alternate textual name of this verse. This value is used
@@ -57,14 +65,18 @@ public interface Verse extends Entity<Long>, Named {
     Chapter getChapter();
 
     /**
-     * Retrieves the complex content of this verse.
+     * Retrieves the content of this verse.
      *
      * @return the content
+     * @see #addContent(Content)
      */
-    List<VerseContent> getContent();
+    List<Content> getContent();
 
     /**
-     * Retrieves the name of this verse.
+     * Retrieves the name of this verse. Do not presume the name is a number,
+     * although in most cases it is. This name can be concatenated with the
+     * chapter's name and book's name to present a marker to the user (e.g.,
+     * "John 3:16").
      *
      * @return the name
      */
@@ -78,6 +90,7 @@ public interface Verse extends Entity<Long>, Named {
      *
      * @return the order value
      */
+    @Override
     int getOrder();
 
     /**

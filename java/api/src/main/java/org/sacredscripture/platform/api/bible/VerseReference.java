@@ -23,10 +23,10 @@ package org.sacredscripture.platform.api.bible;
  * This interface defines a reference to another verse.
  *
  * @author Paul Benedict
- * @see VerseContentType#REFERENCE
+ * @see ContentType#VERSE_REFERENCE
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseReference extends VerseContent {
+public interface VerseReference extends Content {
 
     /**
      * Retrieves the referenced verse.

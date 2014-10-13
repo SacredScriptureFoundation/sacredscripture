@@ -20,8 +20,6 @@
 package org.sacredscripture.platform.api.bible;
 
 import org.sacredscripturefoundation.commons.Named;
-import org.sacredscripturefoundation.commons.entity.Entity;
-import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
 
 import java.util.List;
 
@@ -32,22 +30,15 @@ import java.util.List;
  * @see Book#getChapters()
  * @since Sacred Scripture Platform 1.0
  */
-public interface Chapter extends Entity<Long>, Named {
-
-    /**
-     * Retrieves the owning book of this chapter.
-     *
-     * @return the owning book
-     */
-    Book getBook();
+public interface Chapter extends Content, Named {
 
     /**
      * Retrieves the name of this chapter.
      *
      * @return the name
+     * @see #setName(String)
      */
     @Override
-    @LocaleSensitive
     String getName();
 
     /**
@@ -57,5 +48,13 @@ public interface Chapter extends Entity<Long>, Named {
      * @return the collection
      */
     List<Verse> getVerses();
+
+    /**
+     * Stores the new for this chapter.
+     *
+     * @param name the name
+     * @see #getName()
+     */
+    void setName(String name);
 
 }

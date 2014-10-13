@@ -104,8 +104,19 @@ public final class DataModel {
         public static final String COLUMN_CODE = "type_code";
     }
 
-    public static final String AUDIT_COLUMN_CREATED = "created";
+    /**
+     * @see org.sacredscripture.platform.impl.bible.ContentImpl
+     */
+    public static final class ContentTable {
+        public static final String TABLE_NAME = "book_content";
+        public static final String COLUMN_BOOK_ID = "book_id";
+        public static final String COLUMN_CHAPTER_NAME = "chapter_name";
+        public static final String COLUMN_DISCRIMINATOR = "type_code";
+        public static final String COLUMN_POSITION = "list_position";
+        public static final String DISCRIMINATOR_CHAPTER = "0";
+    }
 
+    public static final String AUDIT_COLUMN_CREATED = "created";
     public static final String AUDIT_COLUMN_UPDATED = "updated";
 
 }

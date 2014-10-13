@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -19,31 +19,36 @@
  */
 package org.sacredscripture.platform.api.bible;
 
-import org.sacredscripturefoundation.commons.entity.Entity;
-
-public interface VerseContent extends Entity<Long> {
-
-    /**
-     * Retrieves the order value of this content, with a higher value meaning
-     * greater in terms of sorting.
-     *
-     * @return the order value
-     */
-    int getOrder();
+/**
+ * @author Paul Benedict
+ * @see Content#getType()
+ * @since Sacred Scripture Platform 1.0
+ */
+public enum ContentType {
 
     /**
-     * Retrieves the type of content. This should be used to determine the
-     * appropriate cast to a subinterface.
-     *
-     * @return the type
+     * Chapter separator.
      */
-    VerseContentType getType();
+    CHAPTER,
 
     /**
-     * Retrieves the owning verse.
-     *
-     * @return the verse
+     * Verse separator.
      */
-    Verse getVerse();
+    VERSE,
+
+    /**
+     * Text fragment of a verse.
+     */
+    VERSE_TEXT,
+
+    /**
+     * Reference to another verse.
+     */
+    VERSE_REFERENCE,
+
+    /**
+     * Any ancillary information provided by the translator.
+     */
+    ANNOTATION
 
 }

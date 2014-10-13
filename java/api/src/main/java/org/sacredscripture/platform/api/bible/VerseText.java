@@ -23,10 +23,10 @@ package org.sacredscripture.platform.api.bible;
  * This interface defines a fragment of text within a verse.
  *
  * @author Paul Benedict
- * @see VerseContentType#TEXT
+ * @see ContentType#VERSE_TEXT
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseText extends VerseContent {
+public interface VerseText extends Content {
 
     /**
      * Retrieves the text of this content.

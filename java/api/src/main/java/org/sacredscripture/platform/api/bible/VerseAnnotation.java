@@ -25,10 +25,10 @@ package org.sacredscripture.platform.api.bible;
  * mention.
  *
  * @author Paul Benedict
- * @see VerseContentType#ANNOTATION
+ * @see ContentType#ANNOTATION
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseAnnotation extends VerseContent {
+public interface VerseAnnotation extends Content {
 
     /**
      * Retrieves the annotated text of this content.
