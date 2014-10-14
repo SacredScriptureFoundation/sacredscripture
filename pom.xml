@@ -32,7 +32,7 @@
   </parent>
 
   <groupId>org.sacredscripture</groupId>
-  <artifactId>sacredscripture-parent</artifactId>
+  <artifactId>sacredscripture-platform-parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 

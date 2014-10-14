@@ -4,5 +4,6 @@
 .settings
 
 #Maven
-java/target
-java/api/target
+target
+api/target
+impl/target

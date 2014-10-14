@@ -25,12 +25,12 @@
 
   <parent>
     <groupId>org.sacredscripture</groupId>
-    <artifactId>sacredscripture-parent</artifactId>
+    <artifactId>sacredscripture-platform-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>sacredscripture-impl</artifactId>
+  <artifactId>sacredscripture-platform-impl</artifactId>
   <packaging>jar</packaging>
 
   <name>Sacred Scripture Platform Implementation</name>
@@ -39,7 +39,7 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>sacredscripture-api</artifactId>
+      <artifactId>sacredscripture-platform-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
