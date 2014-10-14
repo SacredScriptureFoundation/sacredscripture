@@ -21,8 +21,6 @@ package org.sacredscripture.platform.api.bible;
 
 import org.sacredscripturefoundation.commons.Named;
 
-import java.util.List;
-
 /**
  * This interface defines a verse within a chapter.
  *
@@ -31,16 +29,6 @@ import java.util.List;
  * @since Sacred Scripture Platform 1.0
  */
 public interface Verse extends Content, Named {
-
-    /**
-     * Adds the specified content to the end of this verse.
-     *
-     * @param content the content to add
-     * @throws NullPointerException if the content is {@code null}
-     * @throws IllegalArgumentException if the content type is not supported
-     * @see #getContent()
-     */
-    void addContent(Content content);
 
     /**
      * Retrieves the alternate textual name of this verse. This value is used
@@ -53,6 +41,7 @@ public interface Verse extends Content, Named {
      * 11:2 [A:1]" or "Esth A:1 [11:2]" depending on the construct.
      *
      * @return the alternate name
+     * @see #setAltName(String)
      * @see #getName()
      */
     String getAltName();
@@ -61,16 +50,9 @@ public interface Verse extends Content, Named {
      * Retrieves the owning chapter of this verse.
      *
      * @return the owning chapter
+     * @see #setChapter(Chapter)
      */
     Chapter getChapter();
-
-    /**
-     * Retrieves the content of this verse.
-     *
-     * @return the content
-     * @see #addContent(Content)
-     */
-    List<Content> getContent();
 
     /**
      * Retrieves the name of this verse. Do not presume the name is a number,
@@ -79,28 +61,13 @@ public interface Verse extends Content, Named {
      * "John 3:16").
      *
      * @return the name
+     * @see #setName(String)
+     * @see #getAltName()
      */
     @Override
     String getName();
 
-    /**
-     * Retrieves the order value of this verse, with a higher value meaning
-     * greater in terms of sorting. The meaning of the order is defined by the
-     * canonical positioning within its owning bible.
-     *
-     * @return the order value
-     */
-    @Override
-    int getOrder();
-
-    /**
-     * Retrieves the list of similar verses. A similar verse is one that is
-     * conceptually identical in another Bible but may be in a different
-     * language or book group.
-     *
-     * @return the type
-     */
-    List<Verse> getSimilarVerses();
+    VerseText getText();
 
     /**
      * Retrieves a flag indicating whether this verse should be ommited in this
@@ -110,7 +77,42 @@ public interface Verse extends Content, Named {
      * marked as omitted so that they will not be displayed to the user.
      *
      * @return {@code true} if omitted; otherwise {@code false}
+     * @see #setOmitted(boolean)
      */
     boolean isOmitted();
+
+    /**
+     * Stores the new alternate name for this verse.
+     *
+     * @param altName the alternate name
+     * @see #getAltName()
+     */
+    void setAltName(String altName);
+
+    /**
+     * Stores the new owning chapter for this verse.
+     *
+     * @param chapter the new chapter
+     * @see #getChapter()
+     */
+    void setChapter(Chapter chapter);
+
+    /**
+     * Stores the name of this verse.
+     *
+     * @param name the name
+     * @see #getName()
+     */
+    void setName(String name);
+
+    /**
+     * Stores whether this verse should be omitted.
+     *
+     * @param omitted {@code true} to omit; otherwise {@code false}
+     * @see #isOmitted()
+     */
+    void setOmitted(boolean omitted);
+
+    void setText(VerseText text);
 
 }

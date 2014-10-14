@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -17,22 +17,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.impl.bible;
+
+import org.sacredscripture.platform.api.bible.ContentType;
+import org.sacredscripture.platform.impl.DataModel.ContentTypeTable;
+
+import org.sacredscripturefoundation.commons.entity.EntityImpl;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
- * This interface defines a reference to another verse.
+ * This class is the stock implementation of {@link ContentType}.
  *
  * @author Paul Benedict
- * @see ContentType#VERSE_REFERENCE
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseReference extends Content {
+@Entity
+@Table(name = ContentTypeTable.TABLE_NAME)
+public class ContentTypeImpl extends EntityImpl<Long> implements ContentType {
 
-    /**
-     * Retrieves the referenced verse.
-     *
-     * @return the verse
-     */
-    Verse getReferencedVerse();
+    @Column(name = ContentTypeTable.COLUMN_CODE, nullable = false)
+    private String code;
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
 }

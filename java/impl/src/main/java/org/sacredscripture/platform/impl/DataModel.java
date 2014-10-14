@@ -57,7 +57,6 @@ public final class DataModel {
         public static final String TABLE_NAME = "book";
         public static final String COLUMN_BIBLE_ID = "bible_id";
         public static final String COLUMN_BOOK_TYPE_ID = "book_type_id";
-        public static final String COLUMN_CHAPTER_COUNT = "chapter_count";
         public static final String COLUMN_LIST_POSITION = "list_position";
     }
 
@@ -66,7 +65,7 @@ public final class DataModel {
      */
     public static final class BookTypeGroupLocalizationTable {
         public static final String TABLE_NAME = "book_type_group_loc";
-        public static final String COLUMN_BOOK_GROUP_TYPE_ID = "book_group_type_id";
+        public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
         public static final String COLUMN_LOCALE = "locale_lang";
         public static final String COLUMN_NAME = "name";
     }
@@ -76,7 +75,7 @@ public final class DataModel {
      */
     public static final class BookTypeGroupTable {
         public static final String TABLE_NAME = "book_type_group";
-        public static final String COLUMN_BOOK_GROUP_TYPE_ID = "book_group_type_id";
+        public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
         public static final String COLUMN_LIST_POSITION = "list_position";
         public static final String COLUMN_PARENT_ID = "parent_id";
     }
@@ -108,12 +107,37 @@ public final class DataModel {
      * @see org.sacredscripture.platform.impl.bible.ContentImpl
      */
     public static final class ContentTable {
-        public static final String TABLE_NAME = "book_content";
+        public static final String TABLE_NAME = "content";
         public static final String COLUMN_BOOK_ID = "book_id";
         public static final String COLUMN_CHAPTER_NAME = "chapter_name";
-        public static final String COLUMN_DISCRIMINATOR = "type_code";
+        public static final String COLUMN_CONTENT_TYPE_ID = "content_type_id";
+        public static final String COLUMN_DISCRIMINATOR = "kind_code";
         public static final String COLUMN_POSITION = "list_position";
+        public static final String COLUMN_VERSE_ALT_NAME = "verse_alt_name";
+        public static final String COLUMN_VERSE_CHAPTER_ID = "verse_chapter_id";
+        public static final String COLUMN_VERSE_NAME = "verse_name";
+        public static final String COLUMN_VERSE_OMIT = "verse_omit";
+        public static final String COLUMN_VERSE_TEXT_ID = "verse_text_id";
+        public static final String COLUMN_VERSE_TYPE_ID = "verse_type_id";
         public static final String DISCRIMINATOR_CHAPTER = "0";
+        public static final String DISCRIMINATOR_VERSE = "1";
+    }
+
+    /**
+     * @see org.sacredscripture.platform.impl.bible.ContentTypeImpl
+     */
+    public static final class ContentTypeTable {
+        public static final String TABLE_NAME = "content_type";
+        public static final String COLUMN_CODE = "code";
+    }
+
+    /**
+     * @see org.sacredscripture.platform.impl.bible.VerseTextImpl
+     */
+    public static final class VerseTextTable {
+        public static final String TABLE_NAME = "content_verse_text";
+        public static final String COLUMN_TEXT = "txt";
+        public static final String COLUMN_VERSE_ID = "verse_content_id";
     }
 
     public static final String AUDIT_COLUMN_CREATED = "created";

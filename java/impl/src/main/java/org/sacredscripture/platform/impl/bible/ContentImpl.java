@@ -21,6 +21,7 @@ package org.sacredscripture.platform.impl.bible;
 
 import org.sacredscripture.platform.api.bible.Book;
 import org.sacredscripture.platform.api.bible.Content;
+import org.sacredscripture.platform.api.bible.ContentType;
 import org.sacredscripture.platform.impl.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
@@ -47,16 +48,25 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name = ContentTable.COLUMN_DISCRIMINATOR, discriminatorType = DiscriminatorType.INTEGER)
 public abstract class ContentImpl extends EntityImpl<Long> implements Content {
 
-    @ManyToOne(targetEntity = BookImpl.class)
+    @ManyToOne(targetEntity = BookImpl.class, optional = false)
     @JoinColumn(name = ContentTable.COLUMN_BOOK_ID)
     private Book book;
 
     @Column(name = ContentTable.COLUMN_POSITION)
     private int order;
 
+    @ManyToOne(targetEntity = ContentTypeImpl.class)
+    @JoinColumn(name = ContentTable.COLUMN_CONTENT_TYPE_ID)
+    private ContentType contentType;
+
     @Override
     public Book getBook() {
         return book;
+    }
+
+    @Override
+    public ContentType getContentType() {
+        return contentType;
     }
 
     @Override
@@ -67,6 +77,11 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
     @Override
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    @Override
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
     }
 
     @Override

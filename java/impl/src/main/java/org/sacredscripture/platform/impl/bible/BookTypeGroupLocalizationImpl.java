@@ -50,7 +50,7 @@ public class BookTypeGroupLocalizationImpl extends LocalizedContentEntity<Long> 
     private String name;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = BookTypeGroupLocalizationTable.COLUMN_BOOK_GROUP_TYPE_ID)
+    @JoinColumn(name = BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
     private BookTypeGroup bookTypeGroup;
 
     @Override

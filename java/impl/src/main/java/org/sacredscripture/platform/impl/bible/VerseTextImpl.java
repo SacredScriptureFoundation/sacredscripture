@@ -17,28 +17,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.impl.bible;
+
+import org.sacredscripture.platform.api.bible.Verse;
+import org.sacredscripture.platform.api.bible.VerseText;
+import org.sacredscripture.platform.impl.DataModel.VerseTextTable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
- * This interface defines a long piece of text for a verse.
+ * This class is the stock implementation of {@link VerseText}.
  *
  * @author Paul Benedict
- * @see Verse#getText()
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseText extends Content {
+@Entity
+@Table(name = VerseTextTable.TABLE_NAME)
+public class VerseTextImpl {
 
-    /**
-     * Retrieves the text of this content.
-     *
-     * @return the text
-     */
-    String getText();
+    @ManyToOne(targetEntity = VerseTextImpl.class, optional = false)
+    private Verse verse;
 
-    Verse getVerse();
+    @Column(name = VerseTextTable.COLUMN_TEXT)
+    private String text;
 
-    String setText();
+    public String getText() {
+        return text;
+    }
 
-    void setVerse(Verse verse);
+    public Verse getVerse() {
+        return verse;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setVerse(Verse verse) {
+        this.verse = verse;
+    }
 
 }

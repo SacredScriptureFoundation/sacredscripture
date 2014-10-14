@@ -24,6 +24,7 @@ import org.sacredscripture.platform.api.bible.BibleLocalization;
 import org.sacredscripture.platform.api.bible.Book;
 import org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BibleTable;
+import org.sacredscripture.platform.impl.DataModel.BookTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
 
@@ -39,6 +40,7 @@ import javax.persistence.Entity;
 import javax.persistence.MapKey;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 /**
@@ -55,7 +57,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Column(name = BibleTable.COLUMN_LOCALE)
     private Locale locale;
 
-    @OneToMany
+    @OneToMany(mappedBy = "bible")
     @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
     @MapKey(name = "locale")
     Map<Locale, BibleLocalization> localizedContents;
@@ -63,9 +65,8 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Column(name = BibleTable.COLUMN_RTOL)
     private boolean rightToLeftReading;
 
-    // FIXME
-    // @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
-    // @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
+    @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
+    @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
     private List<Book> books;
 
     @Override

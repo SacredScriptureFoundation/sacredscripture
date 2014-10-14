@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -20,21 +20,20 @@
 package org.sacredscripture.platform.api.bible;
 
 /**
- * This interface defines an annotated piece of information within a verse. This
- * is usually something of particular importance that the translator wanted to
- * mention.
- *
  * @author Paul Benedict
- * @see ContentType#ANNOTATION
+ * @see Content#getContentKind()
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseAnnotation extends Content {
+public enum ContentKind {
 
     /**
-     * Retrieves the annotated text of this content.
-     *
-     * @return the annotated text
+     * Chapter.
      */
-    String getAnnotatedText();
+    CHAPTER,
+
+    /**
+     * Verse.
+     */
+    VERSE
 
 }

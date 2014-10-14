@@ -47,6 +47,19 @@ public interface Content extends Entity<Long> {
     Book getBook();
 
     /**
+     * Retrieves the kind of content. This should be used to determine the
+     * appropriate cast to a subinterface.
+     * <p>
+     * No corresponding setter is necessary. Subclass implementations already
+     * know what kind they are.
+     *
+     * @return the kind
+     */
+    ContentKind getContentKind();
+
+    ContentType getContentType();
+
+    /**
      * Retrieves the order value of this content, with a higher value meaning
      * greater in terms of sorting.
      *
@@ -56,23 +69,14 @@ public interface Content extends Entity<Long> {
     int getOrder();
 
     /**
-     * Retrieves the type of content. This should be used to determine the
-     * appropriate cast to a subinterface.
-     * <p>
-     * No corresponding setter is necessary. Subclass implementations already
-     * know what type they are.
-     *
-     * @return the type
-     */
-    ContentType getType();
-
-    /**
      * Stores the new owning book for this content.
      *
      * @param book the book
      * @see #getBook()
      */
     void setBook(Book book);
+
+    void setContentType(ContentType type);
 
     /**
      * Stores the new order value of this content.

@@ -19,36 +19,14 @@
  */
 package org.sacredscripture.platform.api.bible;
 
+import org.sacredscripturefoundation.commons.Coded;
+
 /**
+ * This interface defines a {@link Content} in absolute terms.
+ *
  * @author Paul Benedict
- * @see Content#getType()
  * @since Sacred Scripture Platform 1.0
  */
-public enum ContentType {
-
-    /**
-     * Chapter separator.
-     */
-    CHAPTER,
-
-    /**
-     * Verse separator.
-     */
-    VERSE,
-
-    /**
-     * Text fragment of a verse.
-     */
-    VERSE_TEXT,
-
-    /**
-     * Reference to another verse.
-     */
-    VERSE_REFERENCE,
-
-    /**
-     * Any ancillary information provided by the translator.
-     */
-    ANNOTATION
-
+public interface ContentType extends Coded<String> {
+    // empty
 }

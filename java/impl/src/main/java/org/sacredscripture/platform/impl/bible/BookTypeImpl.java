@@ -58,7 +58,7 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     @JoinColumn(name = BookTypeTable.COLUMN_BOOK_GROUP_TYPE_ID)
     private BookTypeGroup bookTypeGroup;
 
-    @OneToMany(targetEntity = BookTypeLocalizationImpl.class)
+    @OneToMany(targetEntity = BookTypeLocalizationImpl.class, mappedBy = "bookType")
     @MapKeyJoinColumn(name = BookTypeLocalizationTable.COLUMN_BOOK_TYPE_ID)
     @MapKey(name = "locale")
     private Map<Locale, BookTypeLocalization> localizedContents;

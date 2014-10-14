@@ -22,37 +22,56 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.Chapter;
 import org.sacredscripture.platform.api.bible.ContentKind;
 import org.sacredscripture.platform.api.bible.Verse;
+import org.sacredscripture.platform.api.bible.VerseText;
 import org.sacredscripture.platform.impl.DataModel.ContentTable;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
- * This class is the stock implementation of {@link Chapter}.
+ * This class is the stock implementation of {@link Verse}.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
 @Entity
-@DiscriminatorValue(ContentTable.DISCRIMINATOR_CHAPTER)
-public class ChapterImpl extends ContentImpl implements Chapter {
+@DiscriminatorValue(ContentTable.DISCRIMINATOR_VERSE)
+public class VerseImpl extends ContentImpl implements Verse {
 
-    @OneToMany(targetEntity = VerseImpl.class, mappedBy = "chapter")
-    @OrderColumn(name = ContentTable.COLUMN_POSITION)
-    private List<Verse> verses;
-
-    @Column(name = ContentTable.COLUMN_CHAPTER_NAME)
+    @Column(name = ContentTable.COLUMN_VERSE_NAME, nullable = false)
     private String name;
+
+    @Column(name = ContentTable.COLUMN_VERSE_ALT_NAME)
+    private String altName;
+
+    @Column(name = ContentTable.COLUMN_VERSE_OMIT)
+    private boolean omitted;
+
+    @ManyToOne(targetEntity = ChapterImpl.class, optional = false)
+    @JoinColumn(name = ContentTable.COLUMN_VERSE_CHAPTER_ID)
+    private Chapter chapter;
+
+    @OneToOne(targetEntity = VerseTextImpl.class, mappedBy = "verse")
+    @JoinColumn(name = ContentTable.COLUMN_VERSE_TEXT_ID)
+    private VerseText text;
+
+    @Override
+    public String getAltName() {
+        return altName;
+    }
+
+    @Override
+    public Chapter getChapter() {
+        return chapter;
+    }
 
     @Override
     public ContentKind getContentKind() {
-        return ContentKind.CHAPTER;
+        return ContentKind.VERSE;
     }
 
     @Override
@@ -61,16 +80,38 @@ public class ChapterImpl extends ContentImpl implements Chapter {
     }
 
     @Override
-    public List<Verse> getVerses() {
-        if (verses == null) {
-            verses = new LinkedList<>();
-        }
-        return verses;
+    public VerseText getText() {
+        return text;
+    }
+
+    @Override
+    public boolean isOmitted() {
+        return omitted;
+    }
+
+    @Override
+    public void setAltName(String altName) {
+        this.altName = altName;
+    }
+
+    @Override
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setOmitted(boolean omitted) {
+        this.omitted = omitted;
+    }
+
+    @Override
+    public void setText(VerseText text) {
+        this.text = text;
     }
 
 }
