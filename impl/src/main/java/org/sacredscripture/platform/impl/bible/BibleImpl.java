@@ -22,10 +22,9 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.Bible;
 import org.sacredscripture.platform.api.bible.BibleLocalization;
 import org.sacredscripture.platform.api.bible.Book;
-import org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BibleTable;
-import org.sacredscripture.platform.impl.DataModel.BookTable;
 
+import org.sacredscripturefoundation.commons.locale.entity.LocaleLanguageConverter;
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
 
 import java.util.HashMap;
@@ -36,12 +35,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.MapKey;
-import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * This class is the stock implementation of {@link Bible}.
@@ -54,19 +51,22 @@ import javax.persistence.Table;
 @Table(name = BibleTable.TABLE_NAME)
 public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implements Bible {
 
+    @Convert(converter = LocaleLanguageConverter.class)
     @Column(name = BibleTable.COLUMN_LOCALE)
     private Locale locale;
 
-    @OneToMany(mappedBy = "bible")
-    @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
-    @MapKey(name = "locale")
+    // @OneToMany(mappedBy = "bible")
+    // @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
+    // @MapKey(name = "locale")
+    @Transient
     Map<Locale, BibleLocalization> localizedContents;
 
     @Column(name = BibleTable.COLUMN_RTOL)
     private boolean rightToLeftReading;
 
-    @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
-    @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
+    // @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
+    // @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
+    @Transient
     private List<Book> books;
 
     @Override

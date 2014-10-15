@@ -46,6 +46,7 @@ public final class DataModel {
      */
     public static final class BibleTable {
         public static final String TABLE_NAME = "bible";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_LOCALE = "locale_lang";
         public static final String COLUMN_RTOL = "rtol";
     }
