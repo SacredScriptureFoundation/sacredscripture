@@ -28,6 +28,8 @@ import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_ID;
 import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_LOCALE;
 import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_RTOL;
 
+import org.sacredscripture.platform.impl.ObjectMother;
+
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
 import java.util.Locale;
@@ -48,9 +50,7 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
      */
     @Test
     public void testInsert() {
-        BibleImpl b = new BibleImpl();
-        b.setLocale(Locale.ENGLISH);
-        b.setRightToLeftReading(true);
+        BibleImpl b = ObjectMother.newBible();
         em.persist(b);
         em.flush();
 

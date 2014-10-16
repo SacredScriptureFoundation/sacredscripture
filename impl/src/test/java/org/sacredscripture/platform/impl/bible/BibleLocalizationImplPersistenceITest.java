@@ -32,7 +32,8 @@ import static org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable
 import static org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable.COLUMN_LOCALE;
 import static org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable.COLUMN_NAME;
 import static org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable.COLUMN_TITLE;
-import static org.sacredscripturefoundation.commons.test.TestUtils.randomText;
+
+import org.sacredscripture.platform.impl.ObjectMother;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -54,19 +55,9 @@ public class BibleLocalizationImplPersistenceITest extends AbstractSpringJpaInte
      */
     @Test
     public void testInsert() {
-        BibleImpl b = new BibleImpl();
-        b.setLocale(Locale.ENGLISH);
-        b.setRightToLeftReading(true);
+        BibleImpl b = ObjectMother.newBible();
+        BibleLocalizationImpl loc = ObjectMother.newBibleLocalization(b);
         em.persist(b);
-
-        BibleLocalizationImpl loc = new BibleLocalizationImpl();
-        loc.setAbbreviation(randomText());
-        loc.setBible(b);
-        loc.setCopyrightNotice(randomText());
-        loc.setLicense(randomText());
-        loc.setLocale(Locale.ENGLISH);
-        loc.setName(randomText());
-        loc.setTitle(randomText());
         em.persist(loc);
         em.flush();
 
