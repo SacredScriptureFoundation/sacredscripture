@@ -20,9 +20,13 @@
 package org.sacredscripture.platform.impl.bible;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import org.sacredscripture.platform.impl.DataModel.BibleTable;
+import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_CREATED;
+import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_UPDATED;
+import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_ID;
+import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_LOCALE;
+import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_RTOL;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -50,11 +54,13 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         em.persist(b);
         em.flush();
 
-        SqlRowSet rs = jdbcTemplate.queryForRowSet("select * from BIBLE where id=?", b.getId());
+        SqlRowSet rs = jdbcTemplate.queryForRowSet("select * from bible where id=?", b.getId());
         assertTrue(rs.next());
-        assertTrue(rs.getLong(BibleTable.COLUMN_ID) > 0);
-        assertEquals(b.isRightToLeftReading(), rs.getBoolean(BibleTable.COLUMN_RTOL));
-        assertEquals(b.getLocale(), Locale.forLanguageTag(rs.getString(BibleTable.COLUMN_LOCALE)));
+        assertTrue(rs.getLong(COLUMN_ID) > 0);
+        assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
+        assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
+        assertEquals(b.isRightToLeftReading(), rs.getBoolean(COLUMN_RTOL));
+        assertEquals(b.getLocale(), Locale.forLanguageTag(rs.getString(COLUMN_LOCALE)));
     }
 
 }

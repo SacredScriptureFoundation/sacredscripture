@@ -35,6 +35,7 @@ public final class DataModel {
         public static final String COLUMN_ABBREVIATION = "abbreviation";
         public static final String COLUMN_BIBLE_ID = "bible_id";
         public static final String COLUMN_COPYRIGHT = "copyright";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_LICENSE = "license";
         public static final String COLUMN_LOCALE = "locale_lang";
         public static final String COLUMN_NAME = "name";

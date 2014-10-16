@@ -22,6 +22,7 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.Bible;
 import org.sacredscripture.platform.api.bible.BibleLocalization;
 import org.sacredscripture.platform.api.bible.Book;
+import org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BibleTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocaleLanguageConverter;
@@ -37,6 +38,9 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,10 +59,9 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Column(name = BibleTable.COLUMN_LOCALE)
     private Locale locale;
 
-    // @OneToMany(mappedBy = "bible")
-    // @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
-    // @MapKey(name = "locale")
-    @Transient
+    @OneToMany(targetEntity = BibleLocalizationImpl.class, mappedBy = "bible")
+    @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
+    @MapKey(name = "locale")
     Map<Locale, BibleLocalization> localizedContents;
 
     @Column(name = BibleTable.COLUMN_RTOL)
