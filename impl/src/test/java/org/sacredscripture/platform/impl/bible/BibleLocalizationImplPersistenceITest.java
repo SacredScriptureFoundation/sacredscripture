@@ -51,7 +51,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public class BibleLocalizationImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
 
     /**
-     * Verifies row contents after entity insert.
+     * Verifies row after entity insert.
      */
     @Test
     public void testInsert() {

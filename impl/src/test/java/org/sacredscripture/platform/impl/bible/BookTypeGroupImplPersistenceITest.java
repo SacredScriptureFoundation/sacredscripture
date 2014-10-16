@@ -45,7 +45,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public class BookTypeGroupImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
 
     /**
-     * Verifies row contents of children record inserts.
+     * Verifies row of children record inserts.
      */
     @Test
     public void testInsertChildren() {
@@ -73,7 +73,7 @@ public class BookTypeGroupImplPersistenceITest extends AbstractSpringJpaIntegrat
     }
 
     /**
-     * Verifies row contents of parent record insert.
+     * Verifies row of parent record insert.
      */
     @Test
     public void testInsertParent() {
