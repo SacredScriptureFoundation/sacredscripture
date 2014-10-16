@@ -25,6 +25,7 @@ import org.sacredscripture.platform.api.bible.Bible;
 import org.sacredscripture.platform.impl.bible.BibleImpl;
 import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
+import org.sacredscripture.platform.impl.bible.BookTypeImpl;
 
 import java.util.Locale;
 
@@ -59,6 +60,12 @@ public final class ObjectMother {
     public static BookTypeGroupImpl newBookTypeGroup() {
         BookTypeGroupImpl g = new BookTypeGroupImpl();
         return g;
+    }
+
+    public static BookTypeImpl newBookTypeImpl() {
+        BookTypeImpl t = new BookTypeImpl();
+        t.setCode(randomText(3));
+        return t;
     }
 
     private ObjectMother() {

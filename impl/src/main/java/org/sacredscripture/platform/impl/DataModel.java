@@ -102,8 +102,9 @@ public final class DataModel {
      */
     public static final class BookTypeTable {
         public static final String TABLE_NAME = "book_type";
-        public static final String COLUMN_BOOK_GROUP_TYPE_ID = "book_group_type_id";
+        public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
         public static final String COLUMN_CODE = "type_code";
+        public static final String COLUMN_ID = "id";
     }
 
     /**

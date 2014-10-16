@@ -22,7 +22,6 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.BookType;
 import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.api.bible.BookTypeLocalization;
-import org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BookTypeTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
@@ -35,10 +34,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
-import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * This class is the stock implementation of {@link BookType}.
@@ -55,12 +52,14 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     private String code;
 
     @ManyToOne(targetEntity = BookTypeGroupImpl.class)
-    @JoinColumn(name = BookTypeTable.COLUMN_BOOK_GROUP_TYPE_ID)
+    @JoinColumn(name = BookTypeTable.COLUMN_BOOK_TYPE_GROUP_ID)
     private BookTypeGroup bookTypeGroup;
 
-    @OneToMany(targetEntity = BookTypeLocalizationImpl.class, mappedBy = "bookType")
-    @MapKeyJoinColumn(name = BookTypeLocalizationTable.COLUMN_BOOK_TYPE_ID)
-    @MapKey(name = "locale")
+    // @OneToMany(targetEntity = BookTypeLocalizationImpl.class, mappedBy =
+    // "bookType")
+    // @MapKeyJoinColumn(name = BookTypeLocalizationTable.COLUMN_BOOK_TYPE_ID)
+    // @MapKey(name = "locale")
+    @Transient
     private Map<Locale, BookTypeLocalization> localizedContents;
 
     @Override
@@ -79,6 +78,14 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
             localizedContents = new HashMap<>();
         }
         return localizedContents;
+    }
+
+    public void setBookTypeGroup(BookTypeGroup bookTypeGroup) {
+        this.bookTypeGroup = bookTypeGroup;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

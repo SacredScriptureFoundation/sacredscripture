@@ -82,7 +82,8 @@ book_type
     type_code           CHAR(3) NOT NULL,
     book_type_group_id  INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT book_type_ix01fk FOREIGN KEY (book_type_group_id) REFERENCES book_type_group (id)
+    CONSTRAINT book_type_ix01uq UNIQUE (type_code)
+    CONSTRAINT book_type_ix02fk FOREIGN KEY (book_type_group_id) REFERENCES book_type_group (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
