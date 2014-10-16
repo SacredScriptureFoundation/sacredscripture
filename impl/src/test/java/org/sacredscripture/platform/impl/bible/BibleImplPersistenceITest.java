@@ -63,4 +63,14 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertEquals(b.getLocale(), Locale.forLanguageTag(rs.getString(COLUMN_LOCALE)));
     }
 
+    @Test
+    public void testSaveCascadeLocalization() {
+        BibleImpl b = ObjectMother.newBible();
+        BibleLocalizationImpl loc = ObjectMother.newBibleLocalization(b);
+        b.addLocalizedContent(loc);
+        em.persist(b);
+        em.flush();
+        assertNotNull(loc.getId());
+    }
+
 }

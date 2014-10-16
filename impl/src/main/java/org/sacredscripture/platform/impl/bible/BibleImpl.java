@@ -35,6 +35,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -59,7 +60,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Column(name = BibleTable.COLUMN_LOCALE)
     private Locale locale;
 
-    @OneToMany(targetEntity = BibleLocalizationImpl.class, mappedBy = "bible")
+    @OneToMany(targetEntity = BibleLocalizationImpl.class, mappedBy = "bible", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = BibleLocalizationTable.COLUMN_BIBLE_ID)
     @MapKey(name = "locale")
     Map<Locale, BibleLocalization> localizedContents;
