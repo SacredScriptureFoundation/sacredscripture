@@ -78,6 +78,7 @@ public final class DataModel {
     public static final class BookTypeGroupTable {
         public static final String TABLE_NAME = "book_type_group";
         public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_LIST_POSITION = "list_position";
         public static final String COLUMN_PARENT_ID = "parent_id";
     }

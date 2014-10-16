@@ -22,8 +22,6 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.BookType;
 import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.api.bible.BookTypeGroupLocalization;
-import org.sacredscripture.platform.impl.DataModel.BookTable;
-import org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
@@ -33,15 +31,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
-import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * This class is the stock implementation of {@link BookTypeGroup}.
@@ -54,19 +53,37 @@ import javax.persistence.Table;
 @Table(name = BookTypeGroupTable.TABLE_NAME)
 public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLocalization> implements BookTypeGroup {
 
+    // @OneToMany(targetEntity = BookImpl.class, mappedBy = "bookTypeGroup")
+    // @JoinColumn(name = BookTable.COLUMN_BOOK_TYPE_ID)
+    // @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
+    @Transient
+    private List<BookType> bookTypes;
+
+    // @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class)
+    // @MapKeyJoinColumn(name =
+    // BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
+    // @MapKey(name = "locale")
+    @Transient
+    private Map<Locale, BookTypeGroupLocalization> localizedContents;
+
     @ManyToOne(targetEntity = BookTypeGroupImpl.class)
     @JoinColumn(name = BookTypeGroupTable.COLUMN_PARENT_ID)
     private BookTypeGroup parent;
 
-    @OneToMany(targetEntity = BookImpl.class, mappedBy = "bookTypeGroup")
-    @JoinColumn(name = BookTable.COLUMN_BOOK_TYPE_ID)
-    @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
-    private List<BookType> bookTypes;
+    @OneToMany(targetEntity = BookTypeGroupImpl.class, mappedBy = "parent")
+    @OrderBy("order")
+    List<BookTypeGroup> children;
 
-    @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class)
-    @MapKeyJoinColumn(name = BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
-    @MapKey(name = "locale")
-    private Map<Locale, BookTypeGroupLocalization> localizedContents;
+    @Column(name = BookTypeGroupTable.COLUMN_LIST_POSITION)
+    int order;
+
+    @Override
+    public void addChild(BookTypeGroup group) {
+        Objects.requireNonNull(group);
+        group.setParent(this);
+        group.setOrder(getChildren().size());
+        getChildren().add(group);
+    }
 
     @Override
     public List<BookType> getBookTypes() {
@@ -74,6 +91,13 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
             bookTypes = new LinkedList<>();
         }
         return bookTypes;
+    }
+
+    public List<BookTypeGroup> getChildren() {
+        if (children == null) {
+            children = new LinkedList<>();
+        }
+        return children;
     }
 
     @Override
@@ -85,8 +109,23 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     }
 
     @Override
+    public int getOrder() {
+        return order;
+    }
+
+    @Override
     public BookTypeGroup getParent() {
         return parent;
+    }
+
+    @Override
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    @Override
+    public void setParent(BookTypeGroup parent) {
+        this.parent = parent;
     }
 
 }

@@ -24,6 +24,7 @@ import static org.sacredscripturefoundation.commons.test.TestUtils.randomText;
 import org.sacredscripture.platform.api.bible.Bible;
 import org.sacredscripture.platform.impl.bible.BibleImpl;
 import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
+import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 
 import java.util.Locale;
 
@@ -53,6 +54,11 @@ public final class ObjectMother {
         loc.setName(randomText());
         loc.setTitle(randomText());
         return loc;
+    }
+
+    public static BookTypeGroupImpl newBookTypeGroup() {
+        BookTypeGroupImpl g = new BookTypeGroupImpl();
+        return g;
     }
 
     private ObjectMother() {

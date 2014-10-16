@@ -48,10 +48,11 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE 
 book_type_group 
 (
-    id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    created     DATETIME NOT NULL,
-    updated     DATETIME,
-    parent_id   INT UNSIGNED,
+    id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    created       DATETIME NOT NULL,
+    updated       DATETIME,
+    list_position INT UNSIGNED NOT NULL,
+    parent_id     INT UNSIGNED,
     PRIMARY KEY (id),
     CONSTRAINT book_type_group_ix01fk FOREIGN KEY (parent_id) REFERENCES book_type_group (id)
 )

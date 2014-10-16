@@ -28,6 +28,7 @@
     <class>org.sacredscripturefoundation.commons.locale.entity.LocaleLanguageConverter</class>
     <class>org.sacredscripture.platform.impl.bible.BibleImpl</class>
     <class>org.sacredscripture.platform.impl.bible.BibleLocalizationImpl</class>
+    <class>org.sacredscripture.platform.impl.bible.BookTypeGroupImpl</class>
     <properties>
       <property name="eclipselink.logging.level" value="CONFIG"/>
       <property name="eclipselink.weaving" value="false"/>

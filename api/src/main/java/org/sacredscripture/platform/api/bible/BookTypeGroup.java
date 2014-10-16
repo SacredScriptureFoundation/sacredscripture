@@ -33,10 +33,35 @@ public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTy
         ParentProvider<BookTypeGroup> {
 
     /**
+     * Adds the specified group as a child to this group. In turn, the book's
+     * parent backreference will be set to this instance and to the correct
+     * ordered position.
+     *
+     * @param group the group to add
+     * @throws NullPointerException if group is {@code null}
+     * @see #getChildren()
+     */
+    void addChild(BookTypeGroup group);
+
+    /**
      * Retrieves the list of books types belonging to this group.
      *
      * @return list of books types (never {@code null})
      */
     List<BookType> getBookTypes();
+
+    List<BookTypeGroup> getChildren();
+
+    /**
+     * Retrieves the ordered position of this book among its sibilings.
+     *
+     * @return the order
+     * @see #setOrder(int)
+     */
+    int getOrder();
+
+    void setOrder(int order);
+
+    void setParent(BookTypeGroup parent);
 
 }
