@@ -63,9 +63,9 @@ public class BibleLocalizationImplPersistenceITest extends AbstractSpringJpaInte
 
         SqlRowSet rs = jdbcTemplate.queryForRowSet("select * from bible_loc where id=?", loc.getId());
         assertTrue(rs.next());
-        assertTrue(rs.getLong(COLUMN_ID) > 0);
         assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
         assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
+        assertEquals(loc.getId().longValue(), rs.getLong(COLUMN_ID));
         assertEquals(loc.getAbbreviation(), rs.getString(COLUMN_ABBREVIATION));
         assertEquals(loc.getBible().getId().longValue(), rs.getLong(COLUMN_BIBLE_ID));
         assertEquals(loc.getCopyrightNotice(), rs.getString(COLUMN_COPYRIGHT));
