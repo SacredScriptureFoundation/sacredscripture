@@ -49,8 +49,7 @@ public class BookTypeImplPersistenceITest extends AbstractSpringJpaIntegrationTe
     @Test
     public void testInsert() {
         BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
-        BookTypeImpl t = ObjectMother.newBookTypeImpl();
-        t.setBookTypeGroup(g);
+        BookTypeImpl t = ObjectMother.newBookType(g);
         em.persist(g);
         em.persist(t);
         em.flush();
@@ -62,6 +61,21 @@ public class BookTypeImplPersistenceITest extends AbstractSpringJpaIntegrationTe
         assertEquals(t.getId().longValue(), rs.getLong(COLUMN_ID));
         assertEquals(t.getCode(), rs.getString(COLUMN_CODE));
         assertEquals(t.getBookTypeGroup().getId().longValue(), rs.getLong(COLUMN_BOOK_TYPE_GROUP_ID));
+    }
+
+    /**
+     * Verifies localization is persisted by cascade.
+     */
+    @Test
+    public void testSaveCascadeLocalization() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
+        BookTypeLocalizationImpl loc = ObjectMother.newBookTypeLocalization(t);
+        t.addLocalizedContent(loc);
+        assertTransient(loc);
+        em.persist(g);
+        em.persist(t);
+        assertNotTransient(loc);
     }
 
 }

@@ -83,6 +83,7 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
         } else {
             throw new IllegalArgumentException("Only 3 abbreviations supported");
         }
+        rebuildAbbreviationList();
     }
 
     @Override

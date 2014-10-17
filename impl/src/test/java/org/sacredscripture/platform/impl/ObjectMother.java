@@ -22,10 +22,13 @@ package org.sacredscripture.platform.impl;
 import static org.sacredscripturefoundation.commons.test.TestUtils.randomText;
 
 import org.sacredscripture.platform.api.bible.Bible;
+import org.sacredscripture.platform.api.bible.BookType;
+import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.bible.BibleImpl;
 import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeImpl;
+import org.sacredscripture.platform.impl.bible.BookTypeLocalizationImpl;
 
 import java.util.Locale;
 
@@ -57,15 +60,28 @@ public final class ObjectMother {
         return loc;
     }
 
+    public static BookTypeImpl newBookType(BookTypeGroup g) {
+        BookTypeImpl t = new BookTypeImpl();
+        t.setCode(randomText(3));
+        t.setBookTypeGroup(g);
+        return t;
+    }
+
     public static BookTypeGroupImpl newBookTypeGroup() {
         BookTypeGroupImpl g = new BookTypeGroupImpl();
         return g;
     }
 
-    public static BookTypeImpl newBookTypeImpl() {
-        BookTypeImpl t = new BookTypeImpl();
-        t.setCode(randomText(3));
-        return t;
+    public static BookTypeLocalizationImpl newBookTypeLocalization(BookType t) {
+        BookTypeLocalizationImpl loc = new BookTypeLocalizationImpl();
+        loc.setBookType(t);
+        loc.setLocale(Locale.ENGLISH);
+        loc.addAbbreviation(randomText());
+        loc.addAbbreviation(randomText());
+        loc.addAbbreviation(randomText());
+        loc.setName(randomText());
+        loc.setTitle(randomText());
+        return loc;
     }
 
     private ObjectMother() {

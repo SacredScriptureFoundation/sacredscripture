@@ -93,6 +93,7 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
         return bookTypes;
     }
 
+    @Override
     public List<BookTypeGroup> getChildren() {
         if (children == null) {
             children = new LinkedList<>();
