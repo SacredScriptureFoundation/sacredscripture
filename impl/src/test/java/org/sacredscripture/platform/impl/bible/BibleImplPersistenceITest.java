@@ -59,8 +59,8 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
         assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
         assertEquals(b.getId().longValue(), rs.getLong(COLUMN_ID));
-        assertEquals(b.isRightToLeftReading(), rs.getBoolean(COLUMN_RTOL));
         assertEquals(b.getLocale(), Locale.forLanguageTag(rs.getString(COLUMN_LOCALE)));
+        assertEquals(b.isRightToLeftReading(), rs.getBoolean(COLUMN_RTOL));
     }
 
     /**

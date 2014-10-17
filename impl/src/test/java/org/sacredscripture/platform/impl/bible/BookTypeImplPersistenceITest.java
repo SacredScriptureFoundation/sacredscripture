@@ -59,8 +59,8 @@ public class BookTypeImplPersistenceITest extends AbstractSpringJpaIntegrationTe
         assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
         assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
         assertEquals(t.getId().longValue(), rs.getLong(COLUMN_ID));
-        assertEquals(t.getCode(), rs.getString(COLUMN_CODE));
         assertEquals(t.getBookTypeGroup().getId().longValue(), rs.getLong(COLUMN_BOOK_TYPE_GROUP_ID));
+        assertEquals(t.getCode(), rs.getString(COLUMN_CODE));
     }
 
     /**
