@@ -27,6 +27,7 @@ import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.bible.BibleImpl;
 import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
+import org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeLocalizationImpl;
 
@@ -62,8 +63,8 @@ public final class ObjectMother {
 
     public static BookTypeImpl newBookType(BookTypeGroup g) {
         BookTypeImpl t = new BookTypeImpl();
-        t.setCode(randomText(3));
         t.setBookTypeGroup(g);
+        t.setCode(randomText(3));
         return t;
     }
 
@@ -72,13 +73,21 @@ public final class ObjectMother {
         return g;
     }
 
+    public static BookTypeGroupLocalizationImpl newBookTypeGroupLocalization(BookTypeGroup g) {
+        BookTypeGroupLocalizationImpl loc = new BookTypeGroupLocalizationImpl();
+        loc.setBookTypeGroup(g);
+        loc.setLocale(Locale.ENGLISH);
+        loc.setName(randomText());
+        return loc;
+    }
+
     public static BookTypeLocalizationImpl newBookTypeLocalization(BookType t) {
         BookTypeLocalizationImpl loc = new BookTypeLocalizationImpl();
+        loc.addAbbreviation(randomText());
+        loc.addAbbreviation(randomText());
+        loc.addAbbreviation(randomText());
         loc.setBookType(t);
         loc.setLocale(Locale.ENGLISH);
-        loc.addAbbreviation(randomText());
-        loc.addAbbreviation(randomText());
-        loc.addAbbreviation(randomText());
         loc.setName(randomText());
         loc.setTitle(randomText());
         return loc;

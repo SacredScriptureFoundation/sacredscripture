@@ -22,6 +22,7 @@ package org.sacredscripture.platform.impl.bible;
 import org.sacredscripture.platform.api.bible.BookType;
 import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.api.bible.BookTypeGroupLocalization;
+import org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
@@ -33,10 +34,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -59,11 +63,9 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     @Transient
     private List<BookType> bookTypes;
 
-    // @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class)
-    // @MapKeyJoinColumn(name =
-    // BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
-    // @MapKey(name = "locale")
-    @Transient
+    @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class, cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
+    @MapKey(name = "locale")
     private Map<Locale, BookTypeGroupLocalization> localizedContents;
 
     @ManyToOne(targetEntity = BookTypeGroupImpl.class)

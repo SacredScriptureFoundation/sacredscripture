@@ -49,7 +49,7 @@ public class BookTypeGroupLocalizationImpl extends LocalizedContentEntity<Long> 
     @Column(name = BookTypeGroupLocalizationTable.COLUMN_NAME)
     private String name;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(targetEntity = BookTypeGroupImpl.class, optional = false)
     @JoinColumn(name = BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
     private BookTypeGroup bookTypeGroup;
 
@@ -61,6 +61,16 @@ public class BookTypeGroupLocalizationImpl extends LocalizedContentEntity<Long> 
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void setBookTypeGroup(BookTypeGroup bookTypeGroup) {
+        this.bookTypeGroup = bookTypeGroup;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

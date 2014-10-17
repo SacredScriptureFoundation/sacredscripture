@@ -90,4 +90,17 @@ public class BookTypeGroupImplPersistenceITest extends AbstractSpringJpaIntegrat
         assertNull(rs.getObject(COLUMN_PARENT_ID));
     }
 
+    /**
+     * Verifies localization is persisted by cascade.
+     */
+    @Test
+    public void testSaveCascadeLocalization() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeGroupLocalizationImpl loc = ObjectMother.newBookTypeGroupLocalization(g);
+        g.addLocalizedContent(loc);
+        assertTransient(loc);
+        em.persist(g);
+        assertNotTransient(loc);
+    }
+
 }

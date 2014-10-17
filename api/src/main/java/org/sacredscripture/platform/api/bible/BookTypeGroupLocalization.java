@@ -36,4 +36,8 @@ public interface BookTypeGroupLocalization extends Entity<Long>, Named, LocalePr
      */
     BookTypeGroup getBookTypeGroup();
 
+    void setBookTypeGroup(BookTypeGroup bookTypeGroup);
+
+    void setName(String name);
+
 }

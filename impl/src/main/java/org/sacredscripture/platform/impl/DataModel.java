@@ -68,6 +68,7 @@ public final class DataModel {
     public static final class BookTypeGroupLocalizationTable {
         public static final String TABLE_NAME = "book_type_group_loc";
         public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_LOCALE = "locale_lang";
         public static final String COLUMN_NAME = "name";
     }
