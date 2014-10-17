@@ -24,6 +24,7 @@ import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.api.bible.BookTypeGroupLocalization;
 import org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable;
+import org.sacredscripture.platform.impl.DataModel.BookTypeTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
 
@@ -44,7 +45,6 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * This class is the stock implementation of {@link BookTypeGroup}.
@@ -57,10 +57,9 @@ import javax.persistence.Transient;
 @Table(name = BookTypeGroupTable.TABLE_NAME)
 public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLocalization> implements BookTypeGroup {
 
-    // @OneToMany(targetEntity = BookImpl.class, mappedBy = "bookTypeGroup")
-    // @JoinColumn(name = BookTable.COLUMN_BOOK_TYPE_ID)
-    // @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
-    @Transient
+    @OneToMany(targetEntity = BookTypeImpl.class, mappedBy = "bookTypeGroup")
+    @JoinColumn(name = BookTypeTable.COLUMN_BOOK_TYPE_GROUP_ID)
+    // TODO OrderColumn for canonical order in group
     private List<BookType> bookTypes;
 
     @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class, cascade = CascadeType.ALL)
