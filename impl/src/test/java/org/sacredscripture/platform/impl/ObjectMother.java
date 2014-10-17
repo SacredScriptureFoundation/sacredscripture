@@ -26,6 +26,7 @@ import org.sacredscripture.platform.api.bible.BookType;
 import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.bible.BibleImpl;
 import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
+import org.sacredscripture.platform.impl.bible.BookImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeImpl;
@@ -59,6 +60,13 @@ public final class ObjectMother {
         loc.setName(randomText());
         loc.setTitle(randomText());
         return loc;
+    }
+
+    public static BookImpl newBook(Bible b, BookType t) {
+        BookImpl book = new BookImpl();
+        book.setBible(b);
+        book.setBookType(t);
+        return book;
     }
 
     public static BookTypeImpl newBookType(BookTypeGroup g) {

@@ -42,8 +42,8 @@ import javax.persistence.Entity;
 import javax.persistence.MapKey;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * This class is the stock implementation of {@link Bible}.
@@ -68,9 +68,8 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Column(name = BibleTable.COLUMN_RTOL)
     private boolean rightToLeftReading;
 
-    // @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
-    // @OrderColumn(name = BookTable.COLUMN_LIST_POSITION)
-    @Transient
+    @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
+    @OrderBy("order")
     private List<Book> books;
 
     @Override

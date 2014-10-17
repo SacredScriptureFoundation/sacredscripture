@@ -115,7 +115,6 @@ book
     bible_id                INT UNSIGNED NOT NULL,
     book_type_id            INT UNSIGNED NOT NULL,
     list_position           INT UNSIGNED NOT NULL,
-    chapter_count           INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT book_ix01fk FOREIGN KEY (bible_id) REFERENCES bible (id),
     CONSTRAINT book_ix02fk FOREIGN KEY (book_type_id) REFERENCES book_type (id),

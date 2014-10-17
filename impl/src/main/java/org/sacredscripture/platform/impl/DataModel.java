@@ -59,6 +59,7 @@ public final class DataModel {
         public static final String TABLE_NAME = "book";
         public static final String COLUMN_BIBLE_ID = "bible_id";
         public static final String COLUMN_BOOK_TYPE_ID = "book_type_id";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_LIST_POSITION = "list_position";
     }
 
