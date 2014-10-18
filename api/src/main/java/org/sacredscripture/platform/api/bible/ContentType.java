@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.api.bible;
 
 import org.sacredscripturefoundation.commons.Coded;
+import org.sacredscripturefoundation.commons.entity.Entity;
 
 /**
  * This interface defines a {@link Content} in absolute terms.
@@ -27,6 +28,6 @@ import org.sacredscripturefoundation.commons.Coded;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface ContentType extends Coded<String> {
+public interface ContentType extends Entity<Long>, Coded<String> {
     // empty
 }
