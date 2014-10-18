@@ -24,6 +24,7 @@ import org.sacredscripture.platform.api.bible.Book;
 import org.sacredscripture.platform.api.bible.BookType;
 import org.sacredscripture.platform.api.bible.Chapter;
 import org.sacredscripture.platform.impl.DataModel.BookTable;
+import org.sacredscripture.platform.impl.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
 
@@ -34,6 +35,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,10 +58,9 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Column(name = BookTable.COLUMN_LIST_POSITION)
     private int order;
 
-    // @OneToMany(targetEntity = ChapterImpl.class, mappedBy = "book")
-    // @JoinColumn(name = ContentTable.COLUMN_BOOK_ID)
-    // @OrderColumn(name = ContentTable.COLUMN_POSITION)
-    @Transient
+    @OneToMany(targetEntity = ChapterImpl.class, mappedBy = "book")
+    @JoinColumn(name = ContentTable.COLUMN_BOOK_ID)
+    @OrderColumn(name = ContentTable.COLUMN_POSITION)
     private List<Chapter> chapters;
 
     @ManyToOne(targetEntity = BibleImpl.class, optional = false)
