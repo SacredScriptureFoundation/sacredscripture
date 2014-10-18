@@ -35,6 +35,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * This abstract class is the stock implementation of {@link Content}.
@@ -55,8 +56,9 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
     @Column(name = ContentTable.COLUMN_POSITION)
     private int order;
 
-    @ManyToOne(targetEntity = ContentTypeImpl.class)
-    @JoinColumn(name = ContentTable.COLUMN_CONTENT_TYPE_ID)
+    // @ManyToOne(targetEntity = ContentTypeImpl.class)
+    // @JoinColumn(name = ContentTable.COLUMN_CONTENT_TYPE_ID)
+    @Transient
     private ContentType contentType;
 
     @Override

@@ -33,6 +33,8 @@
     <class>org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl</class>
     <class>org.sacredscripture.platform.impl.bible.BookTypeImpl</class>
     <class>org.sacredscripture.platform.impl.bible.BookTypeLocalizationImpl</class>
+    <class>org.sacredscripture.platform.impl.bible.ChapterImpl</class>
+    <class>org.sacredscripture.platform.impl.bible.ContentImpl</class>
     <properties>
       <property name="eclipselink.logging.level" value="CONFIG"/>
       <property name="eclipselink.weaving" value="false"/>

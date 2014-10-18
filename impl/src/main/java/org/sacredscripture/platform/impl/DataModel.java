@@ -119,6 +119,7 @@ public final class DataModel {
         public static final String COLUMN_CHAPTER_NAME = "chapter_name";
         public static final String COLUMN_CONTENT_TYPE_ID = "content_type_id";
         public static final String COLUMN_DISCRIMINATOR = "kind_code";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_POSITION = "list_position";
         public static final String COLUMN_VERSE_ALT_NAME = "verse_alt_name";
         public static final String COLUMN_VERSE_CHAPTER_ID = "verse_chapter_id";

@@ -31,6 +31,7 @@ import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeLocalizationImpl;
+import org.sacredscripture.platform.impl.bible.ChapterImpl;
 
 import java.util.Locale;
 
@@ -99,6 +100,13 @@ public final class ObjectMother {
         loc.setName(randomText());
         loc.setTitle(randomText());
         return loc;
+    }
+
+    public static ChapterImpl newChapter(BookImpl k) {
+        ChapterImpl c = new ChapterImpl();
+        c.setBook(k);
+        c.setName(randomText());
+        return c;
     }
 
     private ObjectMother() {
