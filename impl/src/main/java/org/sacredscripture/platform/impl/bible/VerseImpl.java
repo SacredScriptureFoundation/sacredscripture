@@ -25,6 +25,7 @@ import org.sacredscripture.platform.api.bible.Verse;
 import org.sacredscripture.platform.api.bible.VerseText;
 import org.sacredscripture.platform.impl.DataModel.ContentTable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -55,7 +56,7 @@ public class VerseImpl extends ContentImpl implements Verse {
     @JoinColumn(name = ContentTable.COLUMN_VERSE_CHAPTER_ID)
     private Chapter chapter;
 
-    @OneToOne(targetEntity = VerseTextImpl.class, mappedBy = "verse")
+    @OneToOne(targetEntity = VerseTextImpl.class, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = ContentTable.COLUMN_VERSE_TEXT_ID)
     private VerseText text;
 

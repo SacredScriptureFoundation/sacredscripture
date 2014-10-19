@@ -26,6 +26,7 @@ import org.sacredscripturefoundation.commons.Named;
  *
  * @author Paul Benedict
  * @see Chapter#getVerses()
+ * @see VerseText
  * @since Sacred Scripture Platform 1.0
  */
 public interface Verse extends Content, Named {

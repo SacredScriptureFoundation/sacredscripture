@@ -143,9 +143,8 @@ public final class DataModel {
      * @see org.sacredscripture.platform.impl.bible.VerseTextImpl
      */
     public static final class VerseTextTable {
-        public static final String TABLE_NAME = "content_verse_text";
+        public static final String TABLE_NAME = "verse_text";
         public static final String COLUMN_TEXT = "txt";
-        public static final String COLUMN_VERSE_ID = "verse_content_id";
     }
 
     public static final String AUDIT_COLUMN_CREATED = "created";

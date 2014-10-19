@@ -30,7 +30,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 /**
  * This class is the stock implementation of {@link Chapter}.
@@ -42,9 +43,8 @@ import javax.persistence.Transient;
 @DiscriminatorValue(ContentTable.DISCRIMINATOR_CHAPTER)
 public class ChapterImpl extends ContentImpl implements Chapter {
 
-    // @OneToMany(targetEntity = VerseImpl.class, mappedBy = "chapter")
-    // @OrderColumn(name = ContentTable.COLUMN_POSITION)
-    @Transient
+    @OneToMany(targetEntity = VerseImpl.class, mappedBy = "chapter")
+    @OrderColumn(name = ContentTable.COLUMN_POSITION)
     private List<Verse> verses;
 
     @Column(name = ContentTable.COLUMN_CHAPTER_NAME)

@@ -19,6 +19,8 @@
  */
 package org.sacredscripture.platform.api.bible;
 
+import org.sacredscripturefoundation.commons.entity.Entity;
+
 /**
  * This interface defines a long piece of text for a verse.
  *
@@ -26,19 +28,16 @@ package org.sacredscripture.platform.api.bible;
  * @see Verse#getText()
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseText extends Content {
+public interface VerseText extends Entity<Long> {
 
     /**
-     * Retrieves the text of this content.
+     * Retrieves the text.
      *
      * @return the text
+     * @see #setText(String)
      */
     String getText();
 
-    Verse getVerse();
-
-    String setText();
-
-    void setVerse(Verse verse);
+    void setText(String text);
 
 }

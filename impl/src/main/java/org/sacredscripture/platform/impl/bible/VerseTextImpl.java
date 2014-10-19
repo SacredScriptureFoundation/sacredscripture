@@ -19,13 +19,13 @@
  */
 package org.sacredscripture.platform.impl.bible;
 
-import org.sacredscripture.platform.api.bible.Verse;
 import org.sacredscripture.platform.api.bible.VerseText;
 import org.sacredscripture.platform.impl.DataModel.VerseTextTable;
 
+import org.sacredscripturefoundation.commons.entity.EntityImpl;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,28 +36,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = VerseTextTable.TABLE_NAME)
-public class VerseTextImpl {
-
-    @ManyToOne(targetEntity = VerseTextImpl.class, optional = false)
-    private Verse verse;
+public class VerseTextImpl extends EntityImpl<Long> implements VerseText {
 
     @Column(name = VerseTextTable.COLUMN_TEXT)
     private String text;
 
+    @Override
     public String getText() {
         return text;
     }
 
-    public Verse getVerse() {
-        return verse;
-    }
-
+    @Override
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void setVerse(Verse verse) {
-        this.verse = verse;
     }
 
 }
