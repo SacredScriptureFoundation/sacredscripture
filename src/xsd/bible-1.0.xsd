@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+  "All scripture is given by inspiration of God, and is profitable for 
+  doctrine, for reproof, for correction, for instruction in righteousness:
+  That the man of God may be perfect, throughly furnished unto all good 
+  works." (2 Tim 3:16-17)
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<schema 
+  xmlns="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.sacredscripturefoundation.org/schema/bible" 
+  xmlns:bible="http://www.sacredscripturefoundation.org/schema/bible"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified" 
+  version="1.0">
+
+  <!-- Need better understanding why this is needed and BookType@xml:base -->
+  <!-- http://www.oxygenxml.com/forum/topic1521.html -->
+  <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2005/08/xml.xsd"/>
+
+  <element name="bible">
+    <annotation>
+      <documentation>Bible edition.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="lang" type="language">
+          <annotation>
+            <documentation>2-letter language code of the bible edition.</documentation>
+          </annotation>
+        </element>
+        <element name="name" type="string">
+          <annotation>
+            <documentation>Common name of the bible edition (e.g., King James Version).</documentation>
+          </annotation>
+        </element>
+        <element name="abbreviation" type="string">
+          <annotation>
+            <documentation>Primary abbreviation of the bible edition (e.g., KJV).</documentation>
+          </annotation>
+        </element>
+        <element name="title" type="string">
+          <annotation>
+            <documentation>Long description of the bible (e.g., The Holy Bible).</documentation>
+          </annotation>
+        </element>
+        <element name="book" type="bible:BookType" maxOccurs="unbounded">
+          <annotation>
+            <documentation>Set of books in the bible edition.</documentation>
+          </annotation>
+        </element>
+      </sequence>
+    </complexType>
+    <unique name="UniqueBibleCodes">
+      <selector xpath="bible:book" />
+      <field xpath="@code" />
+    </unique>
+  </element>
+  
+  <element name="book" type="bible:BookType" />
+  
+  <complexType name="BookType">
+    <choice>
+      <element name="chapter" type="bible:ChapterType" maxOccurs="unbounded" />
+    </choice>
+    <attribute name="code" type="bible:BookCodeType" use="required" />
+    <attribute ref="xml:base" use="optional"/> 
+  </complexType>
+
+  <complexType name="ChapterType">
+    <sequence>
+      <element name="verse" type="bible:VerseType" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="name" use="required"/>
+  </complexType>
+
+  <complexType name="VerseType" mixed="true">
+    <attribute name="name" use="required" />
+    <attribute name="code" />
+  </complexType>
+  
+  <simpleType name="BookCodeType">
+    <annotation>
+      <documentation>3-character code that uniquely identifies a bible book.</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="amo">
+        <annotation>
+          <documentation>Amos</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="act">
+        <annotation>
+          <documentation>Acts of the Apostles</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="bar">
+        <annotation>
+          <documentation>Baruch</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ch1">
+        <annotation>
+          <documentation>1 Chronicles</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ch2">
+        <annotation>
+          <documentation>2 Chronicles</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="co1">
+        <annotation>
+          <documentation>1 Corinthians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="co2">
+        <annotation>
+          <documentation>2 Corinthians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="col">
+        <annotation>
+          <documentation>Colossians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="dan">
+        <annotation>
+          <documentation>Daniel</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="deu">
+        <annotation>
+          <documentation>Deuteronomy</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ecc">
+        <annotation>
+          <documentation>Ecclesiastes</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="eph">
+        <annotation>
+          <documentation>Ephesians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="est">
+        <annotation>
+          <documentation>Esther</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="exo">
+        <annotation>
+          <documentation>Exodus</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ezr">
+        <annotation>
+          <documentation>Ezra</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ezk">
+        <annotation>
+          <documentation>Ezekiel</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="gal">
+        <annotation>
+          <documentation>Galatians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="gen">
+        <annotation>
+          <documentation>Genesis</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="hab">
+        <annotation>
+          <documentation>Habakkuk</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="hag">
+        <annotation>
+          <documentation>Haggai</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="heb">
+        <annotation>
+          <documentation>Hebrews</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="hos">
+        <annotation>
+          <documentation>Hosea</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="isa">
+        <annotation>
+          <documentation>Isaiah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="lam">
+        <annotation>
+          <documentation>Lamentations</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="lev">
+        <annotation>
+          <documentation>Leviticus</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="luk">
+        <annotation>
+          <documentation>Luke</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jas">
+        <annotation>
+          <documentation>James</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jdg">
+        <annotation>
+          <documentation>Judges</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jdt">
+        <annotation>
+          <documentation>Judith</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jer">
+        <annotation>
+          <documentation>Jeremiah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jhn">
+        <annotation>
+          <documentation>John</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jn1">
+        <annotation>
+          <documentation>1 John</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jn2">
+        <annotation>
+          <documentation>2 John</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jn3">
+        <annotation>
+          <documentation>3 John</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="job">
+        <annotation>
+          <documentation>Job</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="joe">
+        <annotation>
+          <documentation>Joel</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jon">
+        <annotation>
+          <documentation>Jonah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jos">
+        <annotation>
+          <documentation>Joshua</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="jud">
+        <annotation>
+          <documentation>Jude</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="kg1">
+        <annotation>
+          <documentation>1 Kings</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="kg2">
+        <annotation>
+          <documentation>2 Kings</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mal">
+        <annotation>
+          <documentation>Malachi</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mar">
+        <annotation>
+          <documentation>Mark</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mat">
+        <annotation>
+          <documentation>Matthew</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mic">
+        <annotation>
+          <documentation>Micah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mc1">
+        <annotation>
+          <documentation>1 Maccabees</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mc2">
+        <annotation>
+          <documentation>2 Maccabees</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="nah">
+        <annotation>
+          <documentation>Nahum</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="neh">
+        <annotation>
+          <documentation>Nehemiah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="num">
+        <annotation>
+          <documentation>Numbers</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="oba">
+        <annotation>
+          <documentation>Obadiah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="phm">
+        <annotation>
+          <documentation>Philemon</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="php">
+        <annotation>
+          <documentation>Philippians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="pro">
+        <annotation>
+          <documentation>Proverbs</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="pss">
+        <annotation>
+          <documentation>Psalms</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="pt1">
+        <annotation>
+          <documentation>1 Peter</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="pt2">
+        <annotation>
+          <documentation>2 Peter</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="rev">
+        <annotation>
+          <documentation>Revelation</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="rom">
+        <annotation>
+          <documentation>Romans</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="rut">
+        <annotation>
+          <documentation>Ruth</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="sm1">
+        <annotation>
+          <documentation>1 Samuel</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="sm2">
+        <annotation>
+          <documentation>2 Samuel</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="sng">
+        <annotation>
+          <documentation>Song of Songs</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="sir">
+        <annotation>
+          <documentation>Sirach</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="th1">
+        <annotation>
+          <documentation>1 Thessalonians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="th2">
+        <annotation>
+          <documentation>2 Thessalonians</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ti1">
+        <annotation>
+          <documentation>1 Timothy</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ti2">
+        <annotation>
+          <documentation>2 Timothy</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="tit">
+        <annotation>
+          <documentation>Titus</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="tob">
+        <annotation>
+          <documentation>Tobit</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="wis">
+        <annotation>
+          <documentation>Wisdom</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="zec">
+        <annotation>
+          <documentation>Zechariah</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="zep">
+        <annotation>
+          <documentation>Zephaniah</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+    
+</schema>
