@@ -107,7 +107,7 @@ public final class DataModel {
     public static final class BookTypeTable {
         public static final String TABLE_NAME = "book_type";
         public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
-        public static final String COLUMN_CODE = "type_code";
+        public static final String COLUMN_CODE = "code";
         public static final String COLUMN_ID = "id";
     }
 
@@ -119,7 +119,7 @@ public final class DataModel {
         public static final String COLUMN_BOOK_ID = "book_id";
         public static final String COLUMN_CHAPTER_NAME = "chapter_name";
         public static final String COLUMN_CONTENT_TYPE_ID = "content_type_id";
-        public static final String COLUMN_DISCRIMINATOR = "kind_code";
+        public static final String COLUMN_DISCRIMINATOR = "type_code";
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_POSITION = "list_position";
         public static final String COLUMN_VERSE_ALT_NAME = "verse_alt_name";

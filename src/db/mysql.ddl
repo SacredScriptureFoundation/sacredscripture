@@ -81,10 +81,10 @@ book_type
     id                  INT UNSIGNED NOT NULL AUTO_INCREMENT,
     created             DATETIME NOT NULL,
     updated             DATETIME,
-    type_code           CHAR(3) NOT NULL,
+    code                CHAR(3) NOT NULL,
     book_type_group_id  INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT book_type_ix01uq UNIQUE (type_code)
+    CONSTRAINT book_type_ix01uq UNIQUE (code)
     CONSTRAINT book_type_ix02fk FOREIGN KEY (book_type_group_id) REFERENCES book_type_group (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -156,7 +156,7 @@ content
     updated               DATETIME,
     book_id               INT UNSIGNED NOT NULL,
     list_position         INT UNSIGNED NOT NULL,
-    kind_code             INT(1) NOT NULL,
+    type_code             INT(1) NOT NULL,
     content_type_id       INT UNSIGNED,
     chapter_name          VARCHAR(10),
     verse_chapter_id      INT UNSIGNED,
