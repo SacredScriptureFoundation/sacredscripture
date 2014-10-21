@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_CREATED;
 import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_UPDATED;
+import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable.COLUMN_CODE;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable.COLUMN_ID;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable.COLUMN_LIST_POSITION;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable.COLUMN_PARENT_ID;
@@ -43,6 +44,25 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
  * @since Sacred Scripture Platform 1.0
  */
 public class BookTypeGroupImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
+
+    /**
+     * Verifies row of parent record insert.
+     */
+    @Test
+    public void testInsert() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        em.persist(g);
+        em.flush();
+
+        SqlRowSet rs = jdbcTemplate.queryForRowSet("select * from book_type_group where id=?", g.getId());
+        assertTrue(rs.next());
+        assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
+        assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
+        assertEquals(g.getId().longValue(), rs.getLong(COLUMN_ID));
+        assertEquals(g.getCode(), rs.getString(COLUMN_CODE));
+        assertEquals(g.getOrder(), rs.getLong(COLUMN_LIST_POSITION));
+        assertNull(rs.getObject(COLUMN_PARENT_ID));
+    }
 
     /**
      * Verifies row of children record inserts.
@@ -70,24 +90,6 @@ public class BookTypeGroupImplPersistenceITest extends AbstractSpringJpaIntegrat
         assertEquals(c2.getId().longValue(), rs.getLong(COLUMN_ID));
         assertEquals(p.getId().longValue(), rs.getLong(COLUMN_PARENT_ID));
         assertEquals(1, rs.getLong(COLUMN_LIST_POSITION));
-    }
-
-    /**
-     * Verifies row of parent record insert.
-     */
-    @Test
-    public void testInsertParent() {
-        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
-        em.persist(g);
-        em.flush();
-
-        SqlRowSet rs = jdbcTemplate.queryForRowSet("select * from book_type_group where id=?", g.getId());
-        assertTrue(rs.next());
-        assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
-        assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
-        assertEquals(g.getId().longValue(), rs.getLong(COLUMN_ID));
-        assertEquals(g.getOrder(), rs.getLong(COLUMN_LIST_POSITION));
-        assertNull(rs.getObject(COLUMN_PARENT_ID));
     }
 
     /**

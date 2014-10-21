@@ -19,6 +19,7 @@
  */
 package org.sacredscripture.platform.api.bible;
 
+import org.sacredscripturefoundation.commons.Coded;
 import org.sacredscripturefoundation.commons.ParentProvider;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
@@ -30,7 +31,7 @@ import java.util.List;
  * @since Sacred Scripture Platform 1.0
  */
 public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTypeGroupLocalization>,
-        ParentProvider<BookTypeGroup> {
+        ParentProvider<BookTypeGroup>, Coded<String> {
 
     /**
      * Adds the specified group as a child to this group. In turn, the book's
@@ -53,12 +54,23 @@ public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTy
     List<BookTypeGroup> getChildren();
 
     /**
+     * Retrieves the code that uniquely identifies this group.
+     *
+     * @see #setCode(String)
+     * @return the code
+     */
+    @Override
+    String getCode();
+
+    /**
      * Retrieves the ordered position of this book among its sibilings.
      *
      * @return the order
      * @see #setOrder(int)
      */
     int getOrder();
+
+    void setCode(String code);
 
     void setOrder(int order);
 

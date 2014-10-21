@@ -51,9 +51,11 @@ book_type_group
     id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
     created       DATETIME NOT NULL,
     updated       DATETIME,
+    code          CHAR(3) NOT NULL,
     list_position INT UNSIGNED NOT NULL,
     parent_id     INT UNSIGNED,
     PRIMARY KEY (id),
+    CONSTRAINT book_type_group_ix01uq UNIQUE (code),
     CONSTRAINT book_type_group_ix01fk FOREIGN KEY (parent_id) REFERENCES book_type_group (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;

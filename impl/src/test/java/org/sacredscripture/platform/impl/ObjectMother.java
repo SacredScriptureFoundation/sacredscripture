@@ -81,6 +81,7 @@ public final class ObjectMother {
 
     public static BookTypeGroupImpl newBookTypeGroup() {
         BookTypeGroupImpl g = new BookTypeGroupImpl();
+        g.setCode(randomText(3));
         return g;
     }
 

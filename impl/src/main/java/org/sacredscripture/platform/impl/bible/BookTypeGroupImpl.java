@@ -78,6 +78,9 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     @Column(name = BookTypeGroupTable.COLUMN_LIST_POSITION)
     int order;
 
+    @Column(name = BookTypeGroupTable.COLUMN_CODE)
+    private String code;
+
     @Override
     public void addChild(BookTypeGroup group) {
         Objects.requireNonNull(group);
@@ -103,6 +106,11 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     }
 
     @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
     public Map<Locale, BookTypeGroupLocalization> getLocalizedContents() {
         if (localizedContents == null) {
             localizedContents = new HashMap<>();
@@ -118,6 +126,11 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     @Override
     public BookTypeGroup getParent() {
         return parent;
+    }
+
+    @Override
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override
