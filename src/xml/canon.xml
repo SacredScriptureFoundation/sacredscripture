@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+  Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+  "All scripture is given by inspiration of God, and is profitable for 
+  doctrine, for reproof, for correction, for instruction in righteousness:
+  That the man of God may be perfect, throughly furnished unto all good 
+  works." (2 Tim 3:16-17)
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<canon 
+  xmlns="http://www.sacredscripturefoundation.org/schema/canon" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.sacredscripturefoundation.org/schema/canon http://www.sacredscripturefoundation.org/schema/canon-1.0.xsd">
+
+  <group code="ott">
+    <group code="mos">
+      <book code="gen" />
+      <book code="exo" />
+      <book code="lev" />
+      <book code="num" />
+      <book code="deu" />
+    </group>
+    <group code="his">
+      <book code="jos" />
+      <book code="jdg" />
+      <book code="rut" />
+      <book code="sm1" />
+      <book code="sm2" />
+      <book code="kg1" />
+      <book code="kg2" />
+      <book code="ch1" />
+      <book code="ch2" />
+      <book code="ezr" />
+      <book code="neh" />
+      <book code="tob" />
+      <book code="jdt" />
+      <book code="est" />
+      <book code="mc1" />
+      <book code="mc2" />
+    </group>
+    <group code="wis">
+      <book code="job" />
+      <book code="pss" />
+      <book code="pro" />
+      <book code="ecc" />
+      <book code="sng" />
+      <book code="wis" />
+      <book code="sir" />
+    </group>
+    <group code="pro">
+      <group code="pma">
+        <book code="isa" />
+        <book code="jer" />
+        <book code="lam" />
+        <book code="bar" />
+        <book code="ezk" />
+        <book code="dan" />
+      </group>
+      <group code="pmi">
+        <book code="hos" />
+        <book code="joe" />
+        <book code="amo" />
+        <book code="oba" />
+        <book code="jon" />
+        <book code="mic" />
+        <book code="nah" />
+        <book code="hab" />
+        <book code="zep" />
+        <book code="hag" />
+        <book code="zec" />
+        <book code="mal" />
+      </group>
+    </group>
+  </group>
+  <group code="ntt">
+    <group code="gos">
+      <book code="mat" />
+      <book code="mar" />
+      <book code="luk" />
+      <book code="jhn" />
+      <book code="act" />
+    </group>
+    <group code="pau">
+      <book code="rom" />
+      <book code="co1" />
+      <book code="co2" />
+      <book code="gal" />
+      <book code="eph" />
+      <book code="php" />
+      <book code="col" />
+      <book code="th1" />
+      <book code="th2" />
+      <book code="ti1" />
+      <book code="ti2" />
+      <book code="tit" />
+      <book code="phm" />
+    </group>
+    <group code="cat">
+      <book code="heb" />
+      <book code="jas" />
+      <book code="pt1" />
+      <book code="pt2" />
+      <book code="jn1" />
+      <book code="jn2" />
+      <book code="jn3" />
+      <book code="jud" />
+      <book code="rev" />
+    </group>
+  </group>
+
+</canon>
