@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+  "All scripture is given by inspiration of God, and is profitable for 
+  doctrine, for reproof, for correction, for instruction in righteousness:
+  That the man of God may be perfect, throughly furnished unto all good 
+  works." (2 Tim 3:16-17)
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<schema 
+  xmlns="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.sacredscripturefoundation.org/schema/canon" 
+  xmlns:canon="http://www.sacredscripturefoundation.org/schema/canon"
+  xmlns:bible="http://www.sacredscripturefoundation.org/schema/bible"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified" 
+  version="1.0">
+
+  <import namespace="http://www.sacredscripturefoundation.org/schema/bible" schemaLocation="http://www.sacredscripturefoundation.org/schema/bible-1.0.xsd" />
+
+  <element name="canon">
+    <annotation>
+      <documentation>Canonical ordering of books.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="group" type="canon:GroupType" maxOccurs="unbounded">
+          <unique name="UniqueBookTypeCode1">
+            <selector xpath="canon:book" />
+            <field xpath="@code" />
+          </unique>
+        </element>
+      </sequence>
+    </complexType>
+  </element>
+
+  <complexType name="BookType">
+    <attribute name="code" type="bible:BookCodeType" use="required" />
+  </complexType>
+
+  <complexType name="GroupType">
+    <sequence>
+      <choice>
+        <element name="group" type="canon:GroupType" maxOccurs="unbounded">
+          <unique name="UniqueBookTypeCode2">
+            <selector xpath="canon:book" />
+            <field xpath="@code" />
+          </unique>
+        </element>
+        <element name="book" type="canon:BookType" maxOccurs="unbounded" />
+      </choice>
+    </sequence>
+    <attribute name="code" type="string" />
+  </complexType>
+  
+</schema>
