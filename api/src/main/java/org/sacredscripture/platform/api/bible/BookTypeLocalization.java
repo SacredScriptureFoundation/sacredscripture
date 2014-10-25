@@ -40,6 +40,7 @@ public interface BookTypeLocalization extends Entity<Long>, Named, LocaleProvide
      * display purposes.
      *
      * @see #getAbbreviations()
+     * @see #setAbbreviations(List)
      */
     void addAbbreviation(String abbreviation);
 
@@ -49,6 +50,7 @@ public interface BookTypeLocalization extends Entity<Long>, Named, LocaleProvide
      *
      * @return the abbreviations (never {@code null})
      * @see #addAbbreviation(String)
+     * @see #setAbbreviations(List)
      */
     List<String> getAbbreviations();
 
@@ -76,6 +78,8 @@ public interface BookTypeLocalization extends Entity<Long>, Named, LocaleProvide
      * @see #setTitle(String)
      */
     String getTitle();
+
+    void setAbbreviations(List<String> abbreviations);
 
     /**
      * Stores the new book type for this localization.

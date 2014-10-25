@@ -120,6 +120,18 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
     }
 
     @Override
+    public void setAbbreviations(List<String> abbreviations) {
+        abbreviation1 = null;
+        abbreviation2 = null;
+        abbreviation3 = null;
+        if (abbreviations != null) {
+            for (String abbr : abbreviations) {
+                addAbbreviation(abbr);
+            }
+        }
+    }
+
+    @Override
     public void setBookType(BookType bookType) {
         this.bookType = bookType;
     }
