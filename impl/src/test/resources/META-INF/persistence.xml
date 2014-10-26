@@ -25,6 +25,7 @@
   
   <persistence-unit name="sacredscripture" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <mapping-file>META-INF/jpql.xml</mapping-file>
     <class>org.sacredscripturefoundation.commons.locale.entity.LocaleLanguageConverter</class>
     <class>org.sacredscripture.platform.impl.bible.BibleImpl</class>
     <class>org.sacredscripture.platform.impl.bible.BibleLocalizationImpl</class>
@@ -38,7 +39,7 @@
     <class>org.sacredscripture.platform.impl.bible.VerseImpl</class>
     <class>org.sacredscripture.platform.impl.bible.VerseTextImpl</class>
     <properties>
-      <property name="eclipselink.logging.level" value="CONFIG"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.weaving" value="false"/>
     </properties>
   </persistence-unit>

@@ -42,16 +42,14 @@
       <artifactId>sacredscripture-platform-api</artifactId>
       <version>${project.version}</version>
     </dependency>
-      <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-api</artifactId>
-        <version>7.0</version>
-        <scope>provided</scope>
-      </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>sacredscripture-platform-api</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
