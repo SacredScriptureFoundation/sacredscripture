@@ -33,7 +33,7 @@
   <artifactId>sacredscripture-platform-xml</artifactId>
   <packaging>jar</packaging>
 
-  <name>Sacred Scripture Platform XML Document Model</name>
+  <name>Sacred Scripture Platform XML Model</name>
   <url>http://www.sacredscripturefoundation.org</url>
   
   <dependencies>
@@ -56,9 +56,7 @@
               <goal>xjc</goal>
             </goals>
             <configuration>
-              <packageName>org.sacredscripture.platform.impl.bible.xml</packageName>
-              <schemaDirectory>${project.basedir}/../src/xsd</schemaDirectory>
-              <schemaFiles>bible-1.0.xsd</schemaFiles>
+              <schemaFiles>canon-1.0.xsd</schemaFiles>
               <extension>true</extension>
             </configuration>
           </execution>
