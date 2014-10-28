@@ -30,39 +30,7 @@
   <!-- http://www.oxygenxml.com/forum/topic1521.html -->
   <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2005/08/xml.xsd"/>
 
-  <element name="bible">
-    <annotation>
-      <documentation>Bible edition.</documentation>
-    </annotation>
-    <complexType>
-      <sequence>
-        <element name="lang" type="language">
-          <annotation>
-            <documentation>2-letter language code of the bible edition.</documentation>
-          </annotation>
-        </element>
-        <element name="name" type="string">
-          <annotation>
-            <documentation>Common name of the bible edition (e.g., King James Version).</documentation>
-          </annotation>
-        </element>
-        <element name="abbreviation" type="string">
-          <annotation>
-            <documentation>Primary abbreviation of the bible edition (e.g., KJV).</documentation>
-          </annotation>
-        </element>
-        <element name="title" type="string">
-          <annotation>
-            <documentation>Long description of the bible (e.g., The Holy Bible).</documentation>
-          </annotation>
-        </element>
-        <element name="book" type="bible:BookType" maxOccurs="unbounded">
-          <annotation>
-            <documentation>Set of books in the bible edition.</documentation>
-          </annotation>
-        </element>
-      </sequence>
-    </complexType>
+  <element name="bible" type="bible:BibleType">
     <unique name="UniqueBibleCodes">
       <selector xpath="bible:book" />
       <field xpath="@code" />
@@ -70,6 +38,39 @@
   </element>
   
   <element name="book" type="bible:BookType" />
+  
+  <complexType name="BibleType">
+    <annotation>
+      <documentation>Bible edition.</documentation>
+    </annotation>
+    <sequence>
+      <element name="lang" type="language">
+        <annotation>
+          <documentation>2-letter language code of the bible edition.</documentation>
+        </annotation>
+      </element>
+      <element name="name" type="string">
+        <annotation>
+          <documentation>Common name of the bible edition (e.g., King James Version).</documentation>
+        </annotation>
+      </element>
+      <element name="abbreviation" type="string">
+        <annotation>
+          <documentation>Primary abbreviation of the bible edition (e.g., KJV).</documentation>
+        </annotation>
+      </element>
+      <element name="title" type="string">
+        <annotation>
+          <documentation>Long description of the bible (e.g., The Holy Bible).</documentation>
+        </annotation>
+      </element>
+      <element name="book" type="bible:BookType" maxOccurs="unbounded">
+        <annotation>
+          <documentation>Set of books in the bible edition.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
   
   <complexType name="BookType">
     <choice>
@@ -79,18 +80,6 @@
     <attribute ref="xml:base" use="optional"/> 
   </complexType>
 
-  <complexType name="ChapterType">
-    <sequence>
-      <element name="verse" type="bible:VerseType" maxOccurs="unbounded" />
-    </sequence>
-    <attribute name="name" use="required"/>
-  </complexType>
-
-  <complexType name="VerseType" mixed="true">
-    <attribute name="name" use="required" />
-    <attribute name="code" />
-  </complexType>
-  
   <simpleType name="BookCodeType">
     <annotation>
       <documentation>3-character code that uniquely identifies a bible book.</documentation>
@@ -464,4 +453,16 @@
     </restriction>
   </simpleType>
     
+  <complexType name="ChapterType">
+    <sequence>
+      <element name="verse" type="bible:VerseType" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="name" use="required"/>
+  </complexType>
+
+  <complexType name="VerseType" mixed="true">
+    <attribute name="name" use="required" />
+    <attribute name="code" />
+  </complexType>
+  
 </schema>
