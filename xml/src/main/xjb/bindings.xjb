@@ -49,4 +49,16 @@
     </bindings>
   </bindings>
 
+  <bindings schemaLocation="../xsd/nls-1.0.xsd">
+    <bindings>
+      <schemaBindings>
+        <package name="org.sacredscripture.platform.xml.nls" />
+        <nameXmlTransform>
+          <typeName prefix="Xml" />
+          <elementName prefix="Xml" />
+        </nameXmlTransform>
+      </schemaBindings>
+    </bindings>
+  </bindings>
+
 </bindings>

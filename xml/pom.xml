@@ -56,7 +56,7 @@
               <goal>xjc</goal>
             </goals>
             <configuration>
-              <schemaFiles>canon-1.0.xsd</schemaFiles>
+              <schemaFiles>canon-1.0.xsd,nls-1.0.xsd</schemaFiles>
               <extension>true</extension>
             </configuration>
           </execution>
