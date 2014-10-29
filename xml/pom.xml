@@ -56,6 +56,7 @@
               <goal>xjc</goal>
             </goals>
             <configuration>
+              <catalog>${project.basedir}/src/main/xsd/catalog.xml</catalog>
               <schemaFiles>canon-1.0.xsd,nls-1.0.xsd</schemaFiles>
               <extension>true</extension>
             </configuration>
