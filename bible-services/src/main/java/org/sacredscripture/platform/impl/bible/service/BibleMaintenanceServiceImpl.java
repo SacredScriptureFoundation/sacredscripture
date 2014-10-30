@@ -38,6 +38,7 @@ import org.sacredscripture.platform.impl.bible.dao.BookTypeGroupDao;
 import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
 
+import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -51,6 +52,7 @@ import javax.transaction.Transactional;
 // EJB
 @Singleton
 @Transactional
+@Local(BibleMaintenanceService.class)
 public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
     @Inject

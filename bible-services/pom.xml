@@ -45,12 +45,46 @@
     </dependency>
     <dependency>
       <groupId>org.sacredscripture.platform</groupId>
-      <artifactId>sacredscripture-platform-xml</artifactId>
+      <artifactId>sacredscripture-platform-impl</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
+    </dependency>
+    
+    <!-- Test support -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <!-- MySQL driver logging -->
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-1.2-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sacredscripturefoundation.commons</groupId>
+      <artifactId>ssf-commons-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sacredscripturefoundation.commons</groupId>
+      <artifactId>ssf-commons-itest</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sacredscripture.platform</groupId>
+      <artifactId>sacredscripture-platform-impl</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+      <type>test-jar</type>
     </dependency>
   </dependencies>
   
