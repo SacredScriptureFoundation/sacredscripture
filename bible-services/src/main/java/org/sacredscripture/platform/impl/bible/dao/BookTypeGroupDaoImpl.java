@@ -23,7 +23,7 @@ import org.sacredscripture.platform.api.bible.BookTypeGroup;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
@@ -33,8 +33,7 @@ import javax.persistence.TypedQuery;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-// CDI
-@Singleton
+@ApplicationScoped
 public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, Long> implements BookTypeGroupDao {
 
     private static final String NQ_FIND_BY_CODE = "BookTypeGroupDao.findByCode";
