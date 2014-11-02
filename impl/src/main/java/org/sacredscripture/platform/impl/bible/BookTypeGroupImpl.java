@@ -24,7 +24,6 @@ import org.sacredscripture.platform.api.bible.BookTypeGroup;
 import org.sacredscripture.platform.api.bible.BookTypeGroupLocalization;
 import org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizationTable;
 import org.sacredscripture.platform.impl.DataModel.BookTypeGroupTable;
-import org.sacredscripture.platform.impl.DataModel.BookTypeTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
 
@@ -58,7 +57,6 @@ import javax.persistence.Table;
 public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLocalization> implements BookTypeGroup {
 
     @OneToMany(targetEntity = BookTypeImpl.class, mappedBy = "bookTypeGroup")
-    @JoinColumn(name = BookTypeTable.COLUMN_BOOK_TYPE_GROUP_ID)
     // TODO OrderColumn for canonical order in group
     private List<BookType> bookTypes;
 

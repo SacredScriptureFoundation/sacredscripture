@@ -58,8 +58,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Column(name = BookTable.COLUMN_LIST_POSITION)
     private int order;
 
-    @OneToMany(targetEntity = ChapterImpl.class, mappedBy = "book")
-    @JoinColumn(name = ContentTable.COLUMN_BOOK_ID)
+    @OneToMany(targetEntity = ContentImpl.class, mappedBy = "book")
     @OrderColumn(name = ContentTable.COLUMN_POSITION)
     private List<Chapter> chapters;
 
