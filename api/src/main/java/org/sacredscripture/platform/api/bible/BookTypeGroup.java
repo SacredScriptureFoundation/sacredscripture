@@ -34,12 +34,13 @@ public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTy
         ParentProvider<BookTypeGroup>, Coded<String> {
 
     /**
-     * Adds the specified group as a child to this group. In turn, the book's
+     * Adds the specified group as a child to this group. In turn, the group's
      * parent backreference will be set to this instance and to the correct
      * ordered position.
      *
      * @param group the group to add
      * @throws NullPointerException if group is {@code null}
+     * @throws IllegalArgumentException if group is this instance
      * @see #getChildren()
      */
     void addChild(BookTypeGroup group);

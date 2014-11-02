@@ -82,6 +82,9 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     @Override
     public void addChild(BookTypeGroup group) {
         Objects.requireNonNull(group);
+        if (group == this) {
+            throw new IllegalArgumentException("Cannot add self as child");
+        }
         group.setParent(this);
         group.setOrder(getChildren().size());
         getChildren().add(group);
