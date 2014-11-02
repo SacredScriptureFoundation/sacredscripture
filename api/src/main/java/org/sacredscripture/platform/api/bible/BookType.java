@@ -45,4 +45,6 @@ public interface BookType extends Entity<Long>, LocalizableContainer<BookTypeLoc
      */
     BookTypeGroup getBookTypeGroup();
 
+    void setBookTypeGroup(BookTypeGroup bookTypeGroup);
+
 }

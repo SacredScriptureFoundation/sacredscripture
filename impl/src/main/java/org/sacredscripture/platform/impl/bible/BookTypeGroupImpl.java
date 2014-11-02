@@ -80,6 +80,13 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     private String code;
 
     @Override
+    public void addBookType(BookType type) {
+        Objects.requireNonNull(type);
+        type.setBookTypeGroup(this);
+        getBookTypes().add(type);
+    }
+
+    @Override
     public void addChild(BookTypeGroup group) {
         Objects.requireNonNull(group);
         if (group == this) {

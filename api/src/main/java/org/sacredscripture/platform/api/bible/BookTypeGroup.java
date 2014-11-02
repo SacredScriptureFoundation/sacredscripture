@@ -33,6 +33,8 @@ import java.util.List;
 public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTypeGroupLocalization>,
         ParentProvider<BookTypeGroup>, Coded<String> {
 
+    void addBookType(BookType type);
+
     /**
      * Adds the specified group as a child to this group. In turn, the group's
      * parent backreference will be set to this instance and to the correct
