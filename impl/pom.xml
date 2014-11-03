@@ -58,6 +58,14 @@
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.sacredscripturefoundation.commons</groupId>
+      <artifactId>ssf-commons-entity</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.sacredscripturefoundation.commons</groupId>
+      <artifactId>ssf-commons-locale</artifactId>
+    </dependency>
     
     <!-- Test support -->
     <dependency>
@@ -89,6 +97,11 @@
     <dependency>
       <groupId>org.sacredscripturefoundation.commons</groupId>
       <artifactId>ssf-commons-itest</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
