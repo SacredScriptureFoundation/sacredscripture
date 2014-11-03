@@ -22,8 +22,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
   version="2.1">
-  
-  <named-query name="BookTypeDao.findByCode">
+
+  <named-query name="BookType.findByCode">
     <query>
     <![CDATA[
       SELECT 
@@ -36,7 +36,7 @@
     </query>
   </named-query>
 
-  <named-query name="BookTypeGroupDao.findByCode">
+  <named-query name="BookTypeGroup.findByCode">
     <query>
     <![CDATA[
       SELECT 

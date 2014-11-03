@@ -36,7 +36,7 @@ import javax.persistence.TypedQuery;
 @ApplicationScoped
 public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, Long> implements BookTypeGroupDao {
 
-    private static final String NQ_FIND_BY_CODE = "BookTypeGroupDao.findByCode";
+    private static final String NQ_FIND_BY_CODE = "BookTypeGroup.findByCode";
 
     @Override
     public BookTypeGroup findByCode(String code) {
