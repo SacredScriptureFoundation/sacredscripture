@@ -28,7 +28,13 @@
   <bindings schemaLocation="http://www.sacredscripturefoundation.org/schema/bible-1.0.xsd">
     <bindings>
       <schemaBindings>
-        <package name="org.sacredscripture.platform.xml.bible" />
+        <package name="org.sacredscripture.platform.xml.bible">
+          <javadoc>
+          <![CDATA[
+            <body>JAXB-annotated classes to manipulate bible editions in XML.</body>
+          ]]>
+          </javadoc>
+        </package>
         <nameXmlTransform>
           <typeName prefix="Xml" />
           <elementName prefix="Xml" />
@@ -40,7 +46,13 @@
   <bindings schemaLocation="../xsd/canon-1.0.xsd">
     <bindings>
       <schemaBindings>
-        <package name="org.sacredscripture.platform.xml.canon" />
+        <package name="org.sacredscripture.platform.xml.canon">
+          <javadoc>
+          <![CDATA[
+            <body>JAXB-annotated classes to manipulate the bible canon in XML.</body>
+          ]]>
+          </javadoc>
+        </package>
         <nameXmlTransform>
           <typeName prefix="Xml" />
           <elementName prefix="Xml" />
@@ -52,7 +64,13 @@
   <bindings schemaLocation="../xsd/nls-1.0.xsd">
     <bindings>
       <schemaBindings>
-        <package name="org.sacredscripture.platform.xml.nls" />
+        <package name="org.sacredscripture.platform.xml.nls">
+          <javadoc>
+          <![CDATA[
+            <body>JAXB-annotated classes to manipulate localized translations in XML.</body>
+          ]]>
+          </javadoc>
+        </package>
         <nameXmlTransform>
           <typeName prefix="Xml" />
           <elementName prefix="Xml" />
