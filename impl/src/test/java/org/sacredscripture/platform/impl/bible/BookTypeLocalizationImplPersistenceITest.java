@@ -33,7 +33,7 @@ import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTa
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_NAME;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_TITLE;
 
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.ObjectMother;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;

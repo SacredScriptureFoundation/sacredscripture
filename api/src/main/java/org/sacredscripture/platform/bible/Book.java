@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.bible;
 
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;

@@ -17,44 +17,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible.service;
-
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
-
-import org.sacredscripturefoundation.commons.ServiceRequestMessage;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package org.sacredscripture.platform.bible;
 
 /**
- * This class is the request to create a new {@link BookTypeGroup} entity.
- *
  * @author Paul Benedict
- * @see BibleMaintenanceService#add(AddBookTypeGroupRequest)
+ * @see Content#getContentKind()
  * @since Sacred Scripture Platform 1.0
  */
-public final class AddBookTypeGroupRequest extends ServiceRequestMessage {
+public enum ContentKind {
 
-    private String parentCode;
-    private String code;
+    /**
+     * Chapter.
+     */
+    CHAPTER,
 
-    @NotNull
-    @Size(min = 3, max = 3)
-    public String getCode() {
-        return code;
-    }
-
-    @Size(min = 3, max = 3)
-    public String getParentCode() {
-        return parentCode;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
-    }
+    /**
+     * Verse.
+     */
+    VERSE
 
 }

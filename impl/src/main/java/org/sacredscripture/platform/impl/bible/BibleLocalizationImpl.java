@@ -19,8 +19,8 @@
  */
 package org.sacredscripture.platform.impl.bible;
 
-import org.sacredscripture.platform.api.bible.Bible;
-import org.sacredscripture.platform.api.bible.BibleLocalization;
+import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.BibleLocalization;
 import org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable;
 
 import org.sacredscripturefoundation.commons.locale.entity.LocalizedContentEntity;

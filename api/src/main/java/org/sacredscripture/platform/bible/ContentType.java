@@ -17,45 +17,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible.service;
+package org.sacredscripture.platform.bible;
 
-import org.sacredscripture.platform.api.bible.BookType;
-
-import org.sacredscripturefoundation.commons.ServiceRequestMessage;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import org.sacredscripturefoundation.commons.Coded;
+import org.sacredscripturefoundation.commons.entity.Entity;
 
 /**
- * This class is the request to create a new {@link BookType} entity.
+ * This interface defines a {@link Content} in absolute terms.
  *
  * @author Paul Benedict
- * @see BibleMaintenanceService#add(AddBookTypeRequest)
  * @since Sacred Scripture Platform 1.0
  */
-public final class AddBookTypeRequest extends ServiceRequestMessage {
-
-    private String code;
-    private String groupCode;
-
-    @NotNull
-    @Size(min = 3, max = 3)
-    public String getCode() {
-        return code;
-    }
-
-    @NotNull
-    @Size(min = 3, max = 3)
-    public String getGroupCode() {
-        return groupCode;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setGroupCode(String groupCode) {
-        this.groupCode = groupCode;
-    }
-
+public interface ContentType extends Entity<Long>, Coded<String> {
+    // empty
 }

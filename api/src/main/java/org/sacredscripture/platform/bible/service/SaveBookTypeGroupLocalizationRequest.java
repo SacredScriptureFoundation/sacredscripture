@@ -17,9 +17,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible.service;
+package org.sacredscripture.platform.bible.service;
 
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.BookTypeGroup;
 
 import org.sacredscripturefoundation.commons.ServiceRequestMessage;
 

@@ -19,9 +19,9 @@
  */
 package org.sacredscripture.platform.impl.bible;
 
-import org.sacredscripture.platform.api.bible.Book;
-import org.sacredscripture.platform.api.bible.Content;
-import org.sacredscripture.platform.api.bible.ContentType;
+import org.sacredscripture.platform.bible.Book;
+import org.sacredscripture.platform.bible.Content;
+import org.sacredscripture.platform.bible.ContentType;
 import org.sacredscripture.platform.impl.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;

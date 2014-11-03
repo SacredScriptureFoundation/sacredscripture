@@ -17,38 +17,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.impl.bible;
+package org.sacredscripture.platform.bible.service;
 
-import org.sacredscripture.platform.bible.VerseText;
-import org.sacredscripture.platform.impl.DataModel.VerseTextTable;
+import org.sacredscripture.platform.bible.BookType;
 
-import org.sacredscripturefoundation.commons.entity.EntityImpl;
+import org.sacredscripturefoundation.commons.ServiceRequestMessage;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * This class is the stock implementation of {@link VerseText}.
+ * This class is the request to create a new {@link BookType} entity.
  *
  * @author Paul Benedict
+ * @see BibleMaintenanceService#add(AddBookTypeRequest)
  * @since Sacred Scripture Platform 1.0
  */
-@Entity
-@Table(name = VerseTextTable.TABLE_NAME)
-public class VerseTextImpl extends EntityImpl<Long> implements VerseText {
+public final class AddBookTypeRequest extends ServiceRequestMessage {
 
-    @Column(name = VerseTextTable.COLUMN_TEXT)
-    private String text;
+    private String code;
+    private String groupCode;
 
-    @Override
-    public String getText() {
-        return text;
+    @NotNull
+    @Size(min = 3, max = 3)
+    public String getCode() {
+        return code;
     }
 
-    @Override
-    public void setText(String text) {
-        this.text = text;
+    @NotNull
+    @Size(min = 3, max = 3)
+    public String getGroupCode() {
+        return groupCode;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setGroupCode(String groupCode) {
+        this.groupCode = groupCode;
     }
 
 }

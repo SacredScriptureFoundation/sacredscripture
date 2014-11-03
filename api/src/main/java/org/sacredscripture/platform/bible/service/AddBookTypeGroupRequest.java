@@ -17,25 +17,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible.service;
+package org.sacredscripture.platform.bible.service;
+
+import org.sacredscripture.platform.bible.BookTypeGroup;
+
+import org.sacredscripturefoundation.commons.ServiceRequestMessage;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * This service defines batch operations for maintaining the bible system.
+ * This class is the request to create a new {@link BookTypeGroup} entity.
  *
  * @author Paul Benedict
+ * @see BibleMaintenanceService#add(AddBookTypeGroupRequest)
  * @since Sacred Scripture Platform 1.0
  */
-public interface XmlBibleBatchService {
+public final class AddBookTypeGroupRequest extends ServiceRequestMessage {
 
-    /**
-     * Populates the database with the bible canon (book types and groups) laid
-     * out by the specified document. This method is only needed to setup a new
-     * enivronment.
-     * <p>
-     * This method returns immediately. The loading is done as a batch process.
-     *
-     * @param docPath the document path accessible to the server
-     */
-    void loadCanon(String docPath);
+    private String parentCode;
+    private String code;
+
+    @NotNull
+    @Size(min = 3, max = 3)
+    public String getCode() {
+        return code;
+    }
+
+    @Size(min = 3, max = 3)
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
 
 }

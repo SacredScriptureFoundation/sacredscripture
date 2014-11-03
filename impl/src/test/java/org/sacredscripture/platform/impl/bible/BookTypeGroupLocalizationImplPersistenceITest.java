@@ -29,7 +29,7 @@ import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizat
 import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizationTable.COLUMN_LOCALE;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeGroupLocalizationTable.COLUMN_NAME;
 
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.ObjectMother;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;

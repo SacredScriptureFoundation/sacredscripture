@@ -19,10 +19,10 @@
  */
 package org.sacredscripture.platform.impl.bible;
 
-import org.sacredscripture.platform.api.bible.Bible;
-import org.sacredscripture.platform.api.bible.Book;
-import org.sacredscripture.platform.api.bible.BookType;
-import org.sacredscripture.platform.api.bible.Chapter;
+import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.Book;
+import org.sacredscripture.platform.bible.BookType;
+import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.impl.DataModel.BookTable;
 import org.sacredscripture.platform.impl.DataModel.ContentTable;
 

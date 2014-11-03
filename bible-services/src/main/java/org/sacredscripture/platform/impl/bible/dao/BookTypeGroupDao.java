@@ -19,7 +19,7 @@
  */
 package org.sacredscripture.platform.impl.bible.dao;
 
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 
 import org.sacredscripturefoundation.commons.entity.dao.Dao;

@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.bible;
 
 /**
  * This interface provides an associative path from a {@link Bible} to a
@@ -26,10 +26,10 @@ package org.sacredscripture.platform.api.bible;
  * have a chapter, etc.)
  *
  * @author Paul Benedict
- * @see org.sacredscripture.platform.api.bible.Bible
- * @see org.sacredscripture.platform.api.bible.Book
- * @see org.sacredscripture.platform.api.bible.Chapter
- * @see org.sacredscripture.platform.api.bible.Verse
+ * @see org.sacredscripture.platform.bible.Bible
+ * @see org.sacredscripture.platform.bible.Book
+ * @see org.sacredscripture.platform.bible.Chapter
+ * @see org.sacredscripture.platform.bible.Verse
  * @since Sacred Scripture Platform 1.0
  */
 public interface Bookmark {

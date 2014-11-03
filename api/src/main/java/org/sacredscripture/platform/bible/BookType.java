@@ -17,33 +17,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.bible;
+
+import org.sacredscripturefoundation.commons.Coded;
+import org.sacredscripturefoundation.commons.entity.Entity;
+import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
 
 /**
- * This enumeration defines the kinds of ordering a bible may sort its books.
+ * This interface defines a {@link Book} in absolute terms. This is necessary
+ * because some books have been historically titled differently, combined with
+ * other books, or split into smaller books. Because this is to be expected
+ * among bible editions, this type allows tracking books across variations.
+ * <p>
+ * This is a pure lookup entity. All instances can be cached permanently.
  *
  * @author Paul Benedict
+ * @see Book
+ * @see BookTypeLocalization
  * @since Sacred Scripture Platform 1.0
  */
-public enum BookOrdering {
+public interface BookType extends Entity<Long>, LocalizableContainer<BookTypeLocalization>, Coded<String> {
 
     /**
-     * Books are sorted by their canonical listing in their respective edition.
+     * Retrieves the grouping of this type.
+     *
+     * @return the book type group
      */
-    CANON,
+    BookTypeGroup getBookTypeGroup();
 
-    /**
-     * Books are sorted alphabetically by their respective names.
-     */
-    NAME,
-
-    /**
-     * Books are sorted alphabetically by their respective names, but preceding
-     * ordinals are ignored. A Book like "1 John" is less than "2 John", but
-     * both are treated alphabetically like "John" (starting with J). However,
-     * "John" is given the implicit ordinal of zero and is therefore greater
-     * than both.
-     */
-    NAME_ORDINAL_INSENSITIVE;
+    void setBookTypeGroup(BookTypeGroup bookTypeGroup);
 
 }

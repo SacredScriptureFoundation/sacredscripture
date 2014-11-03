@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -17,17 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
-
-import org.sacredscripturefoundation.commons.Coded;
-import org.sacredscripturefoundation.commons.entity.Entity;
 
 /**
- * This interface defines a {@link Content} in absolute terms.
+ * This package contains core definitions to represent a bible edition and
+ * its composition.
  *
- * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface ContentType extends Entity<Long>, Coded<String> {
-    // empty
-}
+package org.sacredscripture.platform.bible;
+

@@ -17,12 +17,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.sacredscripture.platform.bible;
 
 /**
- * This package contains core definitions to represent a bible edition and
- * its composition.
+ * This enumeration defines the kinds of ordering a bible may sort its books.
  *
+ * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-package org.sacredscripture.platform.api.bible;
+public enum BookOrdering {
 
+    /**
+     * Books are sorted by their canonical listing in their respective edition.
+     */
+    CANON,
+
+    /**
+     * Books are sorted alphabetically by their respective names.
+     */
+    NAME,
+
+    /**
+     * Books are sorted alphabetically by their respective names, but preceding
+     * ordinals are ignored. A Book like "1 John" is less than "2 John", but
+     * both are treated alphabetically like "John" (starting with J). However,
+     * "John" is given the implicit ordinal of zero and is therefore greater
+     * than both.
+     */
+    NAME_ORDINAL_INSENSITIVE;
+
+}

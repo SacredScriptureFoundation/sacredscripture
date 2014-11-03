@@ -17,23 +17,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.bible.service;
 
 /**
+ * This service defines batch operations for maintaining the bible system.
+ *
  * @author Paul Benedict
- * @see Content#getContentKind()
  * @since Sacred Scripture Platform 1.0
  */
-public enum ContentKind {
+public interface XmlBibleBatchService {
 
     /**
-     * Chapter.
+     * Populates the database with the bible canon (book types and groups) laid
+     * out by the specified document. This method is only needed to setup a new
+     * enivronment.
+     * <p>
+     * This method returns immediately. The loading is done as a batch process.
+     *
+     * @param docPath the document path accessible to the server
      */
-    CHAPTER,
-
-    /**
-     * Verse.
-     */
-    VERSE
+    void loadCanon(String docPath);
 
 }

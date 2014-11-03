@@ -19,15 +19,15 @@
  */
 package org.sacredscripture.platform.impl.bible.service;
 
-import org.sacredscripture.platform.api.bible.BookType;
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
-import org.sacredscripture.platform.api.bible.BookTypeGroupLocalization;
-import org.sacredscripture.platform.api.bible.BookTypeLocalization;
-import org.sacredscripture.platform.api.bible.service.AddBookTypeGroupRequest;
-import org.sacredscripture.platform.api.bible.service.AddBookTypeRequest;
-import org.sacredscripture.platform.api.bible.service.BibleMaintenanceService;
-import org.sacredscripture.platform.api.bible.service.SaveBookTypeGroupLocalizationRequest;
-import org.sacredscripture.platform.api.bible.service.SaveBookTypeLocalizationRequest;
+import org.sacredscripture.platform.bible.BookType;
+import org.sacredscripture.platform.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
+import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.service.AddBookTypeGroupRequest;
+import org.sacredscripture.platform.bible.service.AddBookTypeRequest;
+import org.sacredscripture.platform.bible.service.BibleMaintenanceService;
+import org.sacredscripture.platform.bible.service.SaveBookTypeGroupLocalizationRequest;
+import org.sacredscripture.platform.bible.service.SaveBookTypeLocalizationRequest;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeImpl;

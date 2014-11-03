@@ -21,9 +21,9 @@ package org.sacredscripture.platform.impl;
 
 import static org.sacredscripturefoundation.commons.test.TestUtils.randomText;
 
-import org.sacredscripture.platform.api.bible.Bible;
-import org.sacredscripture.platform.api.bible.BookType;
-import org.sacredscripture.platform.api.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.BookType;
+import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.impl.bible.BibleImpl;
 import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookImpl;

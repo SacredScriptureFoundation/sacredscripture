@@ -17,44 +17,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.bible;
 
 import org.sacredscripturefoundation.commons.Named;
-
-import java.util.List;
+import org.sacredscripturefoundation.commons.entity.Entity;
+import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
 /**
- * This interface defines a chapter within a bible.
- *
  * @author Paul Benedict
- * @see Book#getChapters()
  * @since Sacred Scripture Platform 1.0
  */
-public interface Chapter extends Content, Named {
+public interface BookTypeGroupLocalization extends Entity<Long>, Named, LocaleProvider {
 
     /**
-     * Retrieves the name of this chapter.
+     * Retrieves the owning group of this localization.
      *
-     * @return the name
-     * @see #setName(String)
+     * @return the group
      */
-    @Override
-    String getName();
+    BookTypeGroup getBookTypeGroup();
 
-    /**
-     * Retrieves the collection of verses that belong to this chapter. The
-     * collection must be sorted according to the index of this edition.
-     *
-     * @return the collection
-     */
-    List<Verse> getVerses();
+    void setBookTypeGroup(BookTypeGroup bookTypeGroup);
 
-    /**
-     * Stores the new for this chapter.
-     *
-     * @param name the name
-     * @see #getName()
-     */
     void setName(String name);
 
 }

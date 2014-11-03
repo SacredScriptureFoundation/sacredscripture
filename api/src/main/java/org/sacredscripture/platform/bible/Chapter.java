@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -17,27 +17,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.api.bible;
+package org.sacredscripture.platform.bible;
 
-import org.sacredscripturefoundation.commons.entity.Entity;
+import org.sacredscripturefoundation.commons.Named;
+
+import java.util.List;
 
 /**
- * This interface defines a long piece of text for a verse.
+ * This interface defines a chapter within a bible.
  *
  * @author Paul Benedict
- * @see Verse#getText()
+ * @see Book#getChapters()
  * @since Sacred Scripture Platform 1.0
  */
-public interface VerseText extends Entity<Long> {
+public interface Chapter extends Content, Named {
 
     /**
-     * Retrieves the text.
+     * Retrieves the name of this chapter.
      *
-     * @return the text
-     * @see #setText(String)
+     * @return the name
+     * @see #setName(String)
      */
-    String getText();
+    @Override
+    String getName();
 
-    void setText(String text);
+    /**
+     * Retrieves the collection of verses that belong to this chapter. The
+     * collection must be sorted according to the index of this edition.
+     *
+     * @return the collection
+     */
+    List<Verse> getVerses();
+
+    /**
+     * Stores the new for this chapter.
+     *
+     * @param name the name
+     * @see #getName()
+     */
+    void setName(String name);
 
 }

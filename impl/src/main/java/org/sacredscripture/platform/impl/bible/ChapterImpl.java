@@ -19,9 +19,9 @@
  */
 package org.sacredscripture.platform.impl.bible;
 
-import org.sacredscripture.platform.api.bible.Chapter;
-import org.sacredscripture.platform.api.bible.ContentKind;
-import org.sacredscripture.platform.api.bible.Verse;
+import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.ContentKind;
+import org.sacredscripture.platform.bible.Verse;
 import org.sacredscripture.platform.impl.DataModel.ContentTable;
 
 import java.util.LinkedList;
