@@ -70,6 +70,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>4.3.7.Final</version>
+      </dependency>
 
       <!-- Test support -->
       <dependency>
