@@ -70,6 +70,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.sacredscripturefoundation.commons</groupId>
       <artifactId>ssf-commons-test</artifactId>
       <scope>test</scope>
