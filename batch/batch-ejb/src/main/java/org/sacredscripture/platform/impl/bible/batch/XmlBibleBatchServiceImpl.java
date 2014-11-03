@@ -21,12 +21,15 @@ package org.sacredscripture.platform.impl.bible.batch;
 
 import org.sacredscripture.platform.bible.service.XmlBibleBatchService;
 
+import java.util.Objects;
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
 import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * This class is the stock implementation of {@link XmlBibleBatchService}.
@@ -34,21 +37,25 @@ import javax.ejb.Startup;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-// EJB
 @Singleton
 @Startup
 public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
 
+    private static final Logger log = LogManager.getLogger(XmlBibleBatchServiceImpl.class);
+    private static final String JOB_NAME_LOAD_CANON = "load-canon";
+    private static final String MSG_STARTING_JOB = "Starting batch job %s";
+
     @Override
     public void loadCanon(String docPath) {
+        Objects.requireNonNull(docPath);
+
+        // Prepare job parameters
         Properties props = new Properties();
         props.setProperty(LoadCanonBatchlet.PARAMETER_DOC_PATH, docPath);
-        BatchRuntime.getJobOperator().start("load-canon", props);
-    }
 
-    @PostConstruct
-    private void shit() {
-        loadCanon("c:/Users/Paul/git/sacredscripture/src/xml/canon.xml");
+        // Start job
+        log.info(String.format(MSG_STARTING_JOB, JOB_NAME_LOAD_CANON));
+        BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_CANON, props);
     }
 
 }
