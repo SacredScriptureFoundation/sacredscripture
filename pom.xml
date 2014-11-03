@@ -56,9 +56,10 @@
   
   <modules>
     <module>api</module>
-    <module>impl</module>
     <module>xml</module>
+    <module>impl</module>
     <module>bible-services</module>
+    <module>batch</module>
   </modules>
 
   <dependencyManagement>

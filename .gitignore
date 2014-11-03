@@ -9,3 +9,6 @@ api/target
 impl/target
 xml/target
 bible-services/target
+batch/target
+batch/batch-ear/target
+batch/batch-ejb/target
