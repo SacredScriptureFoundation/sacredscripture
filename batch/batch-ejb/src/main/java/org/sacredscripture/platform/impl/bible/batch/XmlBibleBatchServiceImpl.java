@@ -43,7 +43,7 @@ public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
 
     private static final Logger log = LogManager.getLogger(XmlBibleBatchServiceImpl.class);
     private static final String JOB_NAME_LOAD_CANON = "load-canon";
-    private static final String MSG_STARTING_JOB = "Starting batch job %s";
+    private static final String LOG_MSG_STARTING_JOB = "Starting batch job \"%s\"";
 
     @Override
     public void loadCanon(String docPath) {
@@ -54,7 +54,7 @@ public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
         props.setProperty(LoadCanonBatchlet.PARAMETER_DOC_PATH, docPath);
 
         // Start job
-        log.info(String.format(MSG_STARTING_JOB, JOB_NAME_LOAD_CANON));
+        log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_CANON));
         BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_CANON, props);
     }
 

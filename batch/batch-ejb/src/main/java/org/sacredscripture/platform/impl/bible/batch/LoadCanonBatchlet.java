@@ -30,7 +30,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import javax.batch.api.Batchlet;
+import javax.batch.api.AbstractBatchlet;
 import javax.batch.runtime.BatchRuntime;
 import javax.batch.runtime.context.JobContext;
 import javax.ejb.EJB;
@@ -39,14 +39,21 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 @Dependent
 @Named("LoadCanonBatchlet")
-public class LoadCanonBatchlet implements Batchlet {
+public class LoadCanonBatchlet extends AbstractBatchlet {
 
     /**
      * Batch parameter specifying the XML document path.
      */
     public static final String PARAMETER_DOC_PATH = "docPath";
+
+    private static final Logger log = LogManager.getLogger(LoadCanonBatchlet.class);
+    private static final String LOG_MSG_CREATING_BOOK = "Creating book \"%s\" in group \"%s\"";
+    private static final String LOG_MSG_CREATING_GROUP = "Creating group \"%s\" under parent \"%s\"";
 
     @Inject
     JobContext jobContext;
@@ -54,24 +61,28 @@ public class LoadCanonBatchlet implements Batchlet {
     @EJB
     private BibleMaintenanceService service;
 
-    private void createBookType(XmlBookType b, XmlGroupType group) {
+    private void createBookType(XmlBookType book, XmlGroupType group) {
+        log.debug(String.format(LOG_MSG_CREATING_BOOK, book.getCode().value(), group.getCode()));
         AddBookTypeRequest req = new AddBookTypeRequest();
-        req.setCode(b.getCode().value());
+        req.setCode(book.getCode().value());
         req.setGroupCode(group.getCode());
         service.add(req);
     }
 
-    private void createGroup(List<XmlGroupType> groups, String parentCode) {
-        for (XmlGroupType g : groups) {
-            AddBookTypeGroupRequest req = new AddBookTypeGroupRequest();
-            req.setCode(g.getCode());
-            req.setParentCode(parentCode);
-            service.add(req);
+    private void createGroup(XmlGroupType group, String parentCode) {
+        log.debug(String.format(LOG_MSG_CREATING_GROUP, group.getCode(), parentCode));
+        AddBookTypeGroupRequest req = new AddBookTypeGroupRequest();
+        req.setCode(group.getCode());
+        req.setParentCode(parentCode);
+        service.add(req);
+    }
 
-            createGroup(g.getGroup(), g.getCode());
-
-            for (XmlBookType xmlBookType : g.getBook()) {
-                createBookType(xmlBookType, g);
+    private void createGroups(List<XmlGroupType> groups, String parentCode) {
+        for (XmlGroupType group : groups) {
+            createGroup(group, parentCode);
+            createGroups(group.getGroup(), group.getCode());
+            for (XmlBookType book : group.getBook()) {
+                createBookType(book, group);
             }
         }
     }
@@ -82,13 +93,8 @@ public class LoadCanonBatchlet implements Batchlet {
         File f = new File(params.getProperty(PARAMETER_DOC_PATH));
         JAXBContext jc = JAXBContext.newInstance(XmlCanon.class);
         XmlCanon canon = (XmlCanon) jc.createUnmarshaller().unmarshal(f);
-        createGroup(canon.getGroup(), null);
+        createGroups(canon.getGroup(), null);
         return "SUCCESS";
-    }
-
-    @Override
-    public void stop() throws Exception {
-        // TODO
     }
 
 }

@@ -28,9 +28,26 @@
       <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %-5p %m%n"/>
     </layout>
   </appender>
+  
+  <appender name="sqllog" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="${jboss.server.log.dir}/batch/batch-sql.log"/>
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %m%n"/>
+    </layout>
+  </appender>
+
+  <logger name="org.sacredscripture">
+    <level value="debug" />
+  </logger>
+
+  <logger name="org.hibernate.SQL" additivity="false">
+    <level value="debug"/>
+    <appender-ref ref="sqllog"/>
+  </logger>
 
   <root>
-    <priority value="INFO"/>
+    <priority value="info" />
     <appender-ref ref="applog"/>
   </root>
 
