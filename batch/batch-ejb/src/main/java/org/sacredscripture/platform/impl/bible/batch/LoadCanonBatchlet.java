@@ -42,6 +42,13 @@ import javax.xml.bind.JAXBContext;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ * This class is the batchlet that populates the canon from XML.
+ *
+ * @author Paul Benedict
+ * @see XmlCanon
+ * @since Sacred Scripture Platform 1.0
+ */
 @Dependent
 @Named("LoadCanonBatchlet")
 public class LoadCanonBatchlet extends AbstractBatchlet {
