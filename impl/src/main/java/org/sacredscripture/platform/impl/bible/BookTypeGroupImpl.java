@@ -98,6 +98,12 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     }
 
     @Override
+    public void addLocalizedContent(BookTypeGroupLocalization content) {
+        content.setBookTypeGroup(this);
+        super.addLocalizedContent(content);
+    }
+
+    @Override
     public List<BookType> getBookTypes() {
         if (bookTypes == null) {
             bookTypes = new LinkedList<>();

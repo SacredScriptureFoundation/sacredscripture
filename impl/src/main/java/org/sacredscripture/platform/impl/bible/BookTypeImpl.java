@@ -65,6 +65,12 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     private Map<Locale, BookTypeLocalization> localizedContents;
 
     @Override
+    public void addLocalizedContent(BookTypeLocalization content) {
+        super.addLocalizedContent(content);
+        content.setBookType(this);
+    }
+
+    @Override
     public BookTypeGroup getBookTypeGroup() {
         return bookTypeGroup;
     }
@@ -82,6 +88,7 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
         return localizedContents;
     }
 
+    @Override
     public void setBookTypeGroup(BookTypeGroup bookTypeGroup) {
         this.bookTypeGroup = bookTypeGroup;
     }

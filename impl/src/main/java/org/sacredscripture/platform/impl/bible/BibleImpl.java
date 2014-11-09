@@ -75,8 +75,14 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Override
     public void addBook(Book book) {
         Objects.requireNonNull(book);
-        books.add(book);
         book.setBible(this);
+        books.add(book);
+    }
+
+    @Override
+    public void addLocalizedContent(BibleLocalization content) {
+        content.setBible(this);
+        super.addLocalizedContent(content);
     }
 
     @Override

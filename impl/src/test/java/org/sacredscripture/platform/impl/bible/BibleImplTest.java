@@ -64,11 +64,20 @@ public class BibleImplTest {
         BookImpl book = new BookImpl();
         bible.addBook(book);
         assertSame(book, bible.getBooks().get(0));
+        assertSame(bible, book.getBible());
     }
 
     @Test(expected = NullPointerException.class)
     public void testAddBookNull() {
         bible.addBook(null);
+    }
+
+    @Test
+    public void testAddLocalizedContent() {
+        BibleLocalizationImpl loc = new BibleLocalizationImpl();
+        loc.setLocale(Locale.ENGLISH);
+        bible.addLocalizedContent(loc);
+        assertSame(bible, loc.getBible());
     }
 
     @Test
