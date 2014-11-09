@@ -41,6 +41,15 @@
         </nameXmlTransform>
       </schemaBindings>
     </bindings>
+    <bindings node="//xs:element[@name='bible']//xs:element[@name='book']">
+      <property name="books" />
+    </bindings>
+    <bindings node="//xs:complexType[@name='BookType']//xs:element[@name='chapter']">
+      <property name="chapters" />
+    </bindings>
+    <bindings node="//xs:complexType[@name='ChapterType']//xs:element[@name='verse']">
+      <property name="verses" />
+    </bindings>
   </bindings>
 
   <bindings schemaLocation="../xsd/canon-1.0.xsd">
@@ -59,6 +68,15 @@
         </nameXmlTransform>
       </schemaBindings>
     </bindings>
+    <bindings node="//xs:element[@name='canon']//xs:element[@name='group']">
+      <property name="groups" />
+    </bindings>
+    <bindings node="//xs:complexType[@name='GroupType']//xs:element[@name='group']">
+      <property name="groups" />
+    </bindings>
+    <bindings node="//xs:complexType[@name='GroupType']//xs:element[@name='book']">
+      <property name="books" />
+    </bindings>
   </bindings>
 
   <bindings schemaLocation="../xsd/nls-1.0.xsd">
@@ -76,6 +94,18 @@
           <elementName prefix="Xml" />
         </nameXmlTransform>
       </schemaBindings>
+    </bindings>
+    <bindings node="//xs:element[@name='nls']//xs:element[@name='group']">
+      <property name="groups" />
+    </bindings>
+    <bindings node="//xs:element[@name='nls']//xs:element[@name='book']">
+      <property name="books" />
+    </bindings>
+    <bindings node="//xs:complexType[@name='BookType']//xs:element[@name='localization']">
+      <property name="localizations" />
+    </bindings>
+    <bindings node="//xs:complexType[@name='GroupType']//xs:element[@name='localization']">
+      <property name="localizations" />
     </bindings>
   </bindings>
 
