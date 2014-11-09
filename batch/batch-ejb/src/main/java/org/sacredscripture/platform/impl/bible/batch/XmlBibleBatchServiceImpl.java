@@ -43,6 +43,7 @@ public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
 
     private static final Logger log = LogManager.getLogger(XmlBibleBatchServiceImpl.class);
     private static final String JOB_NAME_LOAD_CANON = "load-canon";
+    private static final String JOB_NAME_LOAD_LOCALIZATIONS = "load-localizations";
     private static final String LOG_MSG_STARTING_JOB = "Starting batch job \"%s\"";
 
     @Override
@@ -56,6 +57,22 @@ public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
         // Start job
         log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_CANON));
         BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_CANON, props);
+    }
+
+    @Override
+    public void loadLocalizations(String docPath, String langCode) {
+        Objects.requireNonNull(docPath);
+
+        // Prepare job parameters
+        Properties props = new Properties();
+        props.setProperty(LoadLocalizationsBatchlet.PARAMETER_DOC_PATH, docPath);
+        if (langCode != null) {
+            props.setProperty(LoadLocalizationsBatchlet.PARAMETER_LANG_CODE, langCode);
+        }
+
+        // Start job
+        log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_LOCALIZATIONS));
+        BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_LOCALIZATIONS, props);
     }
 
 }

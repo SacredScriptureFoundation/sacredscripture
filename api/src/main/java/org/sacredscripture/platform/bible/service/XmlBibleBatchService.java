@@ -20,7 +20,8 @@
 package org.sacredscripture.platform.bible.service;
 
 /**
- * This service defines batch operations for maintaining the bible system.
+ * This service defines batch operations for maintaining the bible system. All
+ * methods return immediately; the processing is done as a background job.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
@@ -31,11 +32,22 @@ public interface XmlBibleBatchService {
      * Populates the database with the bible canon (book types and groups) laid
      * out by the specified document. This method is only needed to setup a new
      * enivronment.
-     * <p>
-     * This method returns immediately. The loading is done as a batch process.
      *
      * @param docPath the document path accessible to the server
+     * @throws NullPointerException if {@code docPath} is {@code null}
      */
     void loadCanon(String docPath);
+
+    /**
+     * Populates the datbaase with the canon localizations laid out by the
+     * specified document. Existing localizations are updated. All localizations
+     * are loaded unless the {@code langCode} parameter is not {@code null}.
+     *
+     * @param docPath the document path accessible to the server
+     * @param langCode the language code to process only or {@code null} for all
+     * languages
+     * @throws NullPointerException if any parameter is {@code null}
+     */
+    void loadLocalizations(String docPath, String langCode);
 
 }
