@@ -87,8 +87,8 @@ public class LoadCanonBatchlet extends AbstractBatchlet {
     private void createGroups(List<XmlGroupType> groups, String parentCode) {
         for (XmlGroupType group : groups) {
             createGroup(group, parentCode);
-            createGroups(group.getGroup(), group.getCode());
-            for (XmlBookType book : group.getBook()) {
+            createGroups(group.getGroups(), group.getCode());
+            for (XmlBookType book : group.getBooks()) {
                 createBookType(book, group);
             }
         }
@@ -100,7 +100,7 @@ public class LoadCanonBatchlet extends AbstractBatchlet {
         File f = new File(params.getProperty(PARAMETER_DOC_PATH));
         JAXBContext jc = JAXBContext.newInstance(XmlCanon.class);
         XmlCanon canon = (XmlCanon) jc.createUnmarshaller().unmarshal(f);
-        createGroups(canon.getGroup(), null);
+        createGroups(canon.getGroups(), null);
         return "SUCCESS";
     }
 
