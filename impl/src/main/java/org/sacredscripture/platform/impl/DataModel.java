@@ -94,6 +94,7 @@ public final class DataModel {
         public static final String COLUMN_ABBREVIATION1 = "abbreviation1";
         public static final String COLUMN_ABBREVIATION2 = "abbreviation2";
         public static final String COLUMN_ABBREVIATION3 = "abbreviation3";
+        public static final String COLUMN_ABBREVIATION4 = "abbreviation4";
         public static final String COLUMN_BOOK_TYPE_ID = "book_type_id";
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_LOCALE = "locale_lang";

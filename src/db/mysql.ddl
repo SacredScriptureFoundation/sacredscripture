@@ -102,6 +102,7 @@ book_type_loc
     abbreviation1   VARCHAR(10) NOT NULL,
     abbreviation2   VARCHAR(10),
     abbreviation3   VARCHAR(10),
+    abbreviation4   VARCHAR(10),
     PRIMARY KEY (id),
     CONSTRAINT book_type_loc_ix01fk FOREIGN KEY (book_type_id) REFERENCES book_type (id),
     CONSTRAINT book_type_loc_ix02uq UNIQUE (book_type_id, locale_lang)

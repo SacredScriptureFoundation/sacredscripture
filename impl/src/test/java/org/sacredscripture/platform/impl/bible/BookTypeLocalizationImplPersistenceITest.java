@@ -27,6 +27,7 @@ import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_UPDATED;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_ABBREVIATION1;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_ABBREVIATION2;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_ABBREVIATION3;
+import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_ABBREVIATION4;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_BOOK_TYPE_ID;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_ID;
 import static org.sacredscripture.platform.impl.DataModel.BookTypeLocalizationTable.COLUMN_LOCALE;
@@ -72,6 +73,7 @@ public class BookTypeLocalizationImplPersistenceITest extends AbstractSpringJpaI
         assertEquals(loc.getAbbreviations().get(0), rs.getString(COLUMN_ABBREVIATION1));
         assertEquals(loc.getAbbreviations().get(1), rs.getString(COLUMN_ABBREVIATION2));
         assertEquals(loc.getAbbreviations().get(2), rs.getString(COLUMN_ABBREVIATION3));
+        assertEquals(loc.getAbbreviations().get(3), rs.getString(COLUMN_ABBREVIATION4));
         assertEquals(loc.getBookType().getId().longValue(), rs.getLong(COLUMN_BOOK_TYPE_ID));
         assertEquals(loc.getName(), rs.getString(COLUMN_NAME));
         assertEquals(loc.getLocale(), Locale.forLanguageTag(rs.getString(COLUMN_LOCALE)));

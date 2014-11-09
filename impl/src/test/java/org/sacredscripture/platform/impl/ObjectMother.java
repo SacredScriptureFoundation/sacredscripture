@@ -95,9 +95,9 @@ public final class ObjectMother {
 
     public static BookTypeLocalizationImpl newBookTypeLocalization(BookType t) {
         BookTypeLocalizationImpl loc = new BookTypeLocalizationImpl();
-        loc.addAbbreviation(randomText());
-        loc.addAbbreviation(randomText());
-        loc.addAbbreviation(randomText());
+        for (int i = 1; i <= 4; i++) {
+            loc.addAbbreviation(randomText());
+        }
         loc.setBookType(t);
         loc.setLocale(Locale.ENGLISH);
         loc.setName(randomText());

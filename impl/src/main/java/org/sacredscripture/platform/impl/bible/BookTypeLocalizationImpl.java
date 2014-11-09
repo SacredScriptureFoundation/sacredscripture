@@ -69,6 +69,9 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
     @Column(name = BookTypeLocalizationTable.COLUMN_ABBREVIATION3)
     private String abbreviation3;
 
+    @Column(name = BookTypeLocalizationTable.COLUMN_ABBREVIATION4)
+    private String abbreviation4;
+
     @Transient
     private List<String> abbreviations;
 
@@ -80,8 +83,10 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
             abbreviation2 = abbreviation;
         } else if (abbreviation3 == null) {
             abbreviation3 = abbreviation;
+        } else if (abbreviation4 == null) {
+            abbreviation4 = abbreviation;
         } else {
-            throw new IllegalArgumentException("Only 3 abbreviations supported");
+            throw new IllegalArgumentException("Only 4 abbreviations supported");
         }
         rebuildAbbreviationList();
     }
@@ -108,13 +113,16 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
 
     @PostConstruct
     private void rebuildAbbreviationList() {
-        List<String> list = new ArrayList<>(3);
+        List<String> list = new ArrayList<>(4);
         list.add(abbreviation1);
         if (abbreviation2 != null) {
             list.add(abbreviation2);
         }
         if (abbreviation3 != null) {
             list.add(abbreviation3);
+        }
+        if (abbreviation4 != null) {
+            list.add(abbreviation4);
         }
         abbreviations = Collections.unmodifiableList(list);
     }
@@ -124,6 +132,7 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
         abbreviation1 = null;
         abbreviation2 = null;
         abbreviation3 = null;
+        abbreviation4 = null;
         if (abbreviations != null) {
             for (String abbr : abbreviations) {
                 addAbbreviation(abbr);
