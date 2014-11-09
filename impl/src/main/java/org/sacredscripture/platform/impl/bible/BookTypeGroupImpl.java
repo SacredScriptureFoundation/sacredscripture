@@ -60,7 +60,7 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
     // TODO OrderColumn for canonical order in group
     private List<BookType> bookTypes;
 
-    @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = BookTypeGroupLocalizationImpl.class, mappedBy = "bookTypeGroup", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = BookTypeGroupLocalizationTable.COLUMN_BOOK_TYPE_GROUP_ID)
     @MapKey(name = "locale")
     private Map<Locale, BookTypeGroupLocalization> localizedContents;

@@ -76,6 +76,7 @@ public class BookTypeImplPersistenceITest extends AbstractSpringJpaIntegrationTe
         em.persist(g);
         em.persist(t);
         assertNotTransient(loc);
+        em.flush();
     }
 
 }

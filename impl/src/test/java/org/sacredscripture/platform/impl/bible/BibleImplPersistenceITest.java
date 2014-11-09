@@ -74,6 +74,7 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertTransient(loc);
         em.persist(b);
         assertNotTransient(loc);
+        em.flush();
     }
 
 }

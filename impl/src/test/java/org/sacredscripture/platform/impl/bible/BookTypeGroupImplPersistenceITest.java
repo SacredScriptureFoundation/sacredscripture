@@ -103,6 +103,7 @@ public class BookTypeGroupImplPersistenceITest extends AbstractSpringJpaIntegrat
         assertTransient(loc);
         em.persist(g);
         assertNotTransient(loc);
+        em.flush();
     }
 
 }
