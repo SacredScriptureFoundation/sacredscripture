@@ -19,6 +19,7 @@
  */
 package org.sacredscripture.platform.bible;
 
+import org.sacredscripturefoundation.commons.Coded;
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleProvider;
@@ -34,7 +35,7 @@ import java.util.Locale;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalization>, LocaleProvider, Named {
+public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalization>, Coded<String>, LocaleProvider, Named {
 
     /**
      * Adds the specified book to this bible edition. In turn, the book's bible
@@ -121,6 +122,8 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
      * @see #setRightToLeftReading(boolean)
      */
     boolean isRightToLeftReading();
+
+    void setCode(String code);
 
     /**
      * Stores the new native locale for this bible edition.

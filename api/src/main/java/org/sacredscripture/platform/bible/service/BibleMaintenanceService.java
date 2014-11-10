@@ -19,6 +19,7 @@
  */
 package org.sacredscripture.platform.bible.service;
 
+import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
@@ -56,6 +57,8 @@ public interface BibleMaintenanceService {
      * @see #save(SaveBookTypeLocalizationRequest)
      */
     BookType add(AddBookTypeRequest req);
+
+    Bible save(SaveBibleRequest req);
 
     /**
      * Inserts or updates the localized data for the specified group.

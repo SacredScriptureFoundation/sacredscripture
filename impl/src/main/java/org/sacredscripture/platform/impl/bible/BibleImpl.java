@@ -56,6 +56,9 @@ import javax.persistence.Table;
 @Table(name = BibleTable.TABLE_NAME)
 public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implements Bible {
 
+    @Column(name = BibleTable.COLUMN_CODE)
+    private String code;
+
     @Convert(converter = LocaleLanguageConverter.class)
     @Column(name = BibleTable.COLUMN_LOCALE)
     private Locale locale;
@@ -99,6 +102,11 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     }
 
     @Override
+    public final String getCode() {
+        return code;
+    }
+
+    @Override
     public String getCopyrightNotice() {
         return localize(getLocale()).getCopyrightNotice();
     }
@@ -137,6 +145,11 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Override
     public boolean isRightToLeftReading() {
         return rightToLeftReading;
+    }
+
+    @Override
+    public final void setCode(String code) {
+        this.code = code;
     }
 
     @Override

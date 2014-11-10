@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_CREATED;
 import static org.sacredscripture.platform.impl.DataModel.AUDIT_COLUMN_UPDATED;
 import static org.sacredscripture.platform.impl.DataModel.BibleLocalizationTable.COLUMN_ID;
+import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_CODE;
 import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_LOCALE;
 import static org.sacredscripture.platform.impl.DataModel.BibleTable.COLUMN_RTOL;
 
@@ -59,6 +60,7 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertNotNull(rs.getDate(AUDIT_COLUMN_CREATED));
         assertNotNull(rs.getDate(AUDIT_COLUMN_UPDATED));
         assertEquals(b.getId().longValue(), rs.getLong(COLUMN_ID));
+        assertEquals(b.getCode(), rs.getString(COLUMN_CODE));
         assertEquals(b.getLocale(), Locale.forLanguageTag(rs.getString(COLUMN_LOCALE)));
         assertEquals(b.isRightToLeftReading(), rs.getBoolean(COLUMN_RTOL));
     }
