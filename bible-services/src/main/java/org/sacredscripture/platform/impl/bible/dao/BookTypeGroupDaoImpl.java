@@ -24,7 +24,6 @@ import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
@@ -42,11 +41,7 @@ public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, Long> implem
     public BookTypeGroup findByCode(String code) {
         TypedQuery<BookTypeGroup> q = newNamedQuery(NQ_FIND_BY_CODE);
         q.setParameter("code", code.toUpperCase());
-        try {
-            return q.getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
+        return queryForSingleResult(q);
     }
 
 }
