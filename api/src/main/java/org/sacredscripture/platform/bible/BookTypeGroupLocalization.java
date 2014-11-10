@@ -23,6 +23,8 @@ import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
+import java.util.Locale;
+
 /**
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
@@ -37,6 +39,14 @@ public interface BookTypeGroupLocalization extends Entity<Long>, Named, LocalePr
     BookTypeGroup getBookTypeGroup();
 
     void setBookTypeGroup(BookTypeGroup bookTypeGroup);
+
+    /**
+     * Stores the new locale for this localization.
+     *
+     * @param locale the locale
+     * @see #getLocale()
+     */
+    void setLocale(Locale locale);
 
     void setName(String name);
 

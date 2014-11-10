@@ -23,6 +23,8 @@ import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
+import java.util.Locale;
+
 /**
  * This interface defines the properties of a {@link Bible} that must be
  * translated into each supported locale.
@@ -105,6 +107,14 @@ public interface BibleLocalization extends Entity<Long>, Named, LocaleProvider {
      * @see #getLicense()
      */
     void setLicense(String license);
+
+    /**
+     * Stores the new locale for this localization.
+     *
+     * @param locale the locale
+     * @see #getLocale()
+     */
+    void setLocale(Locale locale);
 
     /**
      * Stores the new name for this localization.

@@ -24,6 +24,7 @@ import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This interface defines the properties of a {@link BookType} that must be
@@ -88,6 +89,14 @@ public interface BookTypeLocalization extends Entity<Long>, Named, LocaleProvide
      * @see #getBookType()
      */
     void setBookType(BookType type);
+
+    /**
+     * Stores the new locale for this localization.
+     *
+     * @param locale the locale
+     * @see #getLocale()
+     */
+    void setLocale(Locale locale);
 
     /**
      * Stores the common name of this localization.
