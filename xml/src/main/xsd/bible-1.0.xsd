@@ -51,17 +51,17 @@
       </element>
       <element name="name" type="string">
         <annotation>
-          <documentation>Common name of the bible edition (e.g., King James Version).</documentation>
+          <documentation>Common name of the bible edition (e.g., "King James Version").</documentation>
         </annotation>
       </element>
       <element name="abbreviation" type="string">
         <annotation>
-          <documentation>Primary abbreviation of the bible edition (e.g., KJV).</documentation>
+          <documentation>Primary abbreviation of the bible edition (e.g., "KJV").</documentation>
         </annotation>
       </element>
       <element name="title" type="string">
         <annotation>
-          <documentation>Long description of the bible (e.g., The Holy Bible).</documentation>
+          <documentation>Long description of the bible (e.g., "The Holy Bible").</documentation>
         </annotation>
       </element>
       <element name="book" type="bible:BookType" maxOccurs="unbounded">
@@ -70,6 +70,11 @@
         </annotation>
       </element>
     </sequence>
+    <attribute name="code" type="string" use="required">
+      <annotation>
+        <documentation>Internal code to uniquely identify this bible edition (e.g., "kjv").</documentation>
+      </annotation>
+    </attribute>
   </complexType>
   
   <complexType name="BookType">
