@@ -49,17 +49,16 @@ import javax.transaction.Transactional;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-// EJB
 @Singleton
 @Transactional
 @Local(BibleMaintenanceService.class)
 public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
     @Inject
-    BookTypeDao bookTypeDao;
+    private BookTypeDao bookTypeDao;
 
     @Inject
-    BookTypeGroupDao groupDao;
+    private BookTypeGroupDao groupDao;
 
     @Override
     public BookTypeGroup add(AddBookTypeGroupRequest req) {
@@ -119,10 +118,9 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         BookTypeGroupLocalization loc = group.getLocalizedContents().get(req.getLocale());
         if (loc == null) {
-            BookTypeGroupLocalizationImpl newLoc = new BookTypeGroupLocalizationImpl();
-            newLoc.setLocale(req.getLocale());
-            group.addLocalizedContent(newLoc);
-            loc = newLoc;
+            loc = new BookTypeGroupLocalizationImpl();
+            loc.setLocale(req.getLocale());
+            group.addLocalizedContent(loc);
         }
 
         // Update properties
