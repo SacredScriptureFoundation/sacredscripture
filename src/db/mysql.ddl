@@ -25,7 +25,8 @@ bible
     code          CHAR(10) NOT NULL,
     locale_lang   CHAR(2) NOT NULL,
     rtol          BIT NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CONSTRAINT bible_ix01fk UNIQUE (code)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
