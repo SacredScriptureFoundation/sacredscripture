@@ -54,14 +54,14 @@
           <documentation>Common name of the bible edition (e.g., "King James Version").</documentation>
         </annotation>
       </element>
-      <element name="abbreviation" type="string">
-        <annotation>
-          <documentation>Primary abbreviation of the bible edition (e.g., "KJV").</documentation>
-        </annotation>
-      </element>
       <element name="title" type="string">
         <annotation>
           <documentation>Long description of the bible (e.g., "The Holy Bible").</documentation>
+        </annotation>
+      </element>
+      <element name="abbreviation" type="string">
+        <annotation>
+          <documentation>Primary abbreviation of the bible edition (e.g., "KJV").</documentation>
         </annotation>
       </element>
       <element name="book" type="bible:BookType" maxOccurs="unbounded">
