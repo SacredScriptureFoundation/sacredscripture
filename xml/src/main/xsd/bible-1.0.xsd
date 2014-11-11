@@ -64,6 +64,16 @@
           <documentation>Primary abbreviation of the bible edition (e.g., "KJV").</documentation>
         </annotation>
       </element>
+      <element name="copyright" type="string">
+        <annotation>
+          <documentation>Copyright of the bible edition.</documentation>
+        </annotation>
+      </element>
+      <element name="license" type="string">
+        <annotation>
+          <documentation>License of the bible edition.</documentation>
+        </annotation>
+      </element>
       <element name="book" type="bible:BookType" maxOccurs="unbounded">
         <annotation>
           <documentation>Set of books in the bible edition.</documentation>

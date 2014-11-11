@@ -41,7 +41,7 @@
         </nameXmlTransform>
       </schemaBindings>
     </bindings>
-    <bindings node="//xs:element[@name='bible']//xs:element[@name='book']">
+    <bindings node="//xs:complexType[@name='BibleType']//xs:element[@name='book']">
       <property name="books" />
     </bindings>
     <bindings node="//xs:complexType[@name='BookType']//xs:element[@name='chapter']">
