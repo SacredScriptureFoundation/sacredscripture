@@ -29,6 +29,15 @@ package org.sacredscripture.platform.bible.service;
 public interface XmlBibleBatchService {
 
     /**
+     * Populates the database with the bible edition laid out by the specified
+     * document.
+     *
+     * @param docPath the document path accessible to the server
+     * @throws NullPointerException if {@code docPath} is {@code null}
+     */
+    void loadBible(String docPath);
+
+    /**
      * Populates the database with the bible canon (book types and groups) laid
      * out by the specified document. This method is only needed to setup a new
      * enivronment.

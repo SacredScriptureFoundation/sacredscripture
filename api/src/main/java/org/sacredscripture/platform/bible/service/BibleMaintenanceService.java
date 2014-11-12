@@ -58,6 +58,20 @@ public interface BibleMaintenanceService {
      */
     BookType add(AddBookTypeRequest req);
 
+    /**
+     * Retrieves the bible by the specified internal code.
+     *
+     * @param bibleCode the internal bible code
+     * @return the found bible or {@code null}
+     */
+    Bible findBibleByCode(String bibleCode);
+
+    /**
+     * Inserts of updates the bible and its default localized data.
+     *
+     * @param req the request message
+     * @return the new or updated bible
+     */
     Bible save(SaveBibleRequest req);
 
     /**

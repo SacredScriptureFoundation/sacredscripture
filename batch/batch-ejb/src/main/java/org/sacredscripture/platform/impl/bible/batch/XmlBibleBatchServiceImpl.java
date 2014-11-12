@@ -42,9 +42,23 @@ import org.apache.log4j.Logger;
 public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
 
     private static final Logger log = LogManager.getLogger(XmlBibleBatchServiceImpl.class);
+    private static final String JOB_NAME_LOAD_BIBLE = "load-bible";
     private static final String JOB_NAME_LOAD_CANON = "load-canon";
     private static final String JOB_NAME_LOAD_LOCALIZATIONS = "load-localizations";
     private static final String LOG_MSG_STARTING_JOB = "Starting batch job \"%s\"";
+
+    @Override
+    public void loadBible(String docPath) {
+        Objects.requireNonNull(docPath);
+
+        // Prepare job parameters
+        Properties props = new Properties();
+        props.setProperty(LoadBibleBatchlet.PARAMETER_DOC_PATH, docPath);
+
+        // Start job
+        log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_BIBLE));
+        BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_BIBLE, props);
+    }
 
     @Override
     public void loadCanon(String docPath) {

@@ -19,6 +19,8 @@
  */
 package org.sacredscripture.platform.impl.bible.service;
 
+import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.BibleLocalization;
 import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
@@ -26,17 +28,23 @@ import org.sacredscripture.platform.bible.BookTypeLocalization;
 import org.sacredscripture.platform.bible.service.AddBookTypeGroupRequest;
 import org.sacredscripture.platform.bible.service.AddBookTypeRequest;
 import org.sacredscripture.platform.bible.service.BibleMaintenanceService;
+import org.sacredscripture.platform.bible.service.SaveBibleRequest;
 import org.sacredscripture.platform.bible.service.SaveBookTypeGroupLocalizationRequest;
 import org.sacredscripture.platform.bible.service.SaveBookTypeLocalizationRequest;
+import org.sacredscripture.platform.impl.bible.BibleImpl;
+import org.sacredscripture.platform.impl.bible.BibleLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeImpl;
 import org.sacredscripture.platform.impl.bible.BookTypeLocalizationImpl;
+import org.sacredscripture.platform.impl.bible.dao.BibleDao;
 import org.sacredscripture.platform.impl.bible.dao.BookTypeDao;
 import org.sacredscripture.platform.impl.bible.dao.BookTypeGroupDao;
 
 import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
+
+import java.util.Objects;
 
 import javax.ejb.Local;
 import javax.ejb.Singleton;
@@ -53,6 +61,9 @@ import javax.transaction.Transactional;
 @Transactional
 @Local(BibleMaintenanceService.class)
 public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
+
+    @Inject
+    private BibleDao bibleDao;
 
     @Inject
     private BookTypeDao bookTypeDao;
@@ -107,6 +118,41 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         bookTypeDao.insert(bookType);
 
         return bookType;
+    }
+
+    @Override
+    public Bible findBibleByCode(String bibleCode) {
+        Objects.requireNonNull(bibleCode);
+        return bibleDao.findByCode(bibleCode);
+    }
+
+    @Override
+    public Bible save(SaveBibleRequest req) {
+        // Find or create the bible
+        Bible bible = bibleDao.findByCode(req.getCode());
+        if (bible == null) {
+            bible = new BibleImpl();
+            bible.setCode(req.getCode().toUpperCase());
+            bible.setLocale(req.getLocale());
+            bible.setRightToLeftReading(req.isRightToLeftReading());
+            bibleDao.insert(bible);
+        }
+
+        // Create or update the default localization
+        BibleLocalization loc = bible.getLocalizedContents().get(req.getLocale());
+        if (loc == null) {
+            loc = new BibleLocalizationImpl();
+            loc.setLocale(req.getLocale());
+            bible.addLocalizedContent(loc);
+        }
+        loc.setAbbreviation(req.getAbbreviation());
+        loc.setCopyrightNotice(req.getCopyrightNotice());
+        loc.setName(req.getName());
+        loc.setLicense(req.getLicense());
+        loc.setTitle(req.getTitle());
+
+        bibleDao.update(bible);
+        return bible;
     }
 
     @Override
