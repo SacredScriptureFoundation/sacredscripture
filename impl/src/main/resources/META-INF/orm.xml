@@ -23,6 +23,19 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
   version="2.1">
 
+  <named-query name="Bible.findByCode">
+    <query>
+    <![CDATA[
+      SELECT 
+          b
+      FROM 
+          BibleImpl b
+      WHERE 
+          b.code = :code
+    ]]>
+    </query>
+  </named-query>
+
   <named-query name="BookType.findByCode">
     <query>
     <![CDATA[
