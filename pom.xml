@@ -111,6 +111,18 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.10.1</version>
+        <configuration>
+          <groups>
+            <group>
+              <title>Public API</title>
+              <packages>org.sacredscripture.platform.bible*:org.sacredscripture.platform.xml*</packages>
+            </group>
+            <group>
+              <title>Internal API and Implementation Support</title>
+              <packages>org.sacredscripture.platform.internal*</packages>
+            </group>
+          </groups>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
