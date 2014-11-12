@@ -37,9 +37,9 @@ import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeLocalizationImpl;
-import org.sacredscripture.platform.internal.dao.BibleDao;
-import org.sacredscripture.platform.internal.dao.BookTypeDao;
-import org.sacredscripture.platform.internal.dao.BookTypeGroupDao;
+import org.sacredscripture.platform.internal.bible.dao.BibleDao;
+import org.sacredscripture.platform.internal.bible.dao.BookTypeDao;
+import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
 
 import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;

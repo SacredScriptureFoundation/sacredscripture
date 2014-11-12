@@ -17,31 +17,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.internal.dao;
-
-import org.sacredscripture.platform.bible.Bible;
-
-import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.TypedQuery;
 
 /**
- * This class is the stock implementation of {@link BibleDao}.
+ * Data access objects for bible-related entities.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-@ApplicationScoped
-public class BibleDaoImpl extends JpaDaoImpl<Bible, Long> implements BibleDao {
-
-    private static final String NQ_FIND_BY_CODE = "Bible.findByCode";
-
-    @Override
-    public Bible findByCode(String code) {
-        TypedQuery<Bible> q = newNamedQuery(NQ_FIND_BY_CODE);
-        q.setParameter("code", code.toUpperCase());
-        return queryForSingleResult(q);
-    }
-
-}
+package org.sacredscripture.platform.internal.bible.dao;

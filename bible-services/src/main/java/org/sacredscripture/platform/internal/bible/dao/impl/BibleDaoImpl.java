@@ -17,28 +17,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.internal.dao;
+package org.sacredscripture.platform.internal.bible.dao.impl;
 
-import org.sacredscripture.platform.bible.BookTypeGroup;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
+import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 
-import org.sacredscripturefoundation.commons.entity.dao.Dao;
+import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.TypedQuery;
 
 /**
- * This interface defines persistence operations for {@link BookTypeGroupImpl}
- * entities.
+ * This class is the stock implementation of {@link BibleDao}.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface BookTypeGroupDao extends Dao<BookTypeGroup, Long> {
+@ApplicationScoped
+public class BibleDaoImpl extends JpaDaoImpl<Bible, Long> implements BibleDao {
 
-    /**
-     * Retrieves the group by the specified code.
-     *
-     * @param code the code
-     * @return the found group or {@code null}
-     */
-    BookTypeGroup findByCode(String code);
+    private static final String NQ_FIND_BY_CODE = "Bible.findByCode";
+
+    @Override
+    public Bible findByCode(String code) {
+        TypedQuery<Bible> q = newNamedQuery(NQ_FIND_BY_CODE);
+        q.setParameter("code", code.toUpperCase());
+        return queryForSingleResult(q);
+    }
 
 }

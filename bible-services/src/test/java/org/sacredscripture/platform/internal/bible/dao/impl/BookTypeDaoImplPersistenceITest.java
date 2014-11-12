@@ -17,14 +17,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.internal.bible.dao;
+package org.sacredscripture.platform.internal.bible.dao.impl;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import org.sacredscripture.platform.internal.ObjectMother;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.dao.BookTypeGroupDaoImpl;
+import org.sacredscripture.platform.internal.bible.BookTypeImpl;
+import org.sacredscripture.platform.internal.bible.dao.impl.BookTypeDaoImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -32,41 +33,45 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Persistence integeration tests for {@link BookTypeGroupDaoImpl}.
+ * Persistence integeration tests for {@link BookTypeDaoImpl}.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public class BookTypeGroupDaoImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
+public class BookTypeDaoImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
 
-    private BookTypeGroupDaoImpl dao;
+    private BookTypeDaoImpl dao;
 
     @Before
     public void onSetUp() {
-        dao = new BookTypeGroupDaoImpl();
+        dao = new BookTypeDaoImpl();
         dao.setEntityManager(em);
     }
 
     /**
-     * Verifies group can be found by its code.
+     * Verifies type can be found by its code.
      */
     @Test
     public void testFindCode() {
         BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
         em.persist(g);
-        assertSame(g, dao.findByCode(g.getCode()));
+        em.persist(t);
+        assertSame(t, dao.findByCode(t.getCode()));
         // case insensitive checks
-        assertSame(g, dao.findByCode(g.getCode().toUpperCase()));
-        assertSame(g, dao.findByCode(g.getCode().toLowerCase()));
+        assertSame(t, dao.findByCode(t.getCode().toUpperCase()));
+        assertSame(t, dao.findByCode(t.getCode().toLowerCase()));
     }
 
     /**
-     * Verifies group cannot be found by the wrong code.
+     * Verifies type cannot be found by the wrong code.
      */
     @Test
     public void testFindCodeNotFound() {
         BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
         em.persist(g);
+        em.persist(t);
         assertNull(dao.findByCode("z"));
     }
 
