@@ -56,7 +56,7 @@
     <property name="packagesToScan">
       <list>
         <value>org.sacredscripturefoundation.commons</value>
-        <value>org.sacredscripture.platform.impl</value>
+        <value>org.sacredscripture.platform.internal</value>
       </list>
     </property>
     <property name="jpaDialect">
