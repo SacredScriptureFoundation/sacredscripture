@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
@@ -35,6 +36,17 @@ import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
  * @since Sacred Scripture Platform 1.0
  */
 public interface BibleMaintenanceService {
+
+    /**
+     * Adds the specified book to a bible.
+     *
+     * @param req the request message
+     * @return the new book
+     * @throws UnknownEntityException if any codes cannot be found
+     * @throws DuplicateEntityException if the book type code is already in use
+     * for the specified bible
+     */
+    Book add(AddBookRequest req);
 
     /**
      * Creates and persists a new {@link BookTypeGroup} instance.

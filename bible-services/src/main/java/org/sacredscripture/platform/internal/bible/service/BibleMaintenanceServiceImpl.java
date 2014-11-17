@@ -21,10 +21,12 @@ package org.sacredscripture.platform.internal.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.BibleLocalization;
+import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
 import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.service.AddBookRequest;
 import org.sacredscripture.platform.bible.service.AddBookTypeGroupRequest;
 import org.sacredscripture.platform.bible.service.AddBookTypeRequest;
 import org.sacredscripture.platform.bible.service.BibleMaintenanceService;
@@ -33,11 +35,13 @@ import org.sacredscripture.platform.bible.service.SaveBookTypeGroupLocalizationR
 import org.sacredscripture.platform.bible.service.SaveBookTypeLocalizationRequest;
 import org.sacredscripture.platform.internal.bible.BibleImpl;
 import org.sacredscripture.platform.internal.bible.BibleLocalizationImpl;
+import org.sacredscripture.platform.internal.bible.BookImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeLocalizationImpl;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
+import org.sacredscripture.platform.internal.bible.dao.BookDao;
 import org.sacredscripture.platform.internal.bible.dao.BookTypeDao;
 import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
 
@@ -62,8 +66,16 @@ import javax.transaction.Transactional;
 @Local(BibleMaintenanceService.class)
 public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
+    // Error message templates
+    private static final String ERR_BIBLE_CODE = "Bible [%s]";
+    private static final String ERR_BOOK_TYPE_CODE = "Book type [%s]";
+    private static final String ERR_BOOK_TYPE_GROUP_CODE = "Book type group [%s]";
+
     @Inject
     private BibleDao bibleDao;
+
+    @Inject
+    private BookDao bookDao;
 
     @Inject
     private BookTypeDao bookTypeDao;
@@ -72,19 +84,46 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
     private BookTypeGroupDao groupDao;
 
     @Override
+    public Book add(AddBookRequest req) {
+        // Lookup the bible
+        Bible bible = bibleDao.findByCode(req.getBibleCode());
+        if (bible == null) {
+            throw new UnknownEntityException(ERR_BIBLE_CODE, req.getBibleCode());
+        }
+
+        // Lookup the book type
+        BookType bookType = bookTypeDao.findByCode(req.getBookTypeCode());
+        if (bookType == null) {
+            throw new UnknownEntityException(ERR_BOOK_TYPE_CODE, req.getBookTypeCode());
+        }
+
+        // Verify the bible isn't already using the book type
+        if (bible.getBook(req.getBookTypeCode()) != null) {
+            throw new DuplicateEntityException(ERR_BOOK_TYPE_CODE, req.getBookTypeCode());
+        }
+
+        BookImpl book = new BookImpl();
+        book.setBookType(bookType);
+        bible.addBook(book);
+        bookDao.insert(book);
+
+        return book;
+    }
+
+    @Override
     public BookTypeGroup add(AddBookTypeGroupRequest req) {
         // Load the parent if applicable
         BookTypeGroup parent = null;
         if (req.getParentCode() != null) {
             parent = groupDao.findByCode(req.getParentCode());
             if (parent == null) {
-                throw new UnknownEntityException(); // FIXME add message
+                throw new UnknownEntityException(ERR_BOOK_TYPE_GROUP_CODE, req.getParentCode());
             }
         }
 
         // Validate code isn't in current use
         if (groupDao.findByCode(req.getCode()) != null) {
-            throw new DuplicateEntityException(); // FIXME add message
+            throw new DuplicateEntityException(ERR_BOOK_TYPE_GROUP_CODE, req.getParentCode());
         }
 
         // Construct and persist new group
@@ -103,12 +142,12 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         // Lookup the group
         BookTypeGroup group = groupDao.findByCode(req.getGroupCode());
         if (group == null) {
-            throw new UnknownEntityException(); // FIXME add message
+            throw new UnknownEntityException(ERR_BOOK_TYPE_GROUP_CODE, req.getGroupCode());
         }
 
         // Validate code isn't in current use
         if (bookTypeDao.findByCode(req.getCode()) != null) {
-            throw new DuplicateEntityException(); // FIXME add message
+            throw new DuplicateEntityException(ERR_BOOK_TYPE_GROUP_CODE, req.getCode());
         }
 
         // Construct and persist new book type
@@ -159,7 +198,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
     public BookTypeGroupLocalization save(SaveBookTypeGroupLocalizationRequest req) {
         BookTypeGroup group = groupDao.findByCode(req.getCode());
         if (group == null) {
-            throw new UnknownEntityException(); // FIXME add message
+            throw new UnknownEntityException(ERR_BOOK_TYPE_GROUP_CODE, req.getCode());
         }
 
         BookTypeGroupLocalization loc = group.getLocalizedContents().get(req.getLocale());
@@ -180,7 +219,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
     public BookTypeLocalization save(SaveBookTypeLocalizationRequest req) {
         BookType bookType = bookTypeDao.findByCode(req.getCode());
         if (bookType == null) {
-            throw new UnknownEntityException(); // FIXME add message
+            throw new UnknownEntityException(ERR_BOOK_TYPE_CODE, req.getCode());
         }
 
         BookTypeLocalization loc = bookType.getLocalizedContents().get(req.getLocale());

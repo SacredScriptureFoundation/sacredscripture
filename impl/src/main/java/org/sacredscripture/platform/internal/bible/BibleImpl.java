@@ -94,6 +94,16 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     }
 
     @Override
+    public Book getBook(String bookCode) {
+        for (Book book : getBooks()) {
+            if (bookCode.equalsIgnoreCase(book.getBookType().getCode())) {
+                return book;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Book> getBooks() {
         if (books == null) {
             books = new LinkedList<>();

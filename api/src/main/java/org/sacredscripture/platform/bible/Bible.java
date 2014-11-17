@@ -58,12 +58,23 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
     String getAbbreviation();
 
     /**
+     * Retrieves the book with the specified code from this bible. The code is
+     * comparision is case-insensitive.
+     *
+     * @param bookCode the book code
+     * @return the found book or {@code null}
+     * @see #getBook(String)
+     */
+    Book getBook(String bookCode);
+
+    /**
      * Retrieves the collection of books that belong to this bible edition. The
      * collection must be sorted according to the table of contents of this
      * edition.
      *
      * @return the collection (never {@code null})
      * @see #addBook(Book)
+     * @see #getBook(String)
      */
     List<Book> getBooks();
 
