@@ -79,7 +79,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     public void addBook(Book book) {
         Objects.requireNonNull(book);
         book.setBible(this);
-        books.add(book);
+        getBooks().add(book);
     }
 
     @Override
