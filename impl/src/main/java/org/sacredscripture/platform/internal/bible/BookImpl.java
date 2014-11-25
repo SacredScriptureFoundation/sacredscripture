@@ -23,6 +23,7 @@ import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
 import org.sacredscripture.platform.internal.DataModel.ContentTable;
 
@@ -30,6 +31,7 @@ import org.sacredscripturefoundation.commons.entity.EntityImpl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +41,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * This class is the stock implementation of {@link Book}.
@@ -59,12 +64,29 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     private int order;
 
     @OneToMany(targetEntity = ContentImpl.class, mappedBy = "book")
-    @OrderColumn(name = ContentTable.COLUMN_POSITION)
     private List<Chapter> chapters;
+
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @OneToMany(targetEntity = ContentImpl.class, mappedBy = "book")
+    @OrderColumn(name = ContentTable.COLUMN_POSITION)
+    private List<Content> contents;
 
     @ManyToOne(targetEntity = BibleImpl.class, optional = false)
     @JoinColumn(name = BookTable.COLUMN_BIBLE_ID)
     private Bible bible;
+
+    @Override
+    public void addChapter(Chapter chapter) {
+        Objects.requireNonNull(chapter);
+        addContent(chapter);
+        getChapters().add(chapter);
+    }
+
+    private void addContent(Content content) {
+        content.setBook(this);
+        content.setOrder(getContents().size());
+        getContents().add(content);
+    }
 
     @Override
     public String getAbbreviation() {
@@ -99,6 +121,14 @@ public class BookImpl extends EntityImpl<Long> implements Book {
             chapters = new LinkedList<>();
         }
         return chapters;
+    }
+
+    @Override
+    public List<Content> getContents() {
+        if (contents == null) {
+            contents = new LinkedList<>();
+        }
+        return contents;
     }
 
     @Override

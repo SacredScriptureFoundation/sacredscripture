@@ -34,6 +34,8 @@ import java.util.List;
  */
 public interface Book extends Entity<Long>, Named {
 
+    void addChapter(Chapter chapter);
+
     /**
      * Retrieves the primary localized abbreviation of this book.
      *
@@ -77,6 +79,8 @@ public interface Book extends Entity<Long>, Named {
      * @return the collection
      */
     List<Chapter> getChapters();
+
+    List<Content> getContents();
 
     /**
      * Retrieves the localized common name of this book. The common name is the
