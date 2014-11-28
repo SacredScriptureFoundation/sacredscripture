@@ -33,6 +33,15 @@ import java.util.List;
 public interface Chapter extends Content, Named {
 
     /**
+     * Adds the specified verse to this chapter.
+     *
+     * @param verse the verse
+     * @throws NullPointerException if the verse is {@code null}
+     * @see #getVerses()
+     */
+    void addVerse(Verse verse);
+
+    /**
      * Retrieves the name of this chapter.
      *
      * @return the name
@@ -46,6 +55,7 @@ public interface Chapter extends Content, Named {
      * collection must be sorted according to the index of this edition.
      *
      * @return the collection
+     * @see #addVerse(Verse)
      */
     List<Verse> getVerses();
 

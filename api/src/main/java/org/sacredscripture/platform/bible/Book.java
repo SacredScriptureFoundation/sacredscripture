@@ -34,7 +34,7 @@ import java.util.List;
  */
 public interface Book extends Entity<Long>, Named {
 
-    void addChapter(Chapter chapter);
+    void addContent(Content content);
 
     /**
      * Retrieves the primary localized abbreviation of this book.
@@ -73,13 +73,17 @@ public interface Book extends Entity<Long>, Named {
     BookType getBookType();
 
     /**
-     * Retrieves the collection of chapters that belong to this book. The
-     * collection is sorted accordingly to the bible edition.
+     * Retrieves the collection of content that belong to this book. The
+     * collection is sorted to the "reading order" of the bible edition.
+     * <p>
+     * It is highly unusual for any client code to invoke this since the data
+     * set is very large. Implementations of this type must stream the contents
+     * (i.e., inflating individual content at access time) to ever make this
+     * method useful lest an {@link OutOfMemoryError} occur.
      *
-     * @return the collection
+     * @return the contents
+     * @see #addContent(Content)
      */
-    List<Chapter> getChapters();
-
     List<Content> getContents();
 
     /**

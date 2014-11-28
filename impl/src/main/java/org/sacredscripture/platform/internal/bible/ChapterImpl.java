@@ -26,6 +26,7 @@ import org.sacredscripture.platform.internal.DataModel.ContentTable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -49,6 +50,13 @@ public class ChapterImpl extends ContentImpl implements Chapter {
 
     @Column(name = ContentTable.COLUMN_CHAPTER_NAME)
     private String name;
+
+    @Override
+    public void addVerse(Verse verse) {
+        Objects.requireNonNull(verse);
+        verse.setChapter(this);
+        getVerses().add(verse);
+    }
 
     @Override
     public ContentKind getContentKind() {

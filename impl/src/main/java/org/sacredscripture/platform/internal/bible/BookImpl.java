@@ -22,7 +22,6 @@ package org.sacredscripture.platform.internal.bible;
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookType;
-import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
 
@@ -30,7 +29,6 @@ import org.sacredscripturefoundation.commons.entity.EntityImpl;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,10 +60,6 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Column(name = BookTable.COLUMN_LIST_POSITION)
     private int order;
 
-    @OneToMany(targetEntity = ContentImpl.class, mappedBy = "book")
-    @Transient
-    private List<Chapter> chapters;
-
     @LazyCollection(LazyCollectionOption.EXTRA)
     @OneToMany(targetEntity = ContentImpl.class, mappedBy = "book")
     @OrderBy("order")
@@ -76,13 +70,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     private Bible bible;
 
     @Override
-    public void addChapter(Chapter chapter) {
-        Objects.requireNonNull(chapter);
-        addContent(chapter);
-        getChapters().add(chapter);
-    }
-
-    private void addContent(Content content) {
+    public void addContent(Content content) {
         content.setBook(this);
         content.setOrder(getContents().size());
         getContents().add(content);
@@ -110,17 +98,6 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Override
     public BookType getBookType() {
         return bookType;
-    }
-
-    /**
-     * @see #setChapters(List)
-     */
-    @Override
-    public List<Chapter> getChapters() {
-        if (chapters == null) {
-            chapters = new LinkedList<>();
-        }
-        return chapters;
     }
 
     @Override
@@ -154,10 +131,6 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Override
     public void setBookType(BookType bookType) {
         this.bookType = bookType;
-    }
-
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
     }
 
     public void setOrder(int order) {
