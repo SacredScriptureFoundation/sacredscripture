@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.internal.bible.dao.impl;
 
 import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.internal.bible.BibleImpl;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
@@ -34,15 +35,15 @@ import javax.persistence.TypedQuery;
  * @since Sacred Scripture Platform 1.0
  */
 @ApplicationScoped
-public class BibleDaoImpl extends JpaDaoImpl<Bible, Long> implements BibleDao {
+public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements BibleDao {
 
     private static final String NQ_FIND_BY_CODE = "Bible.findByCode";
 
     @Override
     public Bible findByCode(String code) {
-        TypedQuery<Bible> q = newNamedQuery(NQ_FIND_BY_CODE);
+        TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
         q.setParameter("code", code.toUpperCase());
-        return queryForSingleResult(q);
+        return singleResultOf(q);
     }
 
 }

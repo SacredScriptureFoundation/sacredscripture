@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.internal.bible.dao.impl;
 
 import org.sacredscripture.platform.bible.BookTypeGroup;
+import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
@@ -34,15 +35,15 @@ import javax.persistence.TypedQuery;
  * @since Sacred Scripture Platform 1.0
  */
 @ApplicationScoped
-public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, Long> implements BookTypeGroupDao {
+public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, BookTypeGroupImpl, Long> implements BookTypeGroupDao {
 
     private static final String NQ_FIND_BY_CODE = "BookTypeGroup.findByCode";
 
     @Override
     public BookTypeGroup findByCode(String code) {
-        TypedQuery<BookTypeGroup> q = newNamedQuery(NQ_FIND_BY_CODE);
+        TypedQuery<BookTypeGroupImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
         q.setParameter("code", code.toUpperCase());
-        return queryForSingleResult(q);
+        return singleResultOf(q);
     }
 
 }

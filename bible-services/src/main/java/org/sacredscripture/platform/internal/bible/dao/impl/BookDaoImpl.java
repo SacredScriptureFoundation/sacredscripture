@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.internal.bible.dao.impl;
 
 import org.sacredscripture.platform.bible.Book;
+import org.sacredscripture.platform.internal.bible.BookImpl;
 import org.sacredscripture.platform.internal.bible.dao.BookDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
@@ -33,6 +34,6 @@ import javax.enterprise.context.ApplicationScoped;
  * @since Sacred Scripture Platform 1.0
  */
 @ApplicationScoped
-public class BookDaoImpl extends JpaDaoImpl<Book, Long> implements BookDao {
+public class BookDaoImpl extends JpaDaoImpl<Book, BookImpl, Long> implements BookDao {
     // empty
 }
