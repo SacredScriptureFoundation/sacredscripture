@@ -27,7 +27,6 @@ import java.util.List;
  * This interface defines a chapter within a bible.
  *
  * @author Paul Benedict
- * @see Book#getChapters()
  * @since Sacred Scripture Platform 1.0
  */
 public interface Chapter extends Content, Named {
