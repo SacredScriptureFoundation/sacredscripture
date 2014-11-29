@@ -25,6 +25,8 @@ import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
 import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.Verse;
 
 import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
@@ -69,6 +71,18 @@ public interface BibleMaintenanceService {
      * @see #save(SaveBookTypeLocalizationRequest)
      */
     BookType add(AddBookTypeRequest req);
+
+    /**
+     * Creates and adds a new {@link Chapter} instance to the specified bible
+     * book.
+     *
+     * @param req the request message
+     * @return the new chapter
+     * @throws UnknownEntityException if the bible or book cannot be found
+     */
+    Chapter add(AddChapterRequest req);
+
+    Verse add(AddVerseRequest req);
 
     /**
      * Retrieves the bible by the specified internal code.

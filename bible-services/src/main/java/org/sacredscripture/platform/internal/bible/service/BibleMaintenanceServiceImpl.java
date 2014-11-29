@@ -26,9 +26,16 @@ import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.BookTypeGroupLocalization;
 import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.Content;
+import org.sacredscripture.platform.bible.ContentKind;
+import org.sacredscripture.platform.bible.Verse;
+import org.sacredscripture.platform.bible.VerseText;
 import org.sacredscripture.platform.bible.service.AddBookRequest;
 import org.sacredscripture.platform.bible.service.AddBookTypeGroupRequest;
 import org.sacredscripture.platform.bible.service.AddBookTypeRequest;
+import org.sacredscripture.platform.bible.service.AddChapterRequest;
+import org.sacredscripture.platform.bible.service.AddVerseRequest;
 import org.sacredscripture.platform.bible.service.BibleMaintenanceService;
 import org.sacredscripture.platform.bible.service.SaveBibleRequest;
 import org.sacredscripture.platform.bible.service.SaveBookTypeGroupLocalizationRequest;
@@ -40,10 +47,14 @@ import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupLocalizationImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeImpl;
 import org.sacredscripture.platform.internal.bible.BookTypeLocalizationImpl;
+import org.sacredscripture.platform.internal.bible.ChapterImpl;
+import org.sacredscripture.platform.internal.bible.VerseImpl;
+import org.sacredscripture.platform.internal.bible.VerseTextImpl;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 import org.sacredscripture.platform.internal.bible.dao.BookDao;
 import org.sacredscripture.platform.internal.bible.dao.BookTypeDao;
 import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
+import org.sacredscripture.platform.internal.bible.dao.ContentDao;
 
 import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
@@ -70,6 +81,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
     private static final String ERR_BIBLE_CODE = "Bible [%s]";
     private static final String ERR_BOOK_TYPE_CODE = "Book type [%s]";
     private static final String ERR_BOOK_TYPE_GROUP_CODE = "Book type group [%s]";
+    private static final String ERR_CHAPTER_ID = "Chapter ID [%s]";
 
     @Inject
     private BibleDao bibleDao;
@@ -82,6 +94,9 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
     @Inject
     private BookTypeGroupDao groupDao;
+
+    @Inject
+    private ContentDao contentDao;
 
     @Override
     public Book add(AddBookRequest req) {
@@ -105,8 +120,8 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         BookImpl book = new BookImpl();
         book.setBookType(bookType);
         bible.addBook(book);
-        bookDao.insert(book);
 
+        bookDao.insert(book);
         return book;
     }
 
@@ -160,6 +175,50 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
     }
 
     @Override
+    public Chapter add(AddChapterRequest req) {
+        Bible bible = bibleDao.findByCode(req.getBibleCode());
+        if (bible == null) {
+            throw new UnknownEntityException(ERR_BIBLE_CODE, req.getBibleCode());
+        }
+
+        Book book = bible.getBook(req.getBookTypeCode());
+        if (book == null) {
+            throw new UnknownEntityException(ERR_BOOK_TYPE_CODE, req.getBookTypeCode());
+        }
+
+        Chapter chapter = new ChapterImpl();
+        chapter.setName(req.getName());
+        book.addContent(chapter);
+        contentDao.insert(chapter);
+
+        return chapter;
+    }
+
+    @Override
+    public Verse add(AddVerseRequest req) {
+        Content content = contentDao.get(req.getChapterId(), true);
+        if (content == null || content.getContentKind() != ContentKind.CHAPTER) {
+            throw new UnknownEntityException(ERR_CHAPTER_ID, req.getChapterId());
+        }
+
+        Verse verse = new VerseImpl();
+        verse.setAltName(req.getAltName());
+        verse.setBook(content.getBook());
+        verse.setChapter((Chapter) content);
+        verse.setName(req.getName());
+        verse.setOmitted(req.isOmitted());
+
+        VerseText text = new VerseTextImpl();
+        text.setText(req.getText());
+        verse.setText(text);
+
+        content.getBook().addContent(verse);
+        contentDao.insert(verse);
+
+        return verse;
+    }
+
+    @Override
     public Bible findBibleByCode(String bibleCode) {
         Objects.requireNonNull(bibleCode);
         return bibleDao.findByCode(bibleCode);
@@ -189,8 +248,8 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         loc.setName(req.getName());
         loc.setLicense(req.getLicense());
         loc.setTitle(req.getTitle());
-
         bibleDao.update(bible);
+
         return bible;
     }
 
