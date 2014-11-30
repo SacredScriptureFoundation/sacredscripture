@@ -38,8 +38,10 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.batch.api.AbstractBatchlet;
+import javax.batch.runtime.BatchRuntime;
 import javax.batch.runtime.context.JobContext;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
@@ -80,11 +82,8 @@ public class LoadBibleBatchlet extends AbstractBatchlet {
 
     @Override
     public String process() throws Exception {
-        // Properties params =
-        // BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
-        // Path docPath =
-        // FileSystems.getDefault().getPath(params.getProperty(PARAMETER_DOC_PATH));
-        Path docPath = FileSystems.getDefault().getPath("G:\\workspace-sacredscripture\\en-kjvce\\index.xml");
+        Properties params = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
+        Path docPath = FileSystems.getDefault().getPath(params.getProperty(PARAMETER_DOC_PATH));
         File f = new File(docPath.toString());
 
         XMLInputFactory xif = XMLInputFactory.newFactory();
