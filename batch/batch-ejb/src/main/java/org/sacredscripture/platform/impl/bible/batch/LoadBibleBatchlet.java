@@ -144,16 +144,16 @@ public class LoadBibleBatchlet extends AbstractBatchlet {
         xsr.require(END_ELEMENT, null, "book");
     }
 
-    private void processChapter(XMLStreamReader xsr, XmlBibleType bible, XmlBookType book) throws Exception {
-        XmlChapterType chapter = unmarshallChapter(xsr);
+    private void processChapter(XMLStreamReader xsr, XmlBibleType xmlBible, XmlBookType xmlBook) throws Exception {
+        XmlChapterType xmlChapter = unmarshallChapter(xsr);
         AddChapterRequest req = new AddChapterRequest();
-        req.setBibleCode(bible.getCode());
-        req.setBookTypeCode(book.getCode().value());
-        req.setName(chapter.getName());
-        Chapter chapterEntity = service.add(req);
+        req.setBibleCode(xmlBible.getCode());
+        req.setBookTypeCode(xmlBook.getCode().value());
+        req.setName(xmlChapter.getName());
+        Chapter chapter = service.add(req);
 
-        for (XmlVerseType verse : chapter.getVerses()) {
-            processVerse(verse, chapterEntity);
+        for (XmlVerseType xmlVerse : xmlChapter.getVerses()) {
+            processVerse(xmlVerse, chapter);
         }
     }
 
@@ -161,17 +161,17 @@ public class LoadBibleBatchlet extends AbstractBatchlet {
      * When the main XML document specifies the book as an included document,
      * this method will create and manage a new stream to that book.
      *
-     * @param bible the parent bible
+     * @param xmlBible the parent bible
      * @param bibleDocPath path of the bible document
      * @param bookDocPath the book path (could be relative)
      * @throws Exception if a processing error occurs
      */
-    private void processExternalBook(XmlBibleType bible, Path bibleDocPath, String bookDocPath) throws Exception {
+    private void processExternalBook(XmlBibleType xmlBible, Path bibleDocPath, String bookDocPath) throws Exception {
         XMLInputFactory xif = XMLInputFactory.newFactory();
         XMLStreamReader xsr = null;
         try {
             xsr = xif.createXMLStreamReader(new StreamSource(bibleDocPath.resolveSibling(bookDocPath).toString()));
-            processBook(bible, xsr);
+            processBook(xmlBible, xsr);
         } finally {
             if (xsr != null) {
                 xsr.close();
@@ -179,14 +179,27 @@ public class LoadBibleBatchlet extends AbstractBatchlet {
         }
     }
 
-    private void processVerse(XmlVerseType verse, Chapter chapterEntity) {
+    private void processVerse(XmlVerseType xmlVerse, Chapter chapter) {
+        // Auto-generate a code if no code is explicitly specified and the verse
+        // name is numeric
+        String code = xmlVerse.getCode();
+        if ((code == null) && xmlVerse.getName().matches("^[1-9][0-9]*$")) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(chapter.getBook().getBookType().getCode());
+            sb.append(":");
+            sb.append(chapter.getName());
+            sb.append(":");
+            sb.append(xmlVerse.getName());
+            code = sb.toString();
+        }
+
         AddVerseRequest req = new AddVerseRequest();
-        req.setAltName(verse.getAltName());
-        req.setChapterId(chapterEntity.getId());
-        req.setCode(verse.getCode());
-        req.setName(verse.getName());
-        req.setOmitted(verse.isDeprecated() != null ? verse.isDeprecated() : false);
-        req.setText(verse.getContent());
+        req.setAltName(xmlVerse.getAltName());
+        req.setChapterId(chapter.getId());
+        req.setCode(code);
+        req.setName(xmlVerse.getName());
+        req.setOmitted(xmlVerse.isDeprecated() != null ? xmlVerse.isDeprecated() : false);
+        req.setText(xmlVerse.getContent());
         service.add(req);
     }
 
