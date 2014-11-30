@@ -21,7 +21,6 @@ package org.sacredscripture.platform.internal.bible;
 
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.Content;
-import org.sacredscripture.platform.bible.ContentType;
 import org.sacredscripture.platform.internal.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
@@ -35,7 +34,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * This abstract class is the stock implementation of {@link Content}.
@@ -56,10 +54,8 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
     @Column(name = ContentTable.COLUMN_POSITION)
     private int order;
 
-    // @ManyToOne(targetEntity = ContentTypeImpl.class)
-    // @JoinColumn(name = ContentTable.COLUMN_CONTENT_TYPE_ID)
-    @Transient
-    private ContentType contentType;
+    @Column(name = ContentTable.COLUMN_CODE)
+    private String code;
 
     @Override
     public Book getBook() {
@@ -67,8 +63,8 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
     }
 
     @Override
-    public ContentType getContentType() {
-        return contentType;
+    public String getCode() {
+        return code;
     }
 
     @Override
@@ -82,8 +78,8 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
     }
 
     @Override
-    public void setContentType(ContentType contentType) {
-        this.contentType = contentType;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override

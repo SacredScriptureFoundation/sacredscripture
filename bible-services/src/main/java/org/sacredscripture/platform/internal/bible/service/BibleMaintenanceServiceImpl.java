@@ -205,6 +205,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         verse.setAltName(req.getAltName());
         verse.setBook(content.getBook());
         verse.setChapter((Chapter) content);
+        verse.setCode(req.getCode());
         verse.setName(req.getName());
         verse.setOmitted(req.isOmitted());
 

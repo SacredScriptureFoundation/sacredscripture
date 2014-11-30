@@ -118,6 +118,7 @@ public final class ObjectMother {
         v.setAltName(randomText());
         v.setBook(c.getBook());
         v.setChapter(c);
+        v.setCode(randomText());
         v.setName(randomText());
         v.setOrder(10);
         VerseTextImpl text = new VerseTextImpl();

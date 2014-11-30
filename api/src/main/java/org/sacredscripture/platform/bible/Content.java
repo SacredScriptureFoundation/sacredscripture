@@ -19,6 +19,7 @@
  */
 package org.sacredscripture.platform.bible;
 
+import org.sacredscripturefoundation.commons.Coded;
 import org.sacredscripturefoundation.commons.entity.Entity;
 
 /**
@@ -36,7 +37,7 @@ import org.sacredscripturefoundation.commons.entity.Entity;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface Content extends Entity<Long> {
+public interface Content extends Entity<Long>, Coded<String> {
 
     /**
      * Retrieves the owning book of this content.
@@ -57,8 +58,6 @@ public interface Content extends Entity<Long> {
      */
     ContentKind getContentKind();
 
-    ContentType getContentType();
-
     /**
      * Retrieves the order value of this content, with a higher value meaning
      * greater in terms of sorting.
@@ -76,7 +75,7 @@ public interface Content extends Entity<Long> {
      */
     void setBook(Book book);
 
-    void setContentType(ContentType type);
+    void setCode(String code);
 
     /**
      * Stores the new order value of this content.

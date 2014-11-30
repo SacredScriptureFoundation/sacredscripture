@@ -119,8 +119,8 @@ public final class DataModel {
     public static final class ContentTable {
         public static final String TABLE_NAME = "content";
         public static final String COLUMN_BOOK_ID = "book_id";
+        public static final String COLUMN_CODE = "content_code";
         public static final String COLUMN_CHAPTER_NAME = "chapter_name";
-        public static final String COLUMN_CONTENT_TYPE_ID = "content_type_id";
         public static final String COLUMN_DISCRIMINATOR = "type_code";
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_POSITION = "list_position";
@@ -129,17 +129,8 @@ public final class DataModel {
         public static final String COLUMN_VERSE_NAME = "verse_name";
         public static final String COLUMN_VERSE_OMIT = "verse_omit";
         public static final String COLUMN_VERSE_TEXT_ID = "verse_text_id";
-        public static final String COLUMN_VERSE_TYPE_ID = "verse_type_id";
         public static final String DISCRIMINATOR_CHAPTER = "0";
         public static final String DISCRIMINATOR_VERSE = "1";
-    }
-
-    /**
-     * @see org.sacredscripture.platform.internal.bible.ContentTypeImpl
-     */
-    public static final class ContentTypeTable {
-        public static final String TABLE_NAME = "content_type";
-        public static final String COLUMN_CODE = "code";
     }
 
     /**

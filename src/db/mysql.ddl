@@ -129,18 +129,6 @@ book
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE
-content_type
-(
-    id                  INT UNSIGNED AUTO_INCREMENT,
-    created             DATETIME NOT NULL,
-    updated             DATETIME,
-    code                VARCHAR(10),
-    PRIMARY KEY (id),
-    CONSTRAINT content_type_ix01uq UNIQUE (code)
-)
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE
 verse_text (
     id                INT UNSIGNED AUTO_INCREMENT,
     created           DATETIME NOT NULL,
@@ -160,10 +148,9 @@ content
     book_id               INT UNSIGNED NOT NULL,
     list_position         INT UNSIGNED NOT NULL,
     type_code             INT(1) NOT NULL,
-    content_type_id       INT UNSIGNED,
+    content_code          VARCHAR(10),
     chapter_name          VARCHAR(10),
     verse_chapter_id      INT UNSIGNED,
-    verse_type_id         INT UNSIGNED,
     verse_name            VARCHAR(10),
     verse_alt_name        VARCHAR(10),
     verse_omit            BOOLEAN,
@@ -171,8 +158,7 @@ content
     PRIMARY KEY (id),
     CONSTRAINT content_ix01fk FOREIGN KEY (book_id) REFERENCES book (id),
     CONSTRAINT content_ix02uq UNIQUE (book_id, list_position),    
-    CONSTRAINT content_ix03fk FOREIGN KEY (content_type_id) REFERENCES content_type (id),
-    CONSTRAINT content_ix04fk FOREIGN KEY (verse_chapter_id) REFERENCES content (id),
-    CONSTRAINT content_ix05fk FOREIGN KEY (verse_text_id) REFERENCES verse_text_id (id)
+    CONSTRAINT content_ix03fk FOREIGN KEY (verse_chapter_id) REFERENCES content (id),
+    CONSTRAINT content_ix04fk FOREIGN KEY (verse_text_id) REFERENCES verse_text (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;

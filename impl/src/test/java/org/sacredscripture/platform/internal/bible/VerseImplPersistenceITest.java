@@ -27,6 +27,7 @@ import static org.sacredscripture.platform.internal.DataModel.AUDIT_COLUMN_CREAT
 import static org.sacredscripture.platform.internal.DataModel.AUDIT_COLUMN_UPDATED;
 import static org.sacredscripture.platform.internal.DataModel.BibleLocalizationTable.COLUMN_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_BOOK_ID;
+import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_CODE;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_DISCRIMINATOR;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_POSITION;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_ALT_NAME;
@@ -37,12 +38,6 @@ import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUM
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.DISCRIMINATOR_VERSE;
 
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BibleImpl;
-import org.sacredscripture.platform.internal.bible.BookImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeImpl;
-import org.sacredscripture.platform.internal.bible.ChapterImpl;
-import org.sacredscripture.platform.internal.bible.VerseImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -84,6 +79,7 @@ public class VerseImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertEquals(v.getAltName(), rs.getString(COLUMN_VERSE_ALT_NAME));
         assertEquals(v.getBook().getId().longValue(), rs.getLong(COLUMN_BOOK_ID));
         assertEquals(v.getChapter().getId().longValue(), rs.getLong(COLUMN_VERSE_CHAPTER_ID));
+        assertEquals(v.getCode(), rs.getString(COLUMN_CODE));
         assertEquals(v.getName(), rs.getString(COLUMN_VERSE_NAME));
         assertEquals(v.getOrder(), rs.getInt(COLUMN_POSITION));
         assertEquals(v.getText().getId().longValue(), rs.getLong(COLUMN_VERSE_TEXT_ID));
