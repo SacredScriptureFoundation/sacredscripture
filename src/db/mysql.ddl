@@ -22,7 +22,7 @@ bible
     id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
     created       DATETIME NOT NULL,
     updated       DATETIME,
-    code          CHAR(10) NOT NULL,
+    code          VARCHAR(10) NOT NULL,
     locale_lang   CHAR(2) NOT NULL,
     rtol          BIT NOT NULL,
     PRIMARY KEY (id),
