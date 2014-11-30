@@ -188,6 +188,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         Chapter chapter = new ChapterImpl();
         chapter.setName(req.getName());
+        chapter.setCode(req.getCode() != null ? req.getCode().toUpperCase() : null);
         book.addContent(chapter);
         contentDao.insert(chapter);
 
@@ -205,7 +206,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         verse.setAltName(req.getAltName());
         verse.setBook(content.getBook());
         verse.setChapter((Chapter) content);
-        verse.setCode(req.getCode());
+        verse.setCode(req.getCode() != null ? req.getCode().toUpperCase() : null);
         verse.setName(req.getName());
         verse.setOmitted(req.isOmitted());
 

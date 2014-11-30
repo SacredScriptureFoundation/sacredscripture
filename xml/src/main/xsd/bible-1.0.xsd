@@ -473,6 +473,11 @@
       <element name="verse" type="bible:VerseType" maxOccurs="unbounded" />
     </sequence>
     <attribute name="name" use="required"/>
+    <attribute name="code">
+      <annotation>
+        <documentation>Internal code to uniquely identify this chapter across any bible edition.</documentation>
+      </annotation>
+    </attribute>
   </complexType>
 
   <complexType name="VerseType" mixed="true">

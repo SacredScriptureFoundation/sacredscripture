@@ -146,12 +146,27 @@ public class LoadBibleBatchlet extends AbstractBatchlet {
 
     private void processChapter(XMLStreamReader xsr, XmlBibleType xmlBible, XmlBookType xmlBook) throws Exception {
         XmlChapterType xmlChapter = unmarshallChapter(xsr);
+
+        // Auto-generate code if none is explicitly specified and the chapter
+        // name is numeric
+        String code = xmlChapter.getCode();
+        if ((code == null) && xmlChapter.getName().matches("^[1-9][0-9]*$")) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(xmlBook.getCode().value());
+            sb.append(":");
+            sb.append(xmlChapter.getName());
+            code = sb.toString();
+        }
+
+        // Add the chapter to the system
         AddChapterRequest req = new AddChapterRequest();
         req.setBibleCode(xmlBible.getCode());
         req.setBookTypeCode(xmlBook.getCode().value());
+        req.setCode(code);
         req.setName(xmlChapter.getName());
         Chapter chapter = service.add(req);
 
+        // Process each verse
         for (XmlVerseType xmlVerse : xmlChapter.getVerses()) {
             processVerse(xmlVerse, chapter);
         }

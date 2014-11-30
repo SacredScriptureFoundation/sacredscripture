@@ -37,6 +37,7 @@ public class AddChapterRequest extends ServiceRequestMessage {
 
     private String bibleCode;
     private String bookTypeCode;
+    private String code;
     private String name;
 
     @NotNull
@@ -51,6 +52,11 @@ public class AddChapterRequest extends ServiceRequestMessage {
         return bookTypeCode;
     }
 
+    @Size(max = 10)
+    public final String getCode() {
+        return code;
+    }
+
     @NotNull
     @Size(max = 10)
     public final String getName() {
@@ -63,6 +69,10 @@ public class AddChapterRequest extends ServiceRequestMessage {
 
     public final void setBookTypeCode(String bookCode) {
         bookTypeCode = bookCode;
+    }
+
+    public final void setCode(String code) {
+        this.code = code;
     }
 
     public final void setName(String name) {
