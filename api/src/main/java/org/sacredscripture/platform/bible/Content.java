@@ -48,6 +48,18 @@ public interface Content extends Entity<Long>, Coded<String> {
     Book getBook();
 
     /**
+     * Retrieves the code of this content. The code, if specified, is an
+     * internal marker that identifies this content as being equivalent to other
+     * content with the same code. This is useful, for example, of linking bible
+     * verses together across many editions.
+     *
+     * @return the code (can be {@code null})
+     * @see #setCode(String)
+     */
+    @Override
+    public String getCode();
+
+    /**
      * Retrieves the kind of content. This should be used to determine the
      * appropriate cast to a subinterface.
      * <p>
@@ -75,6 +87,12 @@ public interface Content extends Entity<Long>, Coded<String> {
      */
     void setBook(Book book);
 
+    /**
+     * Stores the new code for this content.
+     *
+     * @param code the code
+     * @see #getCode()
+     */
     void setCode(String code);
 
     /**
