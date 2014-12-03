@@ -124,6 +124,18 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
     String getTitle();
 
     /**
+     * Determines whether this bible edition is the fallback provided by the
+     * system when (1) the user does not request any specific edition and (2) no
+     * edition has been defaulted for the user's locale.
+     * <p>
+     * Only one bible can ever be the system default.
+     *
+     * @return {@code true} if the default; otherwise {@code false}
+     * @see #setDefault(boolean)
+     */
+    boolean isDefault();
+
+    /**
      * Retrieves the truth about whether this Bible edition requires
      * right-to-left reading, such as Hebrew or Arabic. When this flag is set,
      * the usual response for page rendering is to right-align whatever text is
@@ -135,6 +147,8 @@ public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalizat
     boolean isRightToLeftReading();
 
     void setCode(String code);
+
+    void setDefault(boolean defaultFlag);
 
     /**
      * Stores the new native locale for this bible edition.

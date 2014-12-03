@@ -71,6 +71,9 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Column(name = BibleTable.COLUMN_RTOL)
     private boolean rightToLeftReading;
 
+    @Column(name = BibleTable.COLUMN_DEFAULT)
+    private boolean defaultFlag;
+
     @OneToMany(targetEntity = BookImpl.class, mappedBy = "bible")
     @OrderBy("order")
     private List<Book> books;
@@ -153,6 +156,11 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     }
 
     @Override
+    public final boolean isDefault() {
+        return defaultFlag;
+    }
+
+    @Override
     public boolean isRightToLeftReading() {
         return rightToLeftReading;
     }
@@ -160,6 +168,11 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Override
     public final void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public final void setDefault(boolean defaultFlag) {
+        this.defaultFlag = defaultFlag;
     }
 
     @Override

@@ -26,12 +26,11 @@ import static org.sacredscripture.platform.internal.DataModel.AUDIT_COLUMN_CREAT
 import static org.sacredscripture.platform.internal.DataModel.AUDIT_COLUMN_UPDATED;
 import static org.sacredscripture.platform.internal.DataModel.BibleLocalizationTable.COLUMN_ID;
 import static org.sacredscripture.platform.internal.DataModel.BibleTable.COLUMN_CODE;
+import static org.sacredscripture.platform.internal.DataModel.BibleTable.COLUMN_DEFAULT;
 import static org.sacredscripture.platform.internal.DataModel.BibleTable.COLUMN_LOCALE;
 import static org.sacredscripture.platform.internal.DataModel.BibleTable.COLUMN_RTOL;
 
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BibleImpl;
-import org.sacredscripture.platform.internal.bible.BibleLocalizationImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -65,6 +64,7 @@ public class BibleImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertEquals(b.getCode(), rs.getString(COLUMN_CODE));
         assertEquals(b.getLocale(), Locale.forLanguageTag(rs.getString(COLUMN_LOCALE)));
         assertEquals(b.isRightToLeftReading(), rs.getBoolean(COLUMN_RTOL));
+        assertEquals(b.isDefault(), rs.getBoolean(COLUMN_DEFAULT));
     }
 
     /**

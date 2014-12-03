@@ -51,6 +51,7 @@ public final class ObjectMother {
         b.setCode(randomText(6));
         b.setLocale(Locale.ENGLISH);
         b.setRightToLeftReading(true);
+        b.setDefault(true);
         return b;
     }
 

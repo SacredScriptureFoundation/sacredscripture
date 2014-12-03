@@ -25,6 +25,7 @@ bible
     code          VARCHAR(10) NOT NULL,
     locale_lang   CHAR(2) NOT NULL,
     rtol          BIT NOT NULL,
+    fallback      BIT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT bible_ix01fk UNIQUE (code)
 )
