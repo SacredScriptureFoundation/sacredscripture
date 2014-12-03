@@ -36,6 +36,19 @@
     </query>
   </named-query>
 
+  <named-query name="Bible.findDefault">
+    <query>
+    <![CDATA[
+      SELECT 
+          b
+      FROM 
+          BibleImpl b
+      WHERE 
+          b.defaultFlag = TRUE
+    ]]>
+    </query>
+  </named-query>
+
   <named-query name="BookType.findByCode">
     <query>
     <![CDATA[

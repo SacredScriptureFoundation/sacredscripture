@@ -38,7 +38,16 @@ public interface BibleDao extends Dao<Bible, Long> {
      * @param code the code
      * @return the bible or {@code null}
      * @throws NullPointerException if code is {@code null}
+     * @see Bible#getCode()
      */
     Bible findByCode(String code);
+
+    /**
+     * Retrieves the bible flagged as the system default.
+     *
+     * @return the found bible or {@code null}
+     * @see Bible#isDefault()
+     */
+    Bible findDefault();
 
 }

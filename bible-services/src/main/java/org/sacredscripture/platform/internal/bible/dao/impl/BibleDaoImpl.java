@@ -38,11 +38,18 @@ import javax.persistence.TypedQuery;
 public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements BibleDao {
 
     private static final String NQ_FIND_BY_CODE = "Bible.findByCode";
+    private static final String NQ_FIND_DEFAULT = "Bible.findDefault";
 
     @Override
     public Bible findByCode(String code) {
         TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
         q.setParameter("code", code.toUpperCase());
+        return singleResultOf(q);
+    }
+
+    @Override
+    public Bible findDefault() {
+        TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_DEFAULT);
         return singleResultOf(q);
     }
 
