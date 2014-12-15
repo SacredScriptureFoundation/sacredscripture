@@ -66,19 +66,19 @@ import javax.xml.transform.stream.StreamSource;
 public class LoadBibleBatchlet extends BaseBatchlet {
 
     // Log messages
-    private static final String LOG_MSG_BIBLE_UM = "Unmarshalling bible...";
+    private static final String LOG_MSG_BIBLE_UM = "Unmarshalling bible";
     private static final String LOG_MSG_BIBLE_UM_ERR = "Failure unmarshalling bible";
     private static final String LOG_MSG_BIBLE_UM_OK = "Success unmarshalling bible";
-    private static final String LOG_MSG_BOOK_UM = "Unmarshalling book...";
+    private static final String LOG_MSG_BOOK_UM = "Unmarshalling book";
     private static final String LOG_MSG_BOOK_UM_ERR = "Failure unmarshalling book";
     private static final String LOG_MSG_BOOK_UM_OK = "Success unmarshalling book";
     private static final String LOG_MSG_CHAPTER_AUTOCODE = "Auto-generating chapter code";
-    private static final String LOG_MSG_CHAPTER_UM = "Unmarshalling chapter...";
+    private static final String LOG_MSG_CHAPTER_UM = "Unmarshalling chapter";
     private static final String LOG_MSG_CHAPTER_UM_ERR = "Failure unmarshalling chapter";
     private static final String LOG_MSG_CHAPTER_UM_OK = "Success unmarshalling chapter";
     private static final String LOG_MSG_VERSE_AUTOCODE = "Auto-generating verse code";
     private static final String LOG_MSG_VERSE_SAVING = "Adding verse to system";
-    private static final String LOG_MSG_VERSE_PROCESS = "Processing verse...";
+    private static final String LOG_MSG_VERSE_PROCESS = "Processing verse";
     private static final String LOG_MSG_VERSE_PROCESS_ERR = "Failure processing verse";
     private static final String LOG_MSG_VERSE_PROCESS_OK = "Success processing verse";
 
@@ -129,20 +129,29 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         req.setName(bible.getName());
         req.setRightToLeftReading(false); // FIXME
         req.setTitle(bible.getTitle());
-        // service.save(req);
+        service.save(req);
 
         log.trace("Processing books");
-        xsr.nextTag();
-        switch (xsr.getLocalName()) {
-        case "include":
-            processExternalBook(bible, bibleDocPath, xsr.getAttributeValue(null, "href"));
-            break;
-        case "book":
-            processBook(bible, xsr);
-            break;
-        default:
-            throw new IllegalStateException("Unexpected element: " + xsr.getLocalName());
+        for (;;) {
+            xsr.nextTag();
+            switch (xsr.getLocalName()) {
+            case "include":
+                processBookInclude(bible, bibleDocPath, xsr.getAttributeValue(null, "href"));
+                xsr.nextTag();
+                xsr.require(END_ELEMENT, null, "include");
+                break;
+            case "book":
+                processBook(bible, xsr);
+                break;
+            case "bible":
+                // End of bible expected
+                xsr.require(END_ELEMENT, null, "bible");
+                return;
+            default:
+                throw new IllegalStateException("Unexpected element: " + xsr.getLocalName());
+            }
         }
+
     }
 
     private void processBook(XmlBibleType bible, XMLStreamReader xsr) throws Exception {
@@ -150,7 +159,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         AddBookRequest req = new AddBookRequest();
         req.setBibleCode(bible.getCode());
         req.setBookTypeCode(book.getCode().value());
-        // service.add(req);
+        service.add(req);
 
         // Process each chapter found
         xsr.nextTag();
@@ -158,8 +167,30 @@ public class LoadBibleBatchlet extends BaseBatchlet {
             processChapter(xsr, bible, book);
         } while (xsr.next() == START_ELEMENT && "chapter".equals(xsr.getLocalName()));
 
-        // The book should end when there are no more chapters
+        // End of book expected
         xsr.require(END_ELEMENT, null, "book");
+    }
+
+    /**
+     * When the main XML document specifies the book as an included document,
+     * this method will create and manage a new stream to that book.
+     *
+     * @param xmlBible the parent bible
+     * @param bibleDocPath path of the bible document
+     * @param bookDocPath the book path (could be relative)
+     * @throws Exception if a processing error occurs
+     */
+    private void processBookInclude(XmlBibleType xmlBible, Path bibleDocPath, String bookDocPath) throws Exception {
+        XMLInputFactory xif = XMLInputFactory.newFactory();
+        XMLStreamReader xsr = null;
+        try {
+            xsr = xif.createXMLStreamReader(new StreamSource(bibleDocPath.resolveSibling(bookDocPath).toString()));
+            processBook(xmlBible, xsr);
+        } finally {
+            if (xsr != null) {
+                xsr.close();
+            }
+        }
     }
 
     private void processChapter(XMLStreamReader xsr, XmlBibleType xmlBible, XmlBookType xmlBook) throws Exception {
@@ -188,28 +219,6 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         // Process each verse
         for (XmlVerseType xmlVerse : xmlChapter.getVerses()) {
             processVerse(xmlVerse, chapter);
-        }
-    }
-
-    /**
-     * When the main XML document specifies the book as an included document,
-     * this method will create and manage a new stream to that book.
-     *
-     * @param xmlBible the parent bible
-     * @param bibleDocPath path of the bible document
-     * @param bookDocPath the book path (could be relative)
-     * @throws Exception if a processing error occurs
-     */
-    private void processExternalBook(XmlBibleType xmlBible, Path bibleDocPath, String bookDocPath) throws Exception {
-        XMLInputFactory xif = XMLInputFactory.newFactory();
-        XMLStreamReader xsr = null;
-        try {
-            xsr = xif.createXMLStreamReader(new StreamSource(bibleDocPath.resolveSibling(bookDocPath).toString()));
-            processBook(xmlBible, xsr);
-        } finally {
-            if (xsr != null) {
-                xsr.close();
-            }
         }
     }
 
