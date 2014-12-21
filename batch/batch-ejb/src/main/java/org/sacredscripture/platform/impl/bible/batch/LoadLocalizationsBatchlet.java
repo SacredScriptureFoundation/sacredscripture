@@ -33,12 +33,9 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
 
-import javax.batch.api.AbstractBatchlet;
 import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.context.JobContext;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
 
@@ -51,7 +48,7 @@ import javax.xml.bind.JAXBContext;
  */
 @Dependent
 @Named("LoadLocalizationsBatchlet")
-public class LoadLocalizationsBatchlet extends AbstractBatchlet {
+public class LoadLocalizationsBatchlet extends BaseBatchlet {
 
     /**
      * Batch parameter specifying the XML document path.
@@ -63,9 +60,6 @@ public class LoadLocalizationsBatchlet extends AbstractBatchlet {
      * absent, all languages are processed.
      */
     public static final String PARAMETER_LANG_CODE = "langCode";
-
-    @Inject
-    JobContext jobContext;
 
     @EJB
     private BibleMaintenanceService service;

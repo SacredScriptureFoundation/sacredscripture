@@ -30,17 +30,11 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import javax.batch.api.AbstractBatchlet;
 import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.context.JobContext;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 /**
  * This class is the batchlet that populates the canon from XML.
@@ -51,19 +45,15 @@ import org.apache.log4j.Logger;
  */
 @Dependent
 @Named("LoadCanonBatchlet")
-public class LoadCanonBatchlet extends AbstractBatchlet {
+public class LoadCanonBatchlet extends BaseBatchlet {
 
     /**
      * Batch parameter specifying the XML document path.
      */
     public static final String PARAMETER_DOC_PATH = "docPath";
 
-    private static final Logger log = LogManager.getLogger(LoadCanonBatchlet.class);
     private static final String LOG_MSG_CREATING_BOOK = "Creating book \"%s\" in group \"%s\"";
     private static final String LOG_MSG_CREATING_GROUP = "Creating group \"%s\" under parent \"%s\"";
-
-    @Inject
-    JobContext jobContext;
 
     @EJB
     private BibleMaintenanceService service;
