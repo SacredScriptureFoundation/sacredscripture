@@ -66,20 +66,22 @@ import javax.xml.transform.stream.StreamSource;
 public class LoadBibleBatchlet extends BaseBatchlet {
 
     // Log messages
-    private static final String LOG_MSG_BIBLE_UM = "Unmarshalling bible";
+    private static final String LOG_MSG_BIBLE_UM = "Unmarshalling bible...";
     private static final String LOG_MSG_BIBLE_UM_ERR = "Failure unmarshalling bible";
-    private static final String LOG_MSG_BIBLE_UM_OK = "Success unmarshalling bible";
-    private static final String LOG_MSG_BOOK_UM = "Unmarshalling book";
+    private static final String LOG_MSG_BIBLE_UM_OK = "Success unmarshalling bible [code={}]";
+    private static final String LOG_MSG_BOOK_PROCESS = "Processing book [code={}]";
+    private static final String LOG_MSG_BOOK_UM = "Unmarshalling book...";
     private static final String LOG_MSG_BOOK_UM_ERR = "Failure unmarshalling book";
-    private static final String LOG_MSG_BOOK_UM_OK = "Success unmarshalling book";
+    private static final String LOG_MSG_BOOK_UM_OK = "Success unmarshalling book [code={}]";
     private static final String LOG_MSG_CHAPTER_AUTOCODE = "Auto-generating chapter code";
-    private static final String LOG_MSG_CHAPTER_UM = "Unmarshalling chapter";
+    private static final String LOG_MSG_CHAPTER_PROCESS = "Processing chapter [name={}]";
+    private static final String LOG_MSG_CHAPTER_UM = "Unmarshalling chapter...";
     private static final String LOG_MSG_CHAPTER_UM_ERR = "Failure unmarshalling chapter";
-    private static final String LOG_MSG_CHAPTER_UM_OK = "Success unmarshalling chapter";
+    private static final String LOG_MSG_CHAPTER_UM_OK = "Success unmarshalling chapter [name={}]";
     private static final String LOG_MSG_VERSE_AUTOCODE = "Auto-generating verse code";
     private static final String LOG_MSG_VERSE_SAVING = "Adding verse to system";
-    private static final String LOG_MSG_VERSE_PROCESS = "Processing verse";
-    private static final String LOG_MSG_VERSE_PROCESS_ERR = "Failure processing verse";
+    private static final String LOG_MSG_VERSE_PROCESS = "Processing verse [name={}]";
+    private static final String LOG_MSG_VERSE_PROCESS_ERR = "Failure processing verse [name={}]";
     private static final String LOG_MSG_VERSE_PROCESS_OK = "Success processing verse";
 
     /**
@@ -156,19 +158,25 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
     private void processBook(XmlBibleType bible, XMLStreamReader xsr) throws Exception {
         XmlBookType book = unmarshallBook(xsr);
-        AddBookRequest req = new AddBookRequest();
-        req.setBibleCode(bible.getCode());
-        req.setBookTypeCode(book.getCode().value());
-        service.add(req);
+        log.debug(LOG_MSG_BOOK_PROCESS, book.getCode().value());
+        try {
+            AddBookRequest req = new AddBookRequest();
+            req.setBibleCode(bible.getCode());
+            req.setBookTypeCode(book.getCode().value());
+            service.add(req);
 
-        // Process each chapter found
-        xsr.nextTag();
-        do {
-            processChapter(xsr, bible, book);
-        } while (xsr.next() == START_ELEMENT && "chapter".equals(xsr.getLocalName()));
+            // Process each chapter found
+            xsr.nextTag();
+            do {
+                processChapter(xsr, bible, book);
+            } while (xsr.next() == START_ELEMENT && "chapter".equals(xsr.getLocalName()));
 
-        // End of book expected
-        xsr.require(END_ELEMENT, null, "book");
+            // End of book expected
+            xsr.require(END_ELEMENT, null, "book");
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
 
     /**
@@ -195,6 +203,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
     private void processChapter(XMLStreamReader xsr, XmlBibleType xmlBible, XmlBookType xmlBook) throws Exception {
         XmlChapterType xmlChapter = unmarshallChapter(xsr);
+        log.debug(LOG_MSG_CHAPTER_PROCESS, xmlChapter.getName());
 
         // Auto-generate code if none is explicitly specified and the chapter
         // name is a natural number
@@ -223,7 +232,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     }
 
     private void processVerse(XmlVerseType xmlVerse, Chapter chapter) {
-        log.debug(LOG_MSG_VERSE_PROCESS);
+        log.debug(LOG_MSG_VERSE_PROCESS, xmlVerse.getName());
         try {
             // Auto-generate a code if no code is explicitly specified and the
             // verse name is a natural number
@@ -252,7 +261,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
             log.trace(LOG_MSG_VERSE_PROCESS_OK);
         } catch (Exception e) {
-            log.error(LOG_MSG_VERSE_PROCESS_ERR);
+            log.error(LOG_MSG_VERSE_PROCESS_ERR, xmlVerse.getName());
             throw e;
         }
     }
@@ -268,38 +277,38 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     private XmlBibleType unmarshallBible(XMLStreamReader xsr) throws Exception {
         log.trace(LOG_MSG_BIBLE_UM);
         try {
-            XmlBibleType bible = new XmlBibleType();
+            XmlBibleType xmlBible = new XmlBibleType();
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "bible");
-            bible.setCode(xsr.getAttributeValue(null, "code"));
+            xmlBible.setCode(xsr.getAttributeValue(null, "code"));
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "lang");
-            bible.setLang(xsr.getElementText());
+            xmlBible.setLang(xsr.getElementText());
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "name");
-            bible.setName(xsr.getElementText());
+            xmlBible.setName(xsr.getElementText());
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "title");
-            bible.setTitle(xsr.getElementText());
+            xmlBible.setTitle(xsr.getElementText());
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "abbreviation");
-            bible.setAbbreviation(xsr.getElementText());
+            xmlBible.setAbbreviation(xsr.getElementText());
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "copyright");
-            bible.setCopyright(xsr.getElementText());
+            xmlBible.setCopyright(xsr.getElementText());
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "license");
-            bible.setLicense(xsr.getElementText());
+            xmlBible.setLicense(xsr.getElementText());
 
-            log.trace(LOG_MSG_BIBLE_UM_OK);
-            return bible;
+            log.trace(LOG_MSG_BIBLE_UM_OK, xmlBible.getCode());
+            return xmlBible;
         } catch (Exception e) {
             log.error(LOG_MSG_BIBLE_UM_ERR);
             throw e;
@@ -311,10 +320,10 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         try {
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "book");
-            XmlBookType book = new XmlBookType();
-            book.setCode(XmlBookCodeType.fromValue(xsr.getAttributeValue(null, "code")));
-            log.trace(LOG_MSG_BOOK_UM_OK);
-            return book;
+            XmlBookType xmlBook = new XmlBookType();
+            xmlBook.setCode(XmlBookCodeType.fromValue(xsr.getAttributeValue(null, "code")));
+            log.trace(LOG_MSG_BOOK_UM_OK, xmlBook.getCode().value());
+            return xmlBook;
         } catch (Exception e) {
             log.error(LOG_MSG_BOOK_UM_ERR);
             throw e;
@@ -335,7 +344,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         try {
             Unmarshaller um = JAXBContext.newInstance(XmlChapterType.class).createUnmarshaller();
             XmlChapterType xmlChapter = um.unmarshal(xsr, XmlChapterType.class).getValue();
-            log.trace(LOG_MSG_CHAPTER_UM_OK);
+            log.trace(LOG_MSG_CHAPTER_UM_OK, xmlChapter.getName());
             return xmlChapter;
         } catch (Exception e) {
             log.error(LOG_MSG_CHAPTER_UM_ERR);

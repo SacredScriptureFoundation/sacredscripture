@@ -19,12 +19,11 @@
  */
 package org.sacredscripture.platform.impl.bible.batch;
 
+import org.sacredscripturefoundation.commons.Logger;
+
 import javax.batch.api.AbstractBatchlet;
 import javax.batch.runtime.context.JobContext;
 import javax.inject.Inject;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 /**
  * Convenience subclass for batchlets. Provides the injected job context and an
@@ -38,7 +37,7 @@ abstract class BaseBatchlet extends AbstractBatchlet {
     /**
      * Instance logger.
      */
-    protected final Logger log = LogManager.getLogger(getClass());
+    protected final Logger log = new Logger(getClass());
 
     /**
      * Job context.
