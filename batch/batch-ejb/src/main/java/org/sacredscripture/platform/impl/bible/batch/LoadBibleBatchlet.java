@@ -22,6 +22,8 @@ package org.sacredscripture.platform.impl.bible.batch;
 import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
+import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.service.AddBookRequest;
 import org.sacredscripture.platform.bible.service.AddChapterRequest;
@@ -121,17 +123,17 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     }
 
     private void process(XMLStreamReader xsr, Path bibleDocPath) throws Exception {
-        XmlBibleType bible = unmarshallBible(xsr);
+        XmlBibleType xmlBible = unmarshallBible(xsr);
         SaveBibleRequest req = new SaveBibleRequest();
-        req.setAbbreviation(bible.getAbbreviation());
-        req.setCode(bible.getCode());
-        req.setCopyrightNotice(bible.getCopyright());
-        req.setLicense(bible.getLicense());
-        req.setLocale(Locale.forLanguageTag(bible.getLang()));
-        req.setName(bible.getName());
+        req.setAbbreviation(xmlBible.getAbbreviation());
+        req.setCode(xmlBible.getCode());
+        req.setCopyrightNotice(xmlBible.getCopyright());
+        req.setLicense(xmlBible.getLicense());
+        req.setLocale(Locale.forLanguageTag(xmlBible.getLang()));
+        req.setName(xmlBible.getName());
         req.setRightToLeftReading(false); // FIXME
-        req.setTitle(bible.getTitle());
-        service.save(req);
+        req.setTitle(xmlBible.getTitle());
+        Bible bible = service.save(req);
 
         log.trace("Processing books");
         for (;;) {
@@ -143,7 +145,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
                 xsr.require(END_ELEMENT, null, "include");
                 break;
             case "book":
-                processBook(bible, xsr);
+                processBook(xsr, bible);
                 break;
             case "bible":
                 // End of bible expected
@@ -156,19 +158,19 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
     }
 
-    private void processBook(XmlBibleType bible, XMLStreamReader xsr) throws Exception {
-        XmlBookType book = unmarshallBook(xsr);
-        log.debug(LOG_MSG_BOOK_PROCESS, book.getCode().value());
+    private void processBook(XMLStreamReader xsr, Bible bible) throws Exception {
+        XmlBookType xmlBook = unmarshallBook(xsr);
+        log.debug(LOG_MSG_BOOK_PROCESS, xmlBook.getCode().value());
         try {
             AddBookRequest req = new AddBookRequest();
             req.setBibleCode(bible.getCode());
-            req.setBookTypeCode(book.getCode().value());
-            service.add(req);
+            req.setBookTypeCode(xmlBook.getCode().value());
+            Book book = service.add(req);
 
             // Process each chapter found
             xsr.nextTag();
             do {
-                processChapter(xsr, bible, book);
+                processChapter(xsr, book);
             } while (xsr.next() == START_ELEMENT && "chapter".equals(xsr.getLocalName()));
 
             // End of book expected
@@ -188,12 +190,12 @@ public class LoadBibleBatchlet extends BaseBatchlet {
      * @param bookDocPath the book path (could be relative)
      * @throws Exception if a processing error occurs
      */
-    private void processBookInclude(XmlBibleType xmlBible, Path bibleDocPath, String bookDocPath) throws Exception {
+    private void processBookInclude(Bible bible, Path bibleDocPath, String bookDocPath) throws Exception {
         XMLInputFactory xif = XMLInputFactory.newFactory();
         XMLStreamReader xsr = null;
         try {
             xsr = xif.createXMLStreamReader(new StreamSource(bibleDocPath.resolveSibling(bookDocPath).toString()));
-            processBook(xmlBible, xsr);
+            processBook(xsr, bible);
         } finally {
             if (xsr != null) {
                 xsr.close();
@@ -201,7 +203,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         }
     }
 
-    private void processChapter(XMLStreamReader xsr, XmlBibleType xmlBible, XmlBookType xmlBook) throws Exception {
+    private void processChapter(XMLStreamReader xsr, Book book) throws Exception {
         XmlChapterType xmlChapter = unmarshallChapter(xsr);
         log.debug(LOG_MSG_CHAPTER_PROCESS, xmlChapter.getName());
 
@@ -211,7 +213,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         if ((code == null) && xmlChapter.getName().matches(NATURAL_NUMBER_PATTERN)) {
             log.trace(LOG_MSG_CHAPTER_AUTOCODE);
             StringBuilder sb = new StringBuilder();
-            sb.append(xmlBook.getCode().value());
+            sb.append(book.getBookType().getCode());
             sb.append(":");
             sb.append(xmlChapter.getName());
             code = sb.toString();
@@ -219,8 +221,8 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
         // Add the chapter to the system
         AddChapterRequest req = new AddChapterRequest();
-        req.setBibleCode(xmlBible.getCode());
-        req.setBookTypeCode(xmlBook.getCode().value());
+        req.setBibleCode(book.getBible().getCode());
+        req.setBookTypeCode(book.getBookType().getCode());
         req.setCode(code);
         req.setName(xmlChapter.getName());
         Chapter chapter = service.add(req);
