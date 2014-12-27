@@ -37,9 +37,11 @@
     </layout>
   </appender>
 
-  <logger name="org.sacredscripture">
-    <level value="debug" />
+  <!-- 
+  <logger name="org.sacredscripture.platform.impl.bible.batch">
+    <level value="trace" />
   </logger>
+  -->
 
   <logger name="org.hibernate.SQL" additivity="false">
     <level value="debug"/>

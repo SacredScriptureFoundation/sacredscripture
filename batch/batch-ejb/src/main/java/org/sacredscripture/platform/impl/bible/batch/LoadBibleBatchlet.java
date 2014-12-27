@@ -55,9 +55,11 @@ import javax.xml.transform.stream.StreamSource;
 /**
  * This class is the batchlet that populates a bible from XML.
  * <p>
- * Logging: <br/>
- * debug - processing details <br/>
- * trace - unmarshalling and inner logic details
+ * Logging strategy: <br/>
+ * error - exceptions<br/>
+ * info - book processing<br/>
+ * debug - chapter and verse processing<br/>
+ * trace - unmarshalling and misc step logic
  *
  * @author Paul Benedict
  * @see XmlBibleType
@@ -155,12 +157,11 @@ public class LoadBibleBatchlet extends BaseBatchlet {
                 throw new IllegalStateException("Unexpected element: " + xsr.getLocalName());
             }
         }
-
     }
 
     private void processBook(XMLStreamReader xsr, Bible bible) throws Exception {
         XmlBookType xmlBook = unmarshallBook(xsr);
-        log.debug(LOG_MSG_BOOK_PROCESS, xmlBook.getCode().value());
+        log.info(LOG_MSG_BOOK_PROCESS, xmlBook.getCode().value());
         try {
             AddBookRequest req = new AddBookRequest();
             req.setBibleCode(bible.getCode());
@@ -178,7 +179,6 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         } catch (Exception e) {
             throw e;
         }
-
     }
 
     /**
