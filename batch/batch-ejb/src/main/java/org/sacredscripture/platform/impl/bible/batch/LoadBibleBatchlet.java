@@ -70,20 +70,20 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     // Log messages
     private static final String LOG_MSG_BIBLE_UM = "Unmarshalling bible...";
     private static final String LOG_MSG_BIBLE_UM_ERR = "Failure unmarshalling bible";
-    private static final String LOG_MSG_BIBLE_UM_OK = "Success unmarshalling bible [code={}]";
-    private static final String LOG_MSG_BOOK_PROCESS = "Processing book [code={}]";
+    private static final String LOG_MSG_BIBLE_UM_OK = "Success unmarshalling bible [{}]";
+    private static final String LOG_MSG_BOOK_PROCESS = "Processing book [{}]";
     private static final String LOG_MSG_BOOK_UM = "Unmarshalling book...";
     private static final String LOG_MSG_BOOK_UM_ERR = "Failure unmarshalling book";
-    private static final String LOG_MSG_BOOK_UM_OK = "Success unmarshalling book [code={}]";
+    private static final String LOG_MSG_BOOK_UM_OK = "Success unmarshalling book [{}]";
     private static final String LOG_MSG_CHAPTER_AUTOCODE = "Auto-generating chapter code";
-    private static final String LOG_MSG_CHAPTER_PROCESS = "Processing chapter [name={}]";
+    private static final String LOG_MSG_CHAPTER_PROCESS = "Processing chapter [{}] in book [{}]";
     private static final String LOG_MSG_CHAPTER_UM = "Unmarshalling chapter...";
     private static final String LOG_MSG_CHAPTER_UM_ERR = "Failure unmarshalling chapter";
-    private static final String LOG_MSG_CHAPTER_UM_OK = "Success unmarshalling chapter [name={}]";
+    private static final String LOG_MSG_CHAPTER_UM_OK = "Success unmarshalling chapter [{}]";
     private static final String LOG_MSG_VERSE_AUTOCODE = "Auto-generating verse code";
     private static final String LOG_MSG_VERSE_SAVING = "Adding verse to system";
-    private static final String LOG_MSG_VERSE_PROCESS = "Processing verse [name={}]";
-    private static final String LOG_MSG_VERSE_PROCESS_ERR = "Failure processing verse [name={}]";
+    private static final String LOG_MSG_VERSE_PROCESS = "Processing verse [{}]";
+    private static final String LOG_MSG_VERSE_PROCESS_ERR = "Failure processing verse [{}]";
     private static final String LOG_MSG_VERSE_PROCESS_OK = "Success processing verse";
 
     /**
@@ -205,7 +205,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
     private void processChapter(XMLStreamReader xsr, Book book) throws Exception {
         XmlChapterType xmlChapter = unmarshallChapter(xsr);
-        log.debug(LOG_MSG_CHAPTER_PROCESS, xmlChapter.getName());
+        log.debug(LOG_MSG_CHAPTER_PROCESS, xmlChapter.getName(), book.getBookType().getCode());
 
         // Auto-generate code if none is explicitly specified and the chapter
         // name is a natural number
