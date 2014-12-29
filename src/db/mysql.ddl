@@ -149,7 +149,7 @@ content
     book_id               INT UNSIGNED NOT NULL,
     list_position         INT UNSIGNED NOT NULL,
     type_code             INT(1) NOT NULL,
-    content_code          VARCHAR(10),
+    content_code          VARCHAR(11), -- XXX:YYY:ZZZ
     chapter_name          VARCHAR(10),
     verse_chapter_id      INT UNSIGNED,
     verse_name            VARCHAR(10),
