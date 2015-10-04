@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -17,48 +17,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.internal.bible.dao;
+package org.sacredscripture.platform.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
-import org.sacredscripture.platform.internal.bible.BibleImpl;
-
-import org.sacredscripturefoundation.commons.entity.dao.Dao;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
- * This interface defines persistence operations for {@link BibleImpl} entities.
+ * This interface defines a service for querying Bible editions and their
+ * contents.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface BibleDao extends Dao<Bible, Long> {
+public interface BibleQueryService {
 
     /**
-     * Retrieves the bible by the specified code.
+     * Retrieves the list of bibles.
      *
-     * @param code the code
-     * @return the bible or {@code null}
-     * @throws NullPointerException if code is {@code null}
-     * @see Bible#getCode()
-     */
-    Bible findByCode(String code);
-
-    /**
-     * Retrieves any bibles that are written in the specified locale.
-     *
-     * @param locale the locale to match
+     * @param req the request message
      * @return list of bibles (never {@code null})
      */
-    List<Bible> findByLocale(Locale locale);
-
-    /**
-     * Retrieves the bible flagged as the system default.
-     *
-     * @return the found bible or {@code null}
-     * @see Bible#isDefault()
-     */
-    Bible findDefault();
+    List<Bible> getBibles(GetBiblesRequest req);
 
 }

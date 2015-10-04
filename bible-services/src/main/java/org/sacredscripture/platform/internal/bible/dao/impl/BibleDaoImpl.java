@@ -25,6 +25,9 @@ import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
 
+import java.util.List;
+import java.util.Locale;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 
@@ -38,6 +41,7 @@ import javax.persistence.TypedQuery;
 public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements BibleDao {
 
     private static final String NQ_FIND_BY_CODE = "Bible.findByCode";
+    private static final String NQ_FIND_BY_LOCALE = "Bible.findByLocale";
     private static final String NQ_FIND_DEFAULT = "Bible.findDefault";
 
     @Override
@@ -45,6 +49,14 @@ public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements 
         TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
         q.setParameter("code", code.toUpperCase());
         return singleResultOf(q);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Bible> findByLocale(Locale locale) {
+        TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_BY_LOCALE);
+        q.setParameter("locale", locale.getLanguage());
+        return List.class.cast(q.getResultList());
     }
 
     @Override
