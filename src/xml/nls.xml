@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+  Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+  "All scripture is given by inspiration of God, and is profitable for 
+  doctrine, for reproof, for correction, for instruction in righteousness:
+  That the man of God may be perfect, throughly furnished unto all good 
+  works." (2 Tim 3:16-17)
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<nls 
+  xmlns="http://www.sacredscripturefoundation.org/schema/nls" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.sacredscripturefoundation.org/schema/nls http://www.sacredscripturefoundation.org/schema/nls-1.0.xsd">
+
+  <!-- Book Groups -->
+
+  <group code="cat">
+    <localization lang="en" name="General Epistles" />
+    <localization lang="es" name="Cartas Generales" />
+    <localization lang="la" name="General Epistolis" />
+    <localization lang="pl" name="Listy powszechne" />
+  </group>
+
+  <group code="gos">
+    <localization lang="en" name="Gospels" />
+    <localization lang="es" name="Evangelios" />
+    <localization lang="la" name="Evangelia" />
+    <localization lang="pl" name="Ewangelie" />
+  </group>
+
+  <group code="his">
+    <localization lang="en" name="Historical Books" />
+    <localization lang="es" name="Libros Históricos" />
+    <localization lang="la" name="Historica" />
+    <localization lang="pl" name="Księgi Historyczne" />
+  </group>
+  
+  <group code="mos">
+    <localization lang="en" name="Pentateuch" />
+    <localization lang="es" name="Pentateuco" />
+    <localization lang="la" name="Pentateuchus" />
+    <localization lang="pl" name="Pięcioksiąg" />
+  </group>
+
+  <group code="ntt">
+    <localization lang="en" name="New Testament" />
+    <localization lang="es" name="Nuevo Testamento" />
+    <localization lang="la" name="Novum Testamentum" />
+    <localization lang="pl" name="Nowy Testament" />
+  </group>
+  
+  <group code="ott">
+    <localization lang="en" name="Old Testament" />
+    <localization lang="es" name="Antiguo Testamento" />
+    <localization lang="la" name="Vetus Testamentum" />
+    <localization lang="pl" name="Stary Testament" />
+  </group>
+  
+  <group code="pau">
+    <localization lang="en" name="Pauline Epistles" />
+    <localization lang="es" name="Cartas de San Pablo" />
+    <localization lang="la" name="Epistulae sancti Paul" />
+    <localization lang="pl" name="Listy Pawła" />
+  </group>
+
+  <group code="pma">
+    <localization lang="en" name="Major Prophets" />
+    <localization lang="es" name="Profetas Mayores" />
+    <localization lang="la" name="Major Prophetae" />
+    <localization lang="pl" name="Prorocy Więksi" />
+  </group>
+
+  <group code="pmi">
+    <localization lang="en" name="Minor Prophets" />
+    <localization lang="es" name="Profetas Mayores" />
+    <localization lang="la" name="Major Prophetae" />
+    <localization lang="pl" name="Prorocy Mniejsi" />
+  </group>
+
+  <group code="pro">
+    <localization lang="en" name="The Prophets" />
+    <localization lang="es" name="Los Profetas" />
+    <localization lang="la" name="Prophetae" />
+    <localization lang="pl" name="Prorocy" />
+  </group>
+  
+  <group code="wis">
+    <localization lang="en" name="Wisdom Books" />
+    <localization lang="es" name="libros de Sabiduría" />
+    <localization lang="la" name="Sapientia Libros" />
+    <localization lang="pl" name="Księgi Mądrości" />
+  </group>
+  
+  <!-- Books -->
+
+  <book code="act">
+    <localization lang="en" name="Acts" title="The Acts of the Apostles" abbreviations="Act,Ac" />
+    <localization lang="es" name="Hechos" title="Hechos de los Apóstoles" abbreviations="Hech,Hch,He" />
+    <localization lang="la" name="Actus Apostolorum" title="Actus Apostolorum" abbreviations="Ac" />
+    <localization lang="pl" name="Dzieje Apostolskie" title="Księga Dziejów Apostolskich" abbreviations="Dz,TODO" />
+  </book>
+
+  <book code="amo">
+    <localization lang="en" name="Amos" title="The Book of the Prophet Amos" abbreviations="Am" />
+    <localization lang="es" name="Amós" title="Libro del profeta Amós" abbreviations="Am" />
+    <localization lang="la" name="Amos" title="Prophetia Amos" abbreviations="Am" />
+    <localization lang="pl" name="Amosa" title="Księgi proroka Amosa" abbreviations="TODO" />
+  </book>
+
+  <book code="bar">
+    <localization lang="en" name="Baruch" title="The Book of the Prophet Baruch" abbreviations="Bar,Ba" />
+    <localization lang="es" name="Baruc" title="Libro del profeta Baruc" abbreviations="Bar,Ba" />
+    <localization lang="la" name="Baruch" title="Prophetia Baruch" abbreviations="Bar" />
+    <localization lang="pl" name="Barucha" title="Księgi proroka Barucha" abbreviations="Bar,Ba" />
+  </book>
+
+  <book code="ch1">
+    <localization lang="en" name="1 Chronicles" title="The First Book of Chronicles" abbreviations="1Chr,1Chron,1Ch" />
+    <localization lang="es" name="1 Crónicas" title="Libro Primero de las Crónicas" abbreviations="1Cró,1Cr" />
+    <localization lang="la" name="Paralipomenon I" title="Liber Primus Paralipomenon" abbreviations="1Par" />
+    <localization lang="pl" name="1 Kronik" title="Pierwsza Księga Kronik" abbreviations="2Kron,2Krn,TODO" />
+  </book>
+
+  <book code="ch2">
+    <localization lang="en" name="2 Chronicles" title="The Second Book of Chronicles" abbreviations="2Chr,2Chron,2Ch" />
+    <localization lang="es" name="2 Crónicas" title="Libro Segundo de las Crónicas" abbreviations="2Cró,2Cr" />
+    <localization lang="la" name="Paralipomenon II" title="Liber Secundus Paralipomenon" abbreviations="2Par" />
+    <localization lang="pl" name="2 Kronik" title="Druga Księga Kronik" abbreviations="2Kron,2Krn,TODO" />
+  </book>
+
+  <book code="co1">
+    <localization lang="en" name="1 Corinthians" title="The First Letter of St. Paul to the Corinthians" abbreviations="1Cor,1Co" />
+    <localization lang="es" name="1 Corintios" title="Primera Carta de San Pablo a los Corintios" abbreviations="1Co" />
+    <localization lang="la" name="ad Corinthios I" title="Epistola B. Pauli Apostoli ad Corinthios Prima" abbreviations="1Cor" />
+    <localization lang="pl" name="1 Koryntian" title="Pierwszy List Pawła do Koryntian" abbreviations="1Kor,TODO" />
+  </book>
+
+  <book code="co2">
+    <localization lang="en" name="2 Corinthians" title="The Second Letter of St. Paul to the Corinthians" abbreviations="2Cor,2Co" />
+    <localization lang="es" name="2 Corintios" title="Segunda Carta de San Pablo a los Corintios" abbreviations="2Co" />
+    <localization lang="la" name="ad Corinthios II" title="Epistola B. Pauli Apostoli ad Corinthios Secunda" abbreviations="2Cor" />
+    <localization lang="pl" name="2 Koryntian" title="Drugi List św Pawła do Koryntian" abbreviations="2Kor,TODO" />
+  </book>
+
+  <book code="col">
+    <localization lang="en" name="Colossians" title="The Letter of St. Paul to the Colossians" abbreviations="Col,Co" />
+    <localization lang="es" name="Colosenses" title="Carta de San Pablo a los Colosenses" abbreviations="Col" />
+    <localization lang="la" name="ad Colossenses" title="Epistola B. Pauli Apostoli ad Colossenses" abbreviations="Col" />
+    <localization lang="pl" name="Kolosan" title="List Pawła do Kolosan" abbreviations="Kol,TODO" />
+  </book>
+
+  <book code="dan">
+    <localization lang="en" name="Daniel" title="The Book of the Prophet Daniel" abbreviations="Dan,Dn,Da" />
+    <localization lang="es" name="Daniel" title="Libro del profeta Daniel" abbreviations="Dan,Dn" />
+    <localization lang="la" name="Daniel" title="Prophetia Danielis" abbreviations="Dan,Dn" />
+    <localization lang="pl" name="Daniela" title="Księgi proroka Daniela" abbreviations="TODO" />
+  </book>
+
+  <book code="deu">
+    <localization lang="en" name="Deuteronomy" title="The Fifth Book of Moses commonly called Deuteronomy" abbreviations="Deut,Dt,De,Du" />
+    <localization lang="es" name="Deuteronomio" title="Libro Quinto de Moses llamó Deuteronomio" abbreviations="Deut,Dt" />
+    <localization lang="la" name="Deuteronomium" title="Liber Quinto Mosis dicitur Deuteronomii" abbreviations="Deut,Dt" />
+    <localization lang="pl" name="Powtórzonego Prawa" title="Piąta Księga Mojżesza nazywa Powtórzonego Prawa" abbreviations="Pwt,TODO" />
+  </book>
+
+  <book code="ecc">
+    <localization lang="en" name="Ecclesiastes" title="Ecclesiastes (or the Preacher)" abbreviations="Eccl,Ec,Eccles" />
+    <localization lang="es" name="Eclesiastés" title="Eclesiastés (Qohélet)" abbreviations="Ecl,Ec" />
+    <localization lang="la" name="Ecclesiastes" title="Liber Ecclesiastes" abbreviations="Ecl" />
+    <localization lang="pl" name="Koheleta" title="Księga Koheleta" abbreviations="Koh,TODO" />
+  </book>
+
+  <book code="eph">
+    <localization lang="en" name="Ephesians" title="The Letter of St. Paul to the Ephesians" abbreviations="Eph,Ep" />
+    <localization lang="es" name="Efesios" title="Carta de San Pablo a los Efesios" abbreviations="Ef" />
+    <localization lang="la" name="ad Ephesios" title="Epistola B. Pauli Apostoli ad Ephesios" abbreviations="Eph,Ep" />
+    <localization lang="pl" name="Efezjan" title="List Pawła do Efezjan" abbreviations="Efez,Ef" />
+  </book>
+
+  <book code="est">
+    <localization lang="en" name="Esther" title="The Book of Esther" abbreviations="Esth,Es,Est" />
+    <localization lang="es" name="Ester" title="Libro de Ester" abbreviations="Est" />
+    <localization lang="la" name="Esther" title="Liber Esther" abbreviations="Est" />
+    <localization lang="pl" name="Estery" title="Księga Estery" abbreviations="TODO" />
+  </book>
+
+  <book code="exo">
+    <localization lang="en" name="Exodus" title="The Second Book of Moses commonly called Exodus" abbreviations="Exod,Ex" />
+    <localization lang="es" name="Éxodo" title="Libro Segundo de Moses llamó Éxodo" abbreviations="Éxod,Éx" />
+    <localization lang="la" name="Exodus" title="Liber Secundus Mosis dicitur Exodus" abbreviations="Exod,Ex" />
+    <localization lang="pl" name="Wyjścia" title="Druga Księga Mojżesza zwany Exodus" abbreviations="Wj,TODO" />
+  </book>
+
+  <book code="ezk">
+    <localization lang="en" name="Ezekiel" title="The Book of the Prophet Ezekiel" abbreviations="Ezek,Ezk,Ez" />
+    <localization lang="es" name="Ezequiel" title="Libro del profeta Ezequiel" abbreviations="Ez" />
+    <localization lang="la" name="Ezechiel" title="Prophetia Ezechielis" abbreviations="Ez" />
+    <localization lang="pl" name="Ezechiela" title="Księgi proroka Ezechiel" abbreviations="Ezech,TODO" />
+  </book>
+
+  <book code="ezr">
+    <localization lang="en" name="Ezra" title="The Book of Ezra" abbreviations="Ezr" />
+    <localization lang="es" name="Esdras" title="Libro de Esdras" abbreviations="Esd,Es" />
+    <localization lang="la" name="Esdrae" title="Liber Esdrae" abbreviations="Esr" />
+    <localization lang="pl" name="Ezdrasza" title="Księga Ezdrasza" abbreviations="Ezdr,Ezd" />
+  </book>
+
+  <book code="gal">
+    <localization lang="en" name="Galatians" title="The Letter of St. Paul to the Galatians" abbreviations="Gal,Ga" />
+    <localization lang="es" name="Gálatas" title="Carta de San Pablo a los Gálatas" abbreviations="Gál" />
+    <localization lang="la" name="ad Galatas" title="Epistola B. Pauli Apostoli ad Galatas" abbreviations="Gal" />
+    <localization lang="pl" name="Galatów" title="List Pawła do Galatów" abbreviations="Ga,TODO" />
+  </book>
+
+  <book code="gen">
+    <localization lang="en" name="Genesis" title="The First Book of Moses commonly called Genesis" abbreviations="Gen,Gn,Ge" />
+    <localization lang="es" name="Génesis" title="Libro Primo de Moses llamó Génesis" abbreviations="Gén,Gn" />
+    <localization lang="la" name="Genesis" title="Liber Primus Moses dicitur Genesis" abbreviations="Gen,Gn" />
+    <localization lang="pl" name="Rodzaju" title="Pierwsza Księga Mojżesza nazwie Genesis" abbreviations="Rodz,Rz" />
+  </book>
+
+  <book code="hab">
+    <localization lang="en" name="Habakkuk" title="The Book of the Prophet Habakkuk" abbreviations="Hab,Hb" />
+    <localization lang="es" name="Habacuc" title="Libro del profeta Habacuc" abbreviations="Hab" />
+    <localization lang="la" name="Habacuc" title="Prophetia Habacuc" abbreviations="Hab" />
+    <localization lang="pl" name="Habakuka" title="Księgi proroka Habakuka" abbreviations="TODO" />
+  </book>
+
+  <book code="hag">
+    <localization lang="en" name="Haggai" title="The Book of the Prophet Haggai" abbreviations="Hag,Hg" />
+    <localization lang="es" name="Ageo" title="Libro del profeta Ageo" abbreviations="Ag" />
+    <localization lang="la" name="Aggaeus" title="Prophetia Aggaei" abbreviations="Agg" />
+    <localization lang="pl" name="Aggeusza" title="Księgi proroka Aggeusza" abbreviations="Agg,Ag" />
+  </book>
+
+  <book code="heb">
+    <localization lang="en" name="Hebrews" title="The Letter to the Hebrews" abbreviations="Heb,He" />
+    <localization lang="es" name="Hebreos" title="Carta a los Hebreos" abbreviations="Heb" />
+    <localization lang="la" name="ad Hebraeos" title="Epistola B. Pauli Apostoli ad Hebraeos" abbreviations="Hbr" />
+    <localization lang="pl" name="Hebrajczyków" title="List do Hebrajczyków" abbreviations="Hebr,Hbr" />
+  </book>
+
+  <book code="hos">
+    <localization lang="en" name="Hosea" title="The Book of the Prophet Hosea" abbreviations="Hos,Ho" />
+    <localization lang="es" name="Oseas" title="Libro del profeta Oseas" abbreviations="Os" />
+    <localization lang="la" name="Osee" title="Prophetia Osee" abbreviations="Os" />
+    <localization lang="pl" name="Ozeasza" title="Księgi proroka Ozeasza" abbreviations="Oze,Oz" />
+  </book>
+
+  <book code="isa">
+    <localization lang="en" name="Isaiah" title="The Book of the Prophet Isaiah" abbreviations="Isa,Is" />
+    <localization lang="es" name="Isaías" title="Libro del profeta Isaías" abbreviations="Is" />
+    <localization lang="la" name="Isaias" title="Prophetia Isaiae" abbreviations="Is" />
+    <localization lang="pl" name="Izajasza" title="Księgi proroka Izajasza" abbreviations="Izaj,Iza,Iz" />
+  </book>
+
+  <book code="luk">
+    <localization lang="en" name="Luke" title="The Gospel of Jesus Christ According to St. Luke" abbreviations="Lk,Lu" />
+    <localization lang="es" name="Lucas" title="El Evangelio de Jesucristo según San Lucas" abbreviations="Lc" />
+    <localization lang="la" name="Lucas" title="Evangelium secundum Lucam" abbreviations="Lc" />
+    <localization lang="pl" name="Łukasza" title="Ewangelia według świętego Łukasza" abbreviations="Łuk,Łk,Lk" />
+  </book>
+
+  <book code="jas">
+    <localization lang="en" name="James" title="The Letter of St. James" abbreviations="Jas" />
+    <localization lang="es" name="Santiago" title="Carta a San Santiago" abbreviations="St,Sant,Stgo" />
+    <localization lang="la" name="Iacobi" title="Epistola Catholica B. Iacobi Apostoli" abbreviations="Iac" />
+    <localization lang="pl" name="Jakuba" title="TODO" abbreviations="Jak,Jk" />
+  </book>
+
+  <book code="jer">
+    <localization lang="en" name="Jeremiah" title="The Book of the Prophet Jeremiah" abbreviations="Jer,Je,Jr" />
+    <localization lang="es" name="Jeremías" title="Libro del profeta Jeremías" abbreviations="Jer,Jr" />
+    <localization lang="la" name="Ieremias" title="Prophetia Ieremiae" abbreviations="Ir" />
+    <localization lang="pl" name="Jeremiasza" title="Księgi proroka Jeremiasza" abbreviations="TODO" />
+  </book>
+
+  <book code="joe">
+    <localization lang="en" name="Joel" title="The Book of the Prophet Joel" abbreviations="Jl,Joe" />
+    <localization lang="es" name="Joel" title="Libro del profeta Joel" abbreviations="Jl" />
+    <localization lang="la" name="Ioel" title="Prophetia Ioel" abbreviations="Ioel" />
+    <localization lang="pl" name="Joela" title="Księgi proroka Joela" abbreviations="TODO" />
+  </book>
+
+  <book code="jdg">
+    <localization lang="en" name="Judges" title="The Book of Judges" abbreviations="Judg,Jdg,Jgs,Jg" />
+    <localization lang="es" name="Jueces" title="Libro de Jueces" abbreviations="Jue,Jc" />
+    <localization lang="la" name="Iudicum" title="Liber Iudicum" abbreviations="Idc" />
+    <localization lang="pl" name="Sędziów" title="Księga Sędziów" abbreviations="Sdz,TODO" />
+  </book>
+
+  <book code="jdt">
+    <localization lang="en" name="Judith" title="The Book of Judith" abbreviations="Jdt,Jth" />
+    <localization lang="es" name="Judit" title="Libro de Judit" abbreviations="Jdt" />
+    <localization lang="la" name="Iudith" title="Liber Iudith" abbreviations="Idt" />
+    <localization lang="pl" name="Judyty" title="Liber Judyty" abbreviations="???" />
+  </book>
+
+  <book code="jhn">
+    <localization lang="en" name="John" title="The Gospel of Jesus Christ According to St. John" abbreviations="Jn" />
+    <localization lang="es" name="Juan" title="El Evangelio de Jesucristo según San Juan" abbreviations="Jn" />
+    <localization lang="la" name="Ioannes" title="Evangelium secundum Ioannem" abbreviations="Io" />
+    <localization lang="pl" name="Jana" title="Ewangelia Jezusa Chrystusa według świętego Jana" abbreviations="Jan,Jn,J" />
+  </book>
+
+  <book code="jn1">
+    <localization lang="en" name="1 John" title="The First Letter of St. John" abbreviations="1Jn,1Jo,1J" />
+    <localization lang="es" name="1 Juan" title="Primera Carta de San Juan" abbreviations="1Jn" />
+    <localization lang="la" name="Ioannis I" title="Epistola B. Ioannis Apostoli Prima" abbreviations="1Io" />
+    <localization lang="pl" name="1 Jana" title="Pierwszy List św Jana" abbreviations="1Jan,1Jn,1J" />
+  </book>
+
+  <book code="jn2">
+    <localization lang="en" name="2 John" title="The Second Letter of St. John" abbreviations="2Jn,2Jo,2J" />
+    <localization lang="es" name="2 Juan" title="Segunda Carta de San Juan" abbreviations="2Jn" />
+    <localization lang="la" name="Ioannis II" title="Epistola B. Ioannis Apostoli Secunda" abbreviations="2Io" />
+    <localization lang="pl" name="2 Jana" title="Drugi List św Jana" abbreviations="2Jan,2Jn,2J" />
+  </book>
+
+  <book code="jn3">
+    <localization lang="en" name="3 John" title="The Third Letter of St. John" abbreviations="3Jn,3Jo,3J" />
+    <localization lang="es" name="3 Juan" title="Tercera Carta de San Juan" abbreviations="3Jn" />
+    <localization lang="la" name="Ioannis III" title="Epistola B. Ioannis Apostoli Tertia" abbreviations="3Io" />
+    <localization lang="pl" name="3 Jana" title="Trzeci List Jana" abbreviations="3Jan,3Jn,3J" />
+  </book>
+
+  <book code="job">
+    <localization lang="en" name="Job" title="The Book of Job" abbreviations="Jb" />
+    <localization lang="es" name="Job" title="Libro de Job" abbreviations="Jb" />
+    <localization lang="la" name="Iob" title="Liber Iob" abbreviations="Io" />
+    <localization lang="pl" name="Hioba" title="Księga Hioba" abbreviations="Hiob,Hi" />
+  </book>
+
+  <book code="jon">
+    <localization lang="en" name="Jonah" title="The Book of the Prophet Jonah" abbreviations="Jon" />
+    <localization lang="es" name="Jonás" title="Libro del profeta Jonás" abbreviations="Jon" />
+    <localization lang="la" name="Ionas" title="Prophetia Ionae" abbreviations="Ion" />
+    <localization lang="pl" name="Jonasza" title="Księgi proroka Jonasza" abbreviations="TODO" />
+  </book>
+
+  <book code="jos">
+    <localization lang="en" name="Joshua" title="The Book of Joshua" abbreviations="Josh,Jos" />
+    <localization lang="es" name="Josué" title="Libro de Josué" abbreviations="Jos,Js" />
+    <localization lang="la" name="Iosue" title="Liber Iosue" abbreviations="Ios" />
+    <localization lang="pl" name="Jozuego" title="Księga Jozuego" abbreviations="Joz,TODO" />
+  </book>
+
+  <book code="jud">
+    <localization lang="en" name="Jude" title="The Letter of St. Jude" abbreviations="Jud,Ju" />
+    <localization lang="es" name="Judas" title="Carta de San Judas" abbreviations="Jud,Jds" />
+    <localization lang="la" name="Iudae" title="Epistola Catholica B. Iudae Apostoli" abbreviations="Iud" />
+    <localization lang="pl" name="Judy" title="List św Jude" abbreviations="TODO" />
+  </book>
+
+  <book code="kg1">
+    <localization lang="en" name="1 Kings" title="The First Book of Kings" abbreviations="1Kgs,1Kg,1Ki" />
+    <localization lang="es" name="1 Reyes" title="Libro Primero de los Reyes" abbreviations="1Re" />
+    <localization lang="la" name="Regum I" title="Liber Primus Regum" abbreviations="2Reg,2Rg" />
+    <localization lang="pl" name="1 Królewska" title="Pierwsza Księga Królewska" abbreviations="1Król,1Krl,TODO" />
+  </book>
+
+  <book code="kg2">
+    <localization lang="en" name="2 Kings" title="The Second Book of Kings" abbreviations="2Kgs,2Kg,2Ki" />
+    <localization lang="es" name="2 Reyes" title="Libro Segundo de los Reyes" abbreviations="2Re" />
+    <localization lang="la" name="Regum I" title="Liber Secundus Regum" abbreviations="2Reg,2Rg" />
+    <localization lang="pl" name="2 Królewska" title="Druga Księga Królewska" abbreviations="2Król,2Krl,TODO" />
+  </book>
+
+  <book code="lam">
+    <localization lang="en" name="Lamentations" title="The Lamentations of Jeremiah" abbreviations="Lam,La" />
+    <localization lang="es" name="Lamentaciones" title="Lamentaciones de Profeta Jeremías" abbreviations="Lam" />
+    <localization lang="la" name="Lamentationes" title="Lamentationes Ieremiae Prophetae" abbreviations="Lam" />
+    <localization lang="pl" name="Lamentacje" title="Lamentacje Proroka Jermeiah" abbreviations="TODO" />
+  </book>
+
+  <book code="lev">
+    <localization lang="en" name="Leviticus" title="The Third Book of Moses commonly called Leviticus" abbreviations="Lev,Lv,Le" />
+    <localization lang="es" name="Levítico" title="Libro Tercer de Moses llamó Levítico" abbreviations="Lev,Lv" />
+    <localization lang="la" name="Leviticus" title="Liber Tertius Mosis dicitur Leviticus" abbreviations="Lev,Lv" />
+    <localization lang="pl" name="Kapłańska" title="Trzecia Księga Mojżesza zwany Kapłańska" abbreviations="Kpl,TODO" />
+  </book>
+
+  <book code="mal">
+    <localization lang="en" name="Malachi" title="The Book of the Prophet Malachi" abbreviations="Mal,Ml" />
+    <localization lang="es" name="Malaquías" title="Libro del profeta Malaquías" abbreviations="Mal,Ml" />
+    <localization lang="la" name="Malachias" title="Prophetia Malachiae" abbreviations="Mal" />
+    <localization lang="pl" name="Malachiasza" title="Księgi proroka Malachiasza" abbreviations="???" />
+  </book>
+
+  <book code="mar">
+    <localization lang="en" name="Mark" title="The Gospel of Jesus Christ According to St. Mark" abbreviations="Mk,Mar" />
+    <localization lang="es" name="Marcos" title="El Evangelio de Jesucristo según San Marcos" abbreviations="Mc" />
+    <localization lang="la" name="Marcus" title="Evangelium secundum Marcum" abbreviations="Mc" />
+    <localization lang="pl" name="Marka" title="Ewangelia Jezusa Chrystusa według świętego Marka" abbreviations="Mar,Mk" />
+  </book>
+
+  <book code="mat">
+    <localization lang="en" name="Matthew" title="The Gospel of Jesus Christ According to St. Matthew" abbreviations="Matt,Mt,Mat" />
+    <localization lang="es" name="Mateo" title="El Evangelio de Jesucristo según San Mateo" abbreviations="Mt,Mat" />
+    <localization lang="la" name="Matthaeus" title="Evangelium secundum Matthaeum" abbreviations="Mt" />
+    <localization lang="pl" name="Mateusza" title="Ewangelia Jezusa Chrystusa według świętego Mateusza" abbreviations="Mat,Mt" />
+  </book>
+
+  <book code="mc1">
+    <localization lang="en" name="1 Maccabees" title="The First Book of Maccabees" abbreviations="1Macc,1Mc,1Ma" />
+    <localization lang="es" name="1 Macabeos" title="Libro Primero de Macabeos" abbreviations="1Mac" />
+    <localization lang="la" name="Machabaeorum I" title="Liber Primus Machabaeorum" abbreviations="1Mcc" />
+    <localization lang="pl" name="1 Machabejska" title="Pierwsza Księga Machabejska" abbreviations="1Mach,1Mch,1Ma" />
+  </book>
+
+  <book code="mc2">
+    <localization lang="en" name="2 Maccabees" title="The Second Book of Maccabees" abbreviations="2Macc,2Mc,2Ma" />
+    <localization lang="es" name="2 Macabeos" title="Libro Segundo de Macabeos" abbreviations="2Mac" />
+    <localization lang="la" name="Machabaeorum II" title="Liber Secundus Machabaeorum" abbreviations="2Mcc" />
+    <localization lang="pl" name="2 Machabejska" title="Druga Księga Machabejska" abbreviations="2Mach,2Mch,2Ma" />
+  </book>
+
+  <book code="mic">
+    <localization lang="en" name="Micah" title="The Book of the Prophet Micah" abbreviations="Mic,Mi" />
+    <localization lang="es" name="Miqueas" title="Libro del profeta Miqueas" abbreviations="Miq,Mi" />
+    <localization lang="la" name="Michaea" title="Prophetia Michaeae" abbreviations="Mch" />
+    <localization lang="pl" name="Micheasza" title="Księgi proroka Micheasza" abbreviations="TODO" />
+  </book>
+
+  <book code="nah">
+    <localization lang="en" name="Nahum" title="The Book of the Prophet Nahum" abbreviations="Nah,Na" />
+    <localization lang="es" name="Nahum" title="Libro del profeta Nahum" abbreviations="Nah,Na" />
+    <localization lang="la" name="Nahum" title="Prophetia Nahum" abbreviations="Nah" />
+    <localization lang="pl" name="Nahuma" title="Księgi proroka Nahuma" abbreviations="TODO" />
+  </book>
+  
+  <book code="neh">
+    <localization lang="en" name="Nehemiah" title="The Book of Nehemiah" abbreviations="Neh,Ne" />
+    <localization lang="es" name="Nehemías" title="Libro de Nehemías" abbreviations="Neh,Ne" />
+    <localization lang="la" name="Nehemiae" title="Liber Nehemiae" abbreviations="Neh,Ne" />
+    <localization lang="pl" name="Nehemiasza" title="Księga Nehemiasza" abbreviations="TODO" />
+  </book>
+
+  <book code="num">
+    <localization lang="en" name="Numbers" title="The Fourth Book of Moses commonly called Numbers" abbreviations="Num,Nm,Nu" />
+    <localization lang="es" name="Números" title="Libro Cuarto de Moses llamó Números" abbreviations="Núm,Nm" />
+    <localization lang="la" name="Numeri" title="Liber Quartus Mosis dicitur Numeri" abbreviations="Num,Nm" />
+    <localization lang="pl" name="Liczb" title="Czwarta Księga Mojżesza zwany Liczb" abbreviations="Lb,TODO" />
+  </book>
+
+  <book code="oba">
+    <localization lang="en" name="Obadiah" title="The Book of the Prophet Obadiah" abbreviations="Ob" />
+    <localization lang="es" name="Abdías" title="Libro del profeta Abdías" abbreviations="Abd,Ab" />
+    <localization lang="la" name="Abdias" title="Prophetia Abdiae" abbreviations="Abd" />
+    <localization lang="pl" name="Abdiasza" title="Księgi proroka Abdiasza" abbreviations="TODO" />
+  </book>
+
+  <book code="phm">
+    <localization lang="en" name="Philemon" title="The Letter of St. Paul to Philemon" abbreviations="Phlm,Philem,Phm" />
+    <localization lang="es" name="Filemón" title="Carta de San Pablo a Filemón" abbreviations="Flm,Filem" />
+    <localization lang="la" name="ad Philemonem" title="Epistola B. Pauli Apostoli ad Philemonem" abbreviations="Phlm" />
+    <localization lang="pl" name="Filemona" title="List św Pawła do Filemona" abbreviations="Filem,Flm" />
+  </book>
+
+  <book code="php">
+    <localization lang="en" name="Philippians" title="The Letter of St. Paul to the Philippians" abbreviations="Phil,Php" />
+    <localization lang="es" name="Filipenses" title="Carta de San Pablo a los Filipenses" abbreviations="Flp,Fil" />
+    <localization lang="la" name="ad Philippenses" title="Epistola B. Pauli Apostoli ad Philippenses" abbreviations="Phlp" />
+    <localization lang="pl" name="Filipian" title="List Pawła do Filipian" abbreviations="Flp,TODO" />
+  </book>
+
+  <book code="pro">
+    <localization lang="en" name="Proverbs" title="The Proverbs" abbreviations="Prov,Pr,Prv" />
+    <localization lang="es" name="Proverbios" title="Los Proverbios" abbreviations="Prov,Pro,Pr" />
+    <localization lang="la" name="Proverbia" title="Liber Proverbiorum" abbreviations="Pr" />
+    <localization lang="pl" name="Przysłów" title="Księga Przysłów" abbreviations="Przyp,Prz" />
+  </book>
+
+  <book code="pss">
+    <localization lang="en" name="Psalms" title="The Psalms" abbreviations="Ps" />
+    <localization lang="es" name="Salmos" title="Los Salmos" abbreviations="Sal" />
+    <localization lang="la" name="Psalmi" title="Liber Psalmorum" abbreviations="Ps" />
+    <localization lang="pl" name="Psalmów" title="Księga Psalmów" abbreviations="TODO" />
+  </book>
+
+  <book code="pt1">
+    <localization lang="en" name="1 Peter" title="The First Letter of St. Peter" abbreviations="1Pet,1Pt" />
+    <localization lang="es" name="1 Pedro" title="Primera Carta de San Pedro" abbreviations="1Pe" />
+    <localization lang="la" name="Petri I" title="Epistola B. Petri Apostoli Prima" abbreviations="1Ptr" />
+    <localization lang="pl" name="1 Piotra" title="Pierwszy List św Piotra" abbreviations="1Piotr,1Ptr,1p" />
+  </book>
+
+  <book code="pt2">
+    <localization lang="en" name="2 Peter" title="The Second Letter of St. Peter" abbreviations="2Pet,2Pt" />
+    <localization lang="es" name="2 San Pedro" title="Segunda Carta de San Pedro" abbreviations="2Pe" />
+    <localization lang="la" name="Petri II" title="Epistola B. Petri Apostoli Secunda" abbreviations="2Ptr" />
+    <localization lang="pl" name="2 Piotra" title="Drugi List Piotra" abbreviations="2Piotr,2Ptr,2p" />
+  </book>
+
+  <book code="rev">
+    <localization lang="en" name="Revelation" title="The Revelation to St. John (The Apocalypse)" abbreviations="Rev,Rv,Re" />
+    <localization lang="es" name="Apocalipsis" title="Apocalipsis de San Juan" abbreviations="Apoc,Ap" />
+    <localization lang="la" name="Apocalypsis" title="Apocalypsis B. Ioannis Apostoli" abbreviations="Apc" />
+    <localization lang="pl" name="Apokalipsa" title="Apokalipsa świętego Jana" abbreviations="Ap,Obj" />
+  </book>
+
+  <book code="rom">
+    <localization lang="en" name="Romans" title="The Letter of St. Paul to the Romans" abbreviations="Rom,Rm" />
+    <localization lang="es" name="Romanos" title="Carta de San Pablo a los Romanos" abbreviations="Rom,Rm" />
+    <localization lang="la" name="ad Romanos" title="Epistola B. Pauli Apostoli ad Romanos" abbreviations="Rom,Rm" />
+    <localization lang="pl" name="Rzymian" title="List Świętego Pawła do Rzymian" abbreviations="Rzym,Rz" />
+  </book>
+
+  <book code="rut">
+    <localization lang="en" name="Ruth" title="The Book of Ruth" abbreviations="Ru" />
+    <localization lang="es" name="Rut" title="Libro de Rut" abbreviations="Rt" />
+    <localization lang="la" name="Ruth" title="Liber Ruth" abbreviations="Rt" />
+    <localization lang="pl" name="Rut" title="Księga Rut" abbreviations="TODO" />
+  </book>
+
+  <book code="sir">
+    <localization lang="en" name="Sirach" title="Ecclesiasticus (Wisdom of Jesus the Son of Sirach)" abbreviations="Sir,Si,Ecclus" />
+    <localization lang="es" name="Eclesiástico" title="Eclesiástico (La sabiduría del hijo de Jesús de Sirach)" abbreviations="Eclo,Sir,Si" />
+    <localization lang="la" name="Ecclesiasticus" title="Ecclesiasticus Iesu filii Sirach" abbreviations="Ecclus,Sir,Si" />
+    <localization lang="pl" name="Syracha" title="Mądrość Syracha (Mądrość Jezusa Syna Syracha)" abbreviations="Syr" />
+  </book>
+
+  <book code="sm1">
+    <localization lang="en" name="1 Samuel" title="The First Book of Samuel" abbreviations="1Sam,1Sm,1Sa" />
+    <localization lang="es" name="1 Samuel" title="Libro Primero de Samuel" abbreviations="1Sam,1Sm,1Sa" />
+    <localization lang="la" name="Samuelis I" title="Liber Primus Samuelis" abbreviations="1Sam,1Sm,1Sa" />
+    <localization lang="pl" name="1 Samuela" title="Pierwsza Księga Samuela" abbreviations="TODO" />
+  </book>
+
+  <book code="sm2">
+    <localization lang="en" name="2 Samuel" title="The Second Book of Samuel" abbreviations="2Sam,2Sm,2Sa" />
+    <localization lang="es" name="2 Samuel" title="Libro Segundo de Samuel" abbreviations="2Sam,2Sm,2Sa" />
+    <localization lang="la" name="Samuelis II" title="Liber Secundus Samuelis" abbreviations="2Sam,2Sm,2Sa" />
+    <localization lang="pl" name="2 Samuela" title="Druga Księga Samuela" abbreviations="TODO" />
+  </book>
+
+  <book code="sng">
+    <localization lang="en" name="Song of Songs" title="The Song of Solomon" abbreviations="Song,Sng,So,Sg" />
+    <localization lang="es" name="Cantares" title="Cantar de los Cantares" abbreviations="Cant,Ct" />
+    <localization lang="la" name="Canticum Canticorum" title="Canticum Canticorum Salomonis" abbreviations="Ct" />
+    <localization lang="pl" name="Pieśń nad pieśniami" title="Pieśń nad Pieśniami" abbreviations="Pnp,TODO" />
+  </book>
+
+  <book code="th1">
+    <localization lang="en" name="1 Thessalonians" title="The First Letter of St. Paul to the Thessalonians" abbreviations="1Thess,1Thes,1Th" />
+    <localization lang="es" name="1 Tesalonicenses" title="Primera Carta de San Pablo a Tesalonicenses" abbreviations="1Tes" />
+    <localization lang="la" name="ad Thessalonicenses I" title="Epistola B. Pauli Apostoli ad Thessalonicenses Prima" abbreviations="1Thes" />
+    <localization lang="pl" name="1 Tesaloniczan" title="Pierwszy List Pawła do Tesaloniczan" abbreviations="1Tes,TODO" />
+  </book>
+
+  <book code="th2">
+    <localization lang="en" name="2 Thessalonians" title="The Second Letter of St. Paul to the Thessalonians" abbreviations="2Thess,2Thes,2Th" />
+    <localization lang="es" name="2 Tesalonicenses" title="Segunda Carta de San Pablo a Tesalonicenses" abbreviations="2Tes" />
+    <localization lang="la" name="ad Thessalonicenses II" title="Epistola B. Pauli Apostoli ad Thessalonicenses Secunda" abbreviations="2Thes" />
+    <localization lang="pl" name="2 Tesaloniczan" title="Drugi List św Pawła do Tesaloniczan" abbreviations="2Tes,TODO" />
+  </book>
+
+  <book code="ti1">
+    <localization lang="en" name="1 Timothy" title="The First Letter of St. Paul to Timothy" abbreviations="1Tim,1Tm,1Ti" />
+    <localization lang="es" name="1 Timoteo" title="Primera Carta de San Pablo a Timoteo" abbreviations="1Tm" />
+    <localization lang="la" name="ad Timotheum I" title="Epistola B. Pauli Apostoli ad Timotheum Prima" abbreviations="1Tim" />
+    <localization lang="pl" name="1 Tymoteusza" title="Pierwszy List Pawła do Tymoteusza" abbreviations="1Tym,1Tm" />
+  </book>
+
+  <book code="ti2">
+    <localization lang="en" name="2 Timothy" title="The Second Letter of St. Paul to Timothy" abbreviations="2Tim,2Tm,2Ti" />
+    <localization lang="es" name="2 Timoteo" title="Segunda Carta de San Pablo a Timoteo" abbreviations="2Tm" />
+    <localization lang="la" name="ad Timotheum II" title="Epistola B. Pauli Apostoli ad Timotheum Secunda" abbreviations="2Tim" />
+    <localization lang="pl" name="2 Tymoteusza" title="Drugi List św Pawła do Tymoteusza" abbreviations="2Tym,2Tm" />
+  </book>
+
+  <book code="tit">
+    <localization lang="en" name="Titus" title="The Letter of St. Paul to Titus" abbreviations="Tit,Ti" />
+    <localization lang="es" name="Tito" title="Carta a Tito" abbreviations="Tit,Ti,Tt" />
+    <localization lang="la" name="ad Titum" title="Epistola B. Pauli Apostoli ad Titum" abbreviations="Tit" />
+    <localization lang="pl" name="Tytusa" title="List Pawła do Tytusa" abbreviations="Tyt,Tt" />
+  </book>
+
+  <book code="tob">
+    <localization lang="en" name="Tobit" title="The Book of Tobit" abbreviations="Tob,Tb" />
+    <localization lang="es" name="Tobías" title="Libro de Tobías" abbreviations="Tob,Tb" />
+    <localization lang="la" name="Tobiae" title="Liber Tobiae" abbreviations="Tob,Tb" />
+    <localization lang="pl" name="Tobiasza" title="Księga Tobiasza" abbreviations="TODO" />
+  </book>
+
+  <book code="wis">
+    <localization lang="en" name="Wisdom" title="The Wisdom of Solomon" abbreviations="Wis,Wi" />
+    <localization lang="es" name="Sabiduría" title="Sabiduría de Salomón" abbreviations="Sab,Sb" />
+    <localization lang="la" name="Sapientia" title="Liber Sapientiae" abbreviations="Sap" />
+    <localization lang="pl" name="Mądrości" title="Mądrość Salomona" abbreviations="Mdr,TODO" />
+  </book>
+
+  <book code="zec">
+    <localization lang="en" name="Zechariah" title="The Book of the Prophet Zechariah" abbreviations="Zech,Zec" />
+    <localization lang="es" name="Zacarías" title="Libro del profeta Zacarías" abbreviations="Zac,Za" />
+    <localization lang="la" name="Zacharias" title="Prophetia Zachariae" abbreviations="Zach" />
+    <localization lang="pl" name="Zachariasza" title="Księgi proroka Zachariasza" abbreviations="???" />
+  </book>
+
+  <book code="zep">
+    <localization lang="en" name="Zephaniah" title="The Book of the Prophet Zephaniah" abbreviations="Zeph,Zep" />
+    <localization lang="es" name="Sofonías" title="Libro del profeta Sofonías" abbreviations="Sof,So" />
+    <localization lang="la" name="Sophonias" title="Prophetia Sophoniae" abbreviations="Soph" />
+    <localization lang="pl" name="Sofoniasza" title="Księgi proroka Sofoniasza" abbreviations="Sof,So" />
+  </book>
+
+</nls>
