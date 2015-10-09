@@ -22,6 +22,7 @@ package org.sacredscripture.platform.bible.service;
 import org.sacredscripture.platform.bible.Bible;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This interface defines a service for querying Bible editions and their
@@ -35,9 +36,11 @@ public interface BibleQueryService {
     /**
      * Retrieves the list of bibles.
      *
-     * @param req the request message
+     * @param bibleLocale the filtering locale for this request. If this is not
+     * {@code null}, only the bibles that match this locale will be retrieved.
+     * If {@code null}, all bibles are retrieved.
      * @return list of bibles (never {@code null})
      */
-    List<Bible> getBibles(GetBiblesRequest req);
+    List<Bible> getBibles(Locale bibleLocale);
 
 }

@@ -22,12 +22,12 @@ package org.sacredscripture.platform.internal.bible.service;
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.service.BibleMaintenanceService;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
-import org.sacredscripture.platform.bible.service.GetBiblesRequest;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.ejb.Local;
 import javax.ejb.Singleton;
@@ -53,10 +53,10 @@ public class BibleQueryServiceImpl implements BibleQueryService {
     private BibleDao bibleDao;
 
     @Override
-    public List<Bible> getBibles(GetBiblesRequest req) {
+    public List<Bible> getBibles(Locale bibleLocale) {
         List<Bible> bibles;
-        if (req.getBibleLocale() != null) {
-            bibles = bibleDao.findByLocale(req.getBibleLocale());
+        if (bibleLocale != null) {
+            bibles = bibleDao.findByLocale(bibleLocale);
         } else {
             bibles = bibleDao.getAll();
         }
