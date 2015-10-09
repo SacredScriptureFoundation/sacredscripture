@@ -34,11 +34,11 @@ import java.util.Locale;
 public interface BibleQueryService {
 
     /**
-     * Retrieves the list of bibles.
+     * Retrieves the list of bibles. If {@code bibleLocale} is not {@code null},
+     * only the bibles that match this locale will be retrieved; otherwise all
+     * bibles are retrieved.
      *
-     * @param bibleLocale the filtering locale for this request. If this is not
-     * {@code null}, only the bibles that match this locale will be retrieved.
-     * If {@code null}, all bibles are retrieved.
+     * @param bibleLocale the filtering locale (can be {@code null})
      * @return list of bibles (never {@code null})
      */
     List<Bible> getBibles(Locale bibleLocale);
