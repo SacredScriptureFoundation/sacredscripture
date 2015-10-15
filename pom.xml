@@ -60,6 +60,8 @@
     <module>impl</module>
     <module>bible-services</module>
     <module>batch</module>
+    <module>ws-api</module>
+    <module>ws-impl</module>
   </modules>
 
   <dependencyManagement>
