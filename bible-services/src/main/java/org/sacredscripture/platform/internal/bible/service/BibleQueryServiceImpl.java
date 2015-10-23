@@ -20,7 +20,6 @@
 package org.sacredscripture.platform.internal.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
-import org.sacredscripture.platform.bible.service.BibleMaintenanceService;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 
@@ -46,7 +45,7 @@ import javax.transaction.Transactional.TxType;
  */
 @Singleton
 @Transactional(TxType.SUPPORTS)
-@Local(BibleMaintenanceService.class)
+@Local(BibleQueryService.class)
 public class BibleQueryServiceImpl implements BibleQueryService {
 
     @Inject
