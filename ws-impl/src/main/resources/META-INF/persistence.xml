@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!-- 
   Copyright (c) 2015 Sacred Scripture Foundation.
   "All scripture is given by inspiration of God, and is profitable for 
@@ -18,15 +18,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<jboss:jboss-web 
-  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
+<persistence 
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="
-    http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd
-    http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_8_0.xsd" 
-  version="8.0">
-      
-  <jboss:context-root>wsapi</jboss:context-root>
-  
-</jboss:jboss-web>
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+  version="2.1">
+
+  <persistence-unit name="sacredscripture" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/WS</jta-data-source>
+    <jar-file>lib/ssf-commons-entity-1.0.0-SNAPSHOT.jar</jar-file>
+    <jar-file>lib/sacredscripture-platform-impl-1.0.0-SNAPSHOT.jar</jar-file>
+    <jar-file>lib/bible-services-ejb-1.0.0-SNAPSHOT.jar</jar-file>
+  </persistence-unit>
+
+</persistence>
