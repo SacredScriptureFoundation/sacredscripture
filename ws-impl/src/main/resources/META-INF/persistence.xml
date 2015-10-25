@@ -29,6 +29,9 @@
     <jar-file>lib/ssf-commons-entity-1.0.0-SNAPSHOT.jar</jar-file>
     <jar-file>lib/sacredscripture-platform-impl-1.0.0-SNAPSHOT.jar</jar-file>
     <jar-file>lib/bible-services-ejb-1.0.0-SNAPSHOT.jar</jar-file>
+    <properties>
+      <property name="hibernate.enable_lazy_load_no_trans" value="true" />
+    </properties>
   </persistence-unit>
 
 </persistence>
