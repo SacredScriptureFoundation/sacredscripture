@@ -20,6 +20,9 @@
 package com.sacredscripture.platform.ws.impl;
 
 import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.BibleLocalization;
+
+import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
 import org.springframework.core.convert.converter.Converter;
 
@@ -30,12 +33,22 @@ public class BibleBeanConverter implements Converter<Bible, BibleBean> {
     @Override
     public BibleBean convert(Bible source) {
         BibleBean bean = new BibleBean();
+
         bean.setAbbreviation(source.getAbbreviation());
         bean.setCode(source.getCode());
         bean.setCopyrightNotice(source.getCopyrightNotice());
         bean.setLicense(source.getLicense());
         bean.setName(source.getName());
         bean.setTitle(source.getTitle());
+
+        BibleLocalization loc = source.localize(source.getLocale(), null);
+        bean.setNativeFlag(loc.getLocale().equals(LocaleContextHolder.getLocale()));
+        bean.setNativeCopyrightNotice(loc.getCopyrightNotice());
+        bean.setNativeLicense(loc.getLicense());
+        bean.setNativeLocale(loc.getLocale());
+        bean.setNativeName(loc.getName());
+        bean.setNativeTitle(loc.getTitle());
+
         return bean;
     }
 

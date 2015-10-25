@@ -21,6 +21,8 @@ package com.sacredscripture.platform.ws.api.rest.v1;
 
 import java.util.Locale;
 
+import javax.xml.bind.annotation.XmlAccessOrder;
+import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,28 +33,47 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since Sacred Scripture Platform 1.0
  */
 @XmlRootElement
+@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 public class BibleBean {
-
-    @XmlElement(name = "name")
-    private String name;
-
-    @XmlElement(name = "abbreviation")
-    private String abbreviation;
-
-    @XmlElement(name = "title")
-    private String title;
-
-    @XmlElement(name = "locale")
-    private Locale locale;
 
     @XmlElement(name = "code")
     private String code;
 
+    @XmlElement(name = "abbreviation")
+    private String abbreviation;
+
+    @XmlElement(name = "name")
+    private String name;
+
+    @XmlElement(name = "nativeName")
+    private String nativeName;
+
+    @XmlElement(name = "title")
+    private String title;
+
+    @XmlElement(name = "nativeTitle")
+    private String nativeTitle;
+
+    @XmlElement(name = "locale")
+    private Locale locale;
+
+    @XmlElement(name = "nativeLocale")
+    private Locale nativeLocale;
+
     @XmlElement(name = "copyrightNotice")
     private String copyrightNotice;
 
+    @XmlElement(name = "nativeCopyrightNotice")
+    private String nativeCopyrightNotice;
+
     @XmlElement(name = "license")
     private String license;
+
+    @XmlElement(name = "nativeLicense")
+    private String nativeLicense;
+
+    @XmlElement(name = "native")
+    private boolean nativeFlag;
 
     public final String getAbbreviation() {
         return abbreviation;
@@ -78,8 +99,32 @@ public class BibleBean {
         return name;
     }
 
+    public final String getNativeCopyrightNotice() {
+        return nativeCopyrightNotice;
+    }
+
+    public final String getNativeLicense() {
+        return nativeLicense;
+    }
+
+    public final Locale getNativeLocale() {
+        return nativeLocale;
+    }
+
+    public final String getNativeName() {
+        return nativeName;
+    }
+
+    public final String getNativeTitle() {
+        return nativeTitle;
+    }
+
     public final String getTitle() {
         return title;
+    }
+
+    public final boolean isNativeFlag() {
+        return nativeFlag;
     }
 
     public final void setAbbreviation(String abbreviation) {
@@ -104,6 +149,30 @@ public class BibleBean {
 
     public final void setName(String name) {
         this.name = name;
+    }
+
+    public final void setNativeCopyrightNotice(String nativeCopyrightNotice) {
+        this.nativeCopyrightNotice = nativeCopyrightNotice;
+    }
+
+    public final void setNativeFlag(boolean nativeFlag) {
+        this.nativeFlag = nativeFlag;
+    }
+
+    public final void setNativeLicense(String nativeLicense) {
+        this.nativeLicense = nativeLicense;
+    }
+
+    public final void setNativeLocale(Locale nativeLocale) {
+        this.nativeLocale = nativeLocale;
+    }
+
+    public final void setNativeName(String nativeName) {
+        this.nativeName = nativeName;
+    }
+
+    public final void setNativeTitle(String nativeTitle) {
+        this.nativeTitle = nativeTitle;
     }
 
     public final void setTitle(String title) {
