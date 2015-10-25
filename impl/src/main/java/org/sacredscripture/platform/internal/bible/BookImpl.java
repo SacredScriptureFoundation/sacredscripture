@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -26,6 +26,7 @@ import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
+import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -87,7 +88,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Transient
     @Override
     public List<String> getAbbreviations() {
-        return bookType.localize(bible.getLocale()).getAbbreviations();
+        return bookType.localize(LocaleContextHolder.getLocale(), bible.getLocale()).getAbbreviations();
     }
 
     @Override
@@ -110,7 +111,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
 
     @Override
     public String getName() {
-        return bookType.localize(bible.getLocale()).getName();
+        return bookType.localize(LocaleContextHolder.getLocale(), bible.getLocale()).getName();
     }
 
     @Override
@@ -120,7 +121,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
 
     @Override
     public String getTitle() {
-        return bookType.localize(bible.getLocale()).getTitle();
+        return bookType.localize(LocaleContextHolder.getLocale(), bible.getLocale()).getTitle();
     }
 
     @Override

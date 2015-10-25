@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -25,6 +25,7 @@ import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.internal.DataModel.BibleLocalizationTable;
 import org.sacredscripture.platform.internal.DataModel.BibleTable;
 
+import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 import org.sacredscripturefoundation.commons.locale.entity.LocaleLanguageConverter;
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
 
@@ -93,7 +94,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public String getAbbreviation() {
-        return localize(getLocale()).getAbbreviation();
+        return localize(LocaleContextHolder.getLocale(), getLocale()).getAbbreviation();
     }
 
     @Override
@@ -121,12 +122,12 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public String getCopyrightNotice() {
-        return localize(getLocale()).getCopyrightNotice();
+        return localize(LocaleContextHolder.getLocale(), getLocale()).getCopyrightNotice();
     }
 
     @Override
     public String getLicense() {
-        return localize(getLocale()).getLicense();
+        return localize(LocaleContextHolder.getLocale(), getLocale()).getLicense();
     }
 
     /**
@@ -147,12 +148,12 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public String getName() {
-        return localize(getLocale()).getName();
+        return localize(LocaleContextHolder.getLocale(), getLocale()).getName();
     }
 
     @Override
     public String getTitle() {
-        return localize(getLocale()).getTitle();
+        return localize(LocaleContextHolder.getLocale(), getLocale()).getTitle();
     }
 
     @Override
