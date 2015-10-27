@@ -34,6 +34,15 @@ import java.util.Locale;
 public interface BibleQueryService {
 
     /**
+     * Retrieves the bible of the specified code.
+     *
+     * @param bibleCode the bible's code
+     * @return the found bible or {@code null}
+     * @see Bible#getCode()
+     */
+    Bible getBible(String bibleCode);
+
+    /**
      * Retrieves the list of bibles. If {@code bibleLocale} is not {@code null},
      * only the bibles that match this locale will be retrieved; otherwise all
      * bibles are retrieved.

@@ -52,6 +52,11 @@ public class BibleQueryServiceImpl implements BibleQueryService {
     private BibleDao bibleDao;
 
     @Override
+    public Bible getBible(String bibleCode) {
+        return bibleDao.findByCode(bibleCode);
+    }
+
+    @Override
     public List<Bible> getBibles(Locale bibleLocale) {
         List<Bible> bibles;
         if (bibleLocale != null) {
