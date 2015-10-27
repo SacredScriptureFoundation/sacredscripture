@@ -43,11 +43,13 @@ public class BibleBeanConverter implements Converter<Bible, BibleBean> {
 
         BibleLocalization loc = source.localize(source.getLocale(), null);
         bean.setNativeFlag(loc.getLocale().equals(LocaleContextHolder.getLocale()));
-        bean.setNativeCopyrightNotice(loc.getCopyrightNotice());
-        bean.setNativeLicense(loc.getLicense());
-        bean.setNativeLocale(loc.getLocale());
-        bean.setNativeName(loc.getName());
-        bean.setNativeTitle(loc.getTitle());
+        if (!bean.isNativeFlag()) {
+            bean.setNativeCopyrightNotice(loc.getCopyrightNotice());
+            bean.setNativeLicense(loc.getLicense());
+            bean.setNativeLocale(loc.getLocale());
+            bean.setNativeName(loc.getName());
+            bean.setNativeTitle(loc.getTitle());
+        }
 
         return bean;
     }
