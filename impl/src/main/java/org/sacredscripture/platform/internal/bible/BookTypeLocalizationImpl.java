@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +46,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = BookTypeLocalizationTable.TABLE_NAME)
-@AttributeOverride(name = "locale", column = @Column(name = BookTypeLocalizationTable.COLUMN_LOCALE))
+@AttributeOverride(name = "locale", column = @Column(name = BookTypeLocalizationTable.COLUMN_LOCALE) )
 public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> implements BookTypeLocalization {
 
     @ManyToOne(targetEntity = BookTypeImpl.class, optional = false)
@@ -93,6 +92,9 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
 
     @Override
     public List<String> getAbbreviations() {
+        if (abbreviations == null) {
+            rebuildAbbreviationList();
+        }
         return abbreviations;
     }
 
@@ -111,7 +113,6 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
         return title;
     }
 
-    @PostConstruct
     private void rebuildAbbreviationList() {
         List<String> list = new ArrayList<>(4);
         list.add(abbreviation1);
@@ -134,9 +135,12 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
         abbreviation3 = null;
         abbreviation4 = null;
         if (abbreviations != null) {
+            this.abbreviations.clear();
             for (String abbr : abbreviations) {
                 addAbbreviation(abbr);
             }
+        } else {
+            this.abbreviations = null;
         }
     }
 
