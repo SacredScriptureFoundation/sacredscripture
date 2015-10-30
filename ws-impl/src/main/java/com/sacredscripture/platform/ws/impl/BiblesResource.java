@@ -44,9 +44,9 @@ import org.springframework.core.convert.ConversionService;
 import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
 
 @ApplicationScoped
-@Path(BibleResourceImpl.ROOT_PATH)
+@Path(BiblesResource.ROOT_PATH)
 @Produces("application/json")
-public class BibleResourceImpl extends AbstractSpringAwareResource {
+public class BiblesResource extends AbstractSpringAwareResource {
 
     public static final String ROOT_PATH = "/rest/v1/bible";
     public static final String SUB_PATH_GET_BIBLE = "/{bible}";
