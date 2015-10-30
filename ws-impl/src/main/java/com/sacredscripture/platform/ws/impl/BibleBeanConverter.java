@@ -35,7 +35,7 @@ public class BibleBeanConverter implements Converter<Bible, BibleBean> {
         BibleBean bean = new BibleBean();
 
         bean.setAbbreviation(source.getAbbreviation());
-        bean.setCode(source.getCode());
+        bean.setId(source.getCode());
         bean.setCopyrightNotice(source.getCopyrightNotice());
         bean.setLicense(source.getLicense());
         bean.setName(source.getName());

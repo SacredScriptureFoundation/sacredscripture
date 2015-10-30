@@ -36,8 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 public class BibleBean {
 
-    @XmlElement(name = "code")
-    private String code;
+    @XmlElement(name = "id")
+    private String id;
+
+    @XmlElement(name = "native")
+    private boolean nativeFlag;
 
     @XmlElement(name = "abbreviation")
     private String abbreviation;
@@ -72,19 +75,16 @@ public class BibleBean {
     @XmlElement(name = "nativeLicense")
     private String nativeLicense;
 
-    @XmlElement(name = "native")
-    private boolean nativeFlag;
-
     public final String getAbbreviation() {
         return abbreviation;
     }
 
-    public final String getCode() {
-        return code;
-    }
-
     public final String getCopyrightNotice() {
         return copyrightNotice;
+    }
+
+    public final String getId() {
+        return id;
     }
 
     public final String getLicense() {
@@ -131,12 +131,12 @@ public class BibleBean {
         this.abbreviation = abbreviation;
     }
 
-    public final void setCode(String code) {
-        this.code = code;
-    }
-
     public final void setCopyrightNotice(String copyrightNotice) {
         this.copyrightNotice = copyrightNotice;
+    }
+
+    public final void setId(String id) {
+        this.id = id;
     }
 
     public final void setLicense(String license) {
