@@ -20,6 +20,7 @@
 package com.sacredscripture.platform.ws.impl;
 
 import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
@@ -28,7 +29,6 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -42,39 +42,29 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.core.convert.ConversionService;
 
 import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
+import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
 
-@ApplicationScoped
 @Path(BiblesResource.ROOT_PATH)
 @Produces("application/json")
 public class BiblesResource extends AbstractSpringAwareResource {
 
-    public static final String ROOT_PATH = "/rest/v1/bible";
-    public static final String SUB_PATH_GET_BIBLE = "/{bible}";
-    public static final String SUB_PATH_GET_BIBLE_LANG = "/{bible}/{lang}";
+    public static final String ROOT_PATH = "/rest/v1/bibles";
+    public static final String SUB_PATH_BIBLE = "/{bible}";
+    public static final String SUB_PATH_BOOKS = "/{bible}/books";
+    public static final String SUB_PATH_BOOK = "/{bible}/books/{book}";
 
     @EJB
     private BibleQueryService queryService;
     private ConversionService conversionService;
 
-    @Path(SUB_PATH_GET_BIBLE)
+    @Path(SUB_PATH_BIBLE)
     @GET
-    public Response getBible(@PathParam("bible") String bibleCode) {
-        // Does the bible exist?
-        Bible bible = queryService.getBible(bibleCode);
-        if (bible == null) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
-
-        // Return bible
-        LocaleContextHolder.setLocale(bible.getLocale());
-        BibleBean bibleBean = conversionService.convert(bible, BibleBean.class);
-        return Response.ok().entity(bibleBean).build();
-    }
-
-    @Path(SUB_PATH_GET_BIBLE_LANG)
-    @GET
-    public Response getBible(@PathParam("bible") String bibleCode, @PathParam("lang") Locale locale,
-            @QueryParam("mcr") boolean multipleChoicesRedirect, @Context UriInfo uriInfo) {
+    public Response getBible(
+            @PathParam("bible") String bibleCode,
+            @QueryParam("bg") int bookGroupDepth,
+            @QueryParam("lang") Locale locale,
+            @QueryParam("mcr") boolean multipleChoicesRedirect,
+            @Context UriInfo uriInfo) {
         // Does the bible exist?
         Bible bible = queryService.getBible(bibleCode);
         if (bible == null) {
@@ -82,20 +72,68 @@ public class BiblesResource extends AbstractSpringAwareResource {
         }
 
         // Is the user's locale supported? If not, present choices to user
-        if (!bible.supportsLocale(locale)) {
-            return ResponseUtils.multipleChoices(
-                bible.getLocale(),
-                bible.locales(),
-                multipleChoicesRedirect ? uriInfo : null,
-                ROOT_PATH + SUB_PATH_GET_BIBLE_LANG,
-                bibleCode,
-                bible.getLocale());
+        Locale effective;
+        if (locale != null) {
+            if (!bible.supportsLocale(locale)) {
+                return ResponseUtils.multipleChoices(
+                    bible.getLocale(),
+                    bible.locales(),
+                    multipleChoicesRedirect ? uriInfo : null,
+                    ROOT_PATH + SUB_PATH_BIBLE,
+                    bibleCode);
+            }
+            effective = locale;
+        } else {
+            effective = bible.getLocale();
         }
 
         // Return bible
-        LocaleContextHolder.setLocale(locale);
+        LocaleContextHolder.setLocale(effective);
         BibleBean bibleBean = conversionService.convert(bible, BibleBean.class);
         return Response.ok().entity(bibleBean).build();
+    }
+
+    @Path(SUB_PATH_BOOK)
+    @GET
+    public Response getBook(
+            @PathParam("bible") String bibleCode,
+            @PathParam("book") String bookCode,
+            @QueryParam("lang") Locale locale,
+            @QueryParam("mcr") boolean multipleChoicesRedirect,
+            @Context UriInfo uriInfo) {
+        // Does the bible exist?
+        Bible bible = queryService.getBible(bibleCode);
+        if (bible == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        // Does the book exist?
+        Book book = bible.getBook(bookCode);
+        if (book == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        // Is the user's locale supported? If not, present choices to user
+        Locale effective;
+        if (locale != null) {
+            if (!book.getBookType().supportsLocale(locale)) {
+                return ResponseUtils.multipleChoices(
+                    bible.getLocale(),
+                    book.getBookType().locales(),
+                    multipleChoicesRedirect ? uriInfo : null,
+                    ROOT_PATH + SUB_PATH_BOOK,
+                    bibleCode,
+                    bookCode);
+            }
+            effective = locale;
+        } else {
+            effective = bible.getLocale();
+        }
+
+        // Return books
+        LocaleContextHolder.setLocale(effective);
+        BookBean bookBean = conversionService.convert(book, BookBean.class);
+        return Response.ok().entity(bookBean).build();
     }
 
     @PostConstruct

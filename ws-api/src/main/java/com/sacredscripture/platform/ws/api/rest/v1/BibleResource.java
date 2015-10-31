@@ -19,13 +19,13 @@
  */
 package com.sacredscripture.platform.ws.api.rest.v1;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
 @Path("/rest/v1/bible")
 @Produces("application/json")
@@ -36,8 +36,8 @@ public interface BibleResource {
      *
      * @return list of bible editions
      */
-    @Path("/")
+    @Path("/{lang}")
     @GET
-    List<BibleBean> getBibles(@QueryParam("lang") Locale locale);
+    Response getBibles(@PathParam("lang") Locale locale);
 
 }
