@@ -35,7 +35,7 @@ public final class ResponseUtils {
         // Build redirect location if possible
         URI location = null;
         if (uriInfo != null && path != null) {
-            location = UriBuilder.fromUri(uriInfo.getBaseUri()).path(path).build(values);
+            location = UriBuilder.fromUri(uriInfo.getBaseUri()).path(path).queryParam("lang", primaryLocale).build(values);
         }
 
         // Build choices
