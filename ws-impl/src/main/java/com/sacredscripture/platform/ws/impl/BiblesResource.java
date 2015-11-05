@@ -25,6 +25,8 @@ import org.sacredscripture.platform.bible.service.BibleQueryService;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
@@ -72,7 +74,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
         }
 
         // Is the user's locale supported? If not, present choices to user
-        Locale effective;
+        Locale userLocale;
         if (locale != null) {
             if (!bible.supportsLocale(locale)) {
                 return ResponseUtils.multipleChoices(
@@ -82,15 +84,27 @@ public class BiblesResource extends AbstractSpringAwareResource {
                     ROOT_PATH + SUB_PATH_BIBLE,
                     bibleCode);
             }
-            effective = locale;
+            userLocale = locale;
         } else {
-            effective = bible.getLocale();
+            userLocale = bible.getLocale();
         }
 
-        // Return bible
-        LocaleContextHolder.setLocale(effective);
+        // Prepare response
+        LocaleContextHolder.setLocale(userLocale);
         BibleBean bibleBean = conversionService.convert(bible, BibleBean.class);
+
+        // Send response
         return Response.ok().entity(bibleBean).build();
+    }
+
+    @GET
+    public Response getBibles() {
+        List<Bible> bibles = queryService.getBibles(null);
+        List<BibleBean> bibleBeans = new LinkedList<>();
+        for (Bible bible : bibles) {
+            bibleBeans.add(conversionService.convert(bible, BibleBean.class));
+        }
+        return Response.ok().entity(bibleBeans).build();
     }
 
     @Path(SUB_PATH_BOOK)
@@ -114,7 +128,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
         }
 
         // Is the user's locale supported? If not, present choices to user
-        Locale effective;
+        Locale userLocale;
         if (locale != null) {
             if (!book.getBookType().supportsLocale(locale)) {
                 return ResponseUtils.multipleChoices(
@@ -125,15 +139,61 @@ public class BiblesResource extends AbstractSpringAwareResource {
                     bibleCode,
                     bookCode);
             }
-            effective = locale;
+            userLocale = locale;
         } else {
-            effective = bible.getLocale();
+            userLocale = bible.getLocale();
         }
 
-        // Return books
-        LocaleContextHolder.setLocale(effective);
+        // Prepare response
+        LocaleContextHolder.setLocale(userLocale);
         BookBean bookBean = conversionService.convert(book, BookBean.class);
+
+        // Send response
         return Response.ok().entity(bookBean).build();
+    }
+
+    @Path(SUB_PATH_BOOKS)
+    @GET
+    public Response getBooks(
+            @PathParam("bible") String bibleCode,
+            @QueryParam("lang") Locale locale,
+            @QueryParam("mcr") boolean multipleChoicesRedirect,
+            @Context UriInfo uriInfo) {
+        // Does the bible exist?
+        Bible bible = queryService.getBible(bibleCode);
+        if (bible == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        // Is the user's locale supported? If not, present choices to user.
+        // Use the first book to test the locale.
+        // There should never be a situation where the locale isn't present
+        // for some of the books -- it should be all or nothing.
+        Book bookTest = bible.getBooks().get(0);
+        Locale userLocale;
+        if (locale != null) {
+            if (!bookTest.getBookType().supportsLocale(locale)) {
+                return ResponseUtils.multipleChoices(
+                    bible.getLocale(),
+                    bookTest.getBookType().locales(),
+                    multipleChoicesRedirect ? uriInfo : null,
+                    ROOT_PATH + SUB_PATH_BOOKS,
+                    bibleCode);
+            }
+            userLocale = locale;
+        } else {
+            userLocale = bible.getLocale();
+        }
+
+        // Prepare response
+        LocaleContextHolder.setLocale(userLocale);
+        List<BookBean> beans = new LinkedList<>();
+        for (Book book : bible.getBooks()) {
+            beans.add(conversionService.convert(book, BookBean.class));
+        }
+
+        // Send response
+        return Response.ok().entity(beans).build();
     }
 
     @PostConstruct

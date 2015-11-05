@@ -39,8 +39,13 @@ public class BookBeanConverter implements Converter<Book, BookBean> {
         bean.setId(source.getBookType().getCode());
         bean.setTitle(source.getTitle());
 
-        BookTypeLocalization loc = source.getBookType().localize(source.getBible().getLocale(), null);
-        bean.setNativeFlag(loc.getLocale().equals(LocaleContextHolder.getLocale()));
+        BookTypeLocalization loc = source.getBookType().localize(source.getBible().getLocale());
+        if (LocaleContextHolder.getLocale() == null || loc.getLocale().equals(LocaleContextHolder.getLocale())) {
+            bean.setNativeFlag(true);
+        } else {
+            bean.setNativeFlag(false);
+        }
+
         if (!bean.isNativeFlag()) {
             bean.setNativeAbbreviation(loc.getAbbreviations().get(0));
             bean.setNativeName(loc.getName());
