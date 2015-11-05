@@ -24,6 +24,8 @@ import org.sacredscripture.platform.bible.BookTypeLocalization;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
+import java.util.Locale;
+
 import org.springframework.core.convert.converter.Converter;
 
 import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
@@ -39,17 +41,19 @@ public class BookBeanConverter implements Converter<Book, BookBean> {
         bean.setId(source.getBookType().getCode());
         bean.setTitle(source.getTitle());
 
-        BookTypeLocalization loc = source.getBookType().localize(source.getBible().getLocale());
-        if (LocaleContextHolder.getLocale() == null || loc.getLocale().equals(LocaleContextHolder.getLocale())) {
+        Locale userLocale = LocaleContextHolder.getLocale();
+        Locale bibleNativeLocale = source.getBible().getLocale();
+        BookTypeLocalization loc = source.getBookType().localize(bibleNativeLocale);
+        if (userLocale == null || loc.getLocale().equals(userLocale)) {
             bean.setNativeFlag(true);
+            bean.setLocale(bibleNativeLocale);
         } else {
             bean.setNativeFlag(false);
-        }
-
-        if (!bean.isNativeFlag()) {
             bean.setNativeAbbreviation(loc.getAbbreviations().get(0));
+            bean.setNativeLocale(loc.getLocale());
             bean.setNativeName(loc.getName());
             bean.setNativeTitle(loc.getTitle());
+            bean.setLocale(userLocale);
         }
 
         return bean;

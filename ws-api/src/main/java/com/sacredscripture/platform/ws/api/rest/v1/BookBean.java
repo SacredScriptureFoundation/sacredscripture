@@ -19,6 +19,8 @@
  */
 package com.sacredscripture.platform.ws.api.rest.v1;
 
+import java.util.Locale;
+
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,6 +41,12 @@ public class BookBean {
 
     @XmlElement(name = "native")
     private boolean nativeFlag;
+
+    @XmlElement(name = "locale")
+    private Locale locale;
+
+    @XmlElement(name = "nativeLocale")
+    private Locale nativeLocale;
 
     @XmlElement(name = "abbreviation")
     private String abbreviation;
@@ -66,12 +74,20 @@ public class BookBean {
         return id;
     }
 
+    public final Locale getLocale() {
+        return locale;
+    }
+
     public final String getName() {
         return name;
     }
 
     public final String getNativeAbbreviation() {
         return nativeAbbreviation;
+    }
+
+    public final Locale getNativeLocale() {
+        return nativeLocale;
     }
 
     public final String getNativeName() {
@@ -98,6 +114,10 @@ public class BookBean {
         this.id = id;
     }
 
+    public final void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
     public final void setName(String name) {
         this.name = name;
     }
@@ -108,6 +128,10 @@ public class BookBean {
 
     public final void setNativeFlag(boolean nativeFlag) {
         this.nativeFlag = nativeFlag;
+    }
+
+    public final void setNativeLocale(Locale nativeLocale) {
+        this.nativeLocale = nativeLocale;
     }
 
     public final void setNativeName(String nativeName) {
