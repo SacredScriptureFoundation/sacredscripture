@@ -94,7 +94,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public String getAbbreviation() {
-        return localize(LocaleContextHolder.getLocale(), getLocale()).getAbbreviation();
+        return localize().getAbbreviation();
     }
 
     @Override
@@ -122,12 +122,12 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public String getCopyrightNotice() {
-        return localize(LocaleContextHolder.getLocale(), getLocale()).getCopyrightNotice();
+        return localize().getCopyrightNotice();
     }
 
     @Override
     public String getLicense() {
-        return localize(LocaleContextHolder.getLocale(), getLocale()).getLicense();
+        return localize().getLicense();
     }
 
     /**
@@ -148,12 +148,12 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public String getName() {
-        return localize(LocaleContextHolder.getLocale(), getLocale()).getName();
+        return localize().getName();
     }
 
     @Override
     public String getTitle() {
-        return localize(LocaleContextHolder.getLocale(), getLocale()).getTitle();
+        return localize().getTitle();
     }
 
     @Override
@@ -164,6 +164,25 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Override
     public boolean isRightToLeftReading() {
         return rightToLeftReading;
+    }
+
+    /**
+     * Determines the localization of this this bible according to the user's
+     * current locale. If no such localization exists, always fallback to the
+     * bible's native locale which is guaranteed to have a localization.
+     *
+     * @return the localization of this bible
+     */
+    private BibleLocalization localize() {
+        BibleLocalization loc = null;
+        Locale userLocale = LocaleContextHolder.getLocale();
+        if (userLocale != null) {
+            loc = localize(userLocale);
+        }
+        if (loc == null) {
+            loc = Objects.requireNonNull(localize(getLocale()));
+        }
+        return loc;
     }
 
     @Override

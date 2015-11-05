@@ -22,6 +22,7 @@ package org.sacredscripture.platform.internal.bible;
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookType;
+import org.sacredscripture.platform.bible.BookTypeLocalization;
 import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
 
@@ -30,6 +31,7 @@ import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -88,7 +90,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Transient
     @Override
     public List<String> getAbbreviations() {
-        return bookType.localize(LocaleContextHolder.getLocale(), bible.getLocale()).getAbbreviations();
+        return localize().getAbbreviations();
     }
 
     @Override
@@ -111,7 +113,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
 
     @Override
     public String getName() {
-        return bookType.localize(LocaleContextHolder.getLocale(), bible.getLocale()).getName();
+        return localize().getName();
     }
 
     @Override
@@ -121,7 +123,19 @@ public class BookImpl extends EntityImpl<Long> implements Book {
 
     @Override
     public String getTitle() {
-        return bookType.localize(LocaleContextHolder.getLocale(), bible.getLocale()).getTitle();
+        return localize().getTitle();
+    }
+
+    private BookTypeLocalization localize() {
+        BookTypeLocalization loc = null;
+        Locale userLocale = LocaleContextHolder.getLocale();
+        if (userLocale != null) {
+            loc = bookType.localize(userLocale);
+        }
+        if (loc == null) {
+            loc = bookType.localize(bible.getLocale());
+        }
+        return loc;
     }
 
     @Override
