@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.TOCItem;
 
 import java.util.List;
 import java.util.Locale;
@@ -51,5 +52,13 @@ public interface BibleQueryService {
      * @return list of bibles (never {@code null})
      */
     List<Bible> getBibles(Locale bibleLocale);
+
+    /**
+     * Retrieves the table of contents for the specified bible.
+     *
+     * @param bibleCode the bible's code
+     * @return the table of contents or {@code null} if bible not found
+     */
+    List<TOCItem> getTableOfContents(String bibleCode);
 
 }
