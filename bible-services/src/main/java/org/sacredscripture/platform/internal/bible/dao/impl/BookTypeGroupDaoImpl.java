@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -25,6 +25,8 @@ import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 
@@ -38,12 +40,20 @@ import javax.persistence.TypedQuery;
 public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, BookTypeGroupImpl, Long> implements BookTypeGroupDao {
 
     private static final String NQ_FIND_BY_CODE = "BookTypeGroup.findByCode";
+    private static final String NQ_FIND_ROOTS = "BookTypeGroup.findRoots";
 
     @Override
     public BookTypeGroup findByCode(String code) {
         TypedQuery<BookTypeGroupImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
         q.setParameter("code", code.toUpperCase());
         return singleResultOf(q);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<BookTypeGroup> findRoots() {
+        TypedQuery<BookTypeGroupImpl> q = newNamedQuery(NQ_FIND_ROOTS);
+        return List.class.cast(q.getResultList());
     }
 
 }
