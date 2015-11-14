@@ -1,4 +1,4 @@
--- Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+-- Copyright (c) 2013, 2015 Sacred Scripture Foundation.
 -- "All scripture is given by inspiration of God, and is profitable for
 -- doctrine, for reproof, for correction, for instruction in righteousness:
 -- That the man of God may be perfect, throughly furnished unto all good
@@ -87,7 +87,7 @@ book_type
     code                CHAR(3) NOT NULL,
     book_type_group_id  INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT book_type_ix01uq UNIQUE (code)
+    CONSTRAINT book_type_ix01uq UNIQUE (code),
     CONSTRAINT book_type_ix02fk FOREIGN KEY (book_type_group_id) REFERENCES book_type_group (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
