@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -19,14 +19,17 @@
  */
 package org.sacredscripture.platform.internal.bible.dao.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
+import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.internal.ObjectMother;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.dao.impl.BookTypeGroupDaoImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -68,6 +71,30 @@ public class BookTypeGroupDaoImplPersistenceITest extends AbstractSpringJpaInteg
         BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
         em.persist(g);
         assertNull(dao.findByCode("z"));
+    }
+
+    /**
+     * Verifies only root groups are retrieved.
+     */
+    @Test
+    public void testFindRoots() {
+        BookTypeGroupImpl pg1 = ObjectMother.newBookTypeGroup();
+        BookTypeGroupImpl cg1 = ObjectMother.newBookTypeGroup();
+        pg1.addChild(cg1);
+
+        BookTypeGroupImpl pg2 = ObjectMother.newBookTypeGroup();
+        BookTypeGroupImpl cg2 = ObjectMother.newBookTypeGroup();
+        pg2.addChild(cg2);
+
+        em.persist(pg1);
+        em.persist(cg1);
+        em.persist(pg2);
+        em.persist(cg2);
+
+        List<BookTypeGroup> roots = dao.findRoots();
+        assertEquals(2, roots.size());
+        assertSame(pg1, roots.get(0));
+        assertSame(pg2, roots.get(1));
     }
 
 }
