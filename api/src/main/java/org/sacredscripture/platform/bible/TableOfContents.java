@@ -26,15 +26,15 @@ import java.util.List;
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
- * @see TOCItem
+ * @see TableOfContentsItem
  */
-public interface TOC {
+public interface TableOfContents {
 
     /**
      * Retrieves the top-level items from this table of contents.
      *
      * @return the items (never {@code null})
      */
-    List<TOCItem> getItems();
+    List<TableOfContentsItem> getItems();
 
 }

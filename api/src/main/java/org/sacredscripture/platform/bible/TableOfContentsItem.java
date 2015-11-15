@@ -30,27 +30,27 @@ import java.util.List;
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
- * @see TOC
+ * @see TableOfContents
  */
-public interface TOCItem extends ParentProvider<TOCItem> {
+public interface TableOfContentsItem extends ParentProvider<TableOfContentsItem> {
 
     /**
      * Adds the specified child item to this item. The child's
-     * {@link #setParent(TOCItem)} is invoked to set this as its parent.
+     * {@link #setParent(TableOfContentsItem)} is invoked to set this as its parent.
      *
      * @param item the item
      * @see #getChildren()
      * @throws NullPointerException if the item is {@code null}
      */
-    void addChild(TOCItem item);
+    void addChild(TableOfContentsItem item);
 
     /**
      * Retrieves the children of this table of contents item.
      *
      * @return the children (never {@code null})
-     * @see #addChild(TOCItem)
+     * @see #addChild(TableOfContentsItem)
      */
-    List<TOCItem> getChildren();
+    List<TableOfContentsItem> getChildren();
 
     /**
      * Retrieves the resource that is associated to this table of contents item.
@@ -65,6 +65,6 @@ public interface TOCItem extends ParentProvider<TOCItem> {
      * @param parent the parent to set
      * @see #getParent()
      */
-    void setParent(TOCItem parent);
+    void setParent(TableOfContentsItem parent);
 
 }
