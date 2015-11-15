@@ -42,6 +42,8 @@ bible_loc
     name          VARCHAR(50) NOT NULL,
     title         VARCHAR(50) NOT NULL,
     abbreviation  VARCHAR(10) NOT NULL,
+    copyright     VARCHAR(250) NOT NULL,
+    license       VARCHAR(250) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT bible_loc_ix01fk FOREIGN KEY (bible_id) REFERENCES bible (id),
     CONSTRAINT bible_loc_ix02uq UNIQUE (bible_id, locale_lang)
