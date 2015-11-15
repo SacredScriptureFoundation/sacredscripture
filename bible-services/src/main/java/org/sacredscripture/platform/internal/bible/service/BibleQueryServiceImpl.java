@@ -20,8 +20,10 @@
 package org.sacredscripture.platform.internal.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
+import org.sacredscripture.platform.bible.TableOfContents;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
+import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,6 +53,9 @@ public class BibleQueryServiceImpl implements BibleQueryService {
     @Inject
     private BibleDao bibleDao;
 
+    @Inject
+    private BookTypeGroupDao bookTypeGroupDao;
+
     @Override
     public Bible getBible(String bibleCode) {
         return bibleDao.findByCode(bibleCode);
@@ -76,4 +81,12 @@ public class BibleQueryServiceImpl implements BibleQueryService {
         return bibles;
     }
 
+    @Override
+    public TableOfContents getTableOfContents(String bibleCode) {
+        Bible bible = bibleDao.findByCode(bibleCode);
+        if (bible == null) {
+            return null;
+        }
+        return new TableOfContentsBuilder(bible, bookTypeGroupDao.findRoots()).build();
+    }
 }
