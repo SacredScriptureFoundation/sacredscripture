@@ -45,7 +45,14 @@ public class TableOfContentsImpl implements TableOfContents {
         return items;
     }
 
-    private void nestedToString(List<TableOfContentsItem> items, String path, StringBuilder sb) {
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        toStringNested(items, "", sb);
+        return sb.toString();
+    }
+
+    private void toStringNested(List<TableOfContentsItem> items, String path, StringBuilder sb) {
         for (ListIterator<TableOfContentsItem> i = items.listIterator(); i.hasNext();) {
             TableOfContentsItem item = i.next();
             String itemPath = path + "/" + i.nextIndex();
@@ -56,18 +63,11 @@ public class TableOfContentsImpl implements TableOfContents {
             if (!item.getChildren().isEmpty()) {
                 sb.append(", ");
             }
-            nestedToString(item.getChildren(), itemPath, sb);
+            toStringNested(item.getChildren(), itemPath, sb);
             if (i.hasNext()) {
                 sb.append(", ");
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        nestedToString(items, "", sb);
-        return sb.toString();
     }
 
 }
