@@ -19,36 +19,36 @@
  */
 package org.sacredscripture.platform.internal.bible;
 
-import org.sacredscripture.platform.bible.TOCItem;
+import org.sacredscripture.platform.bible.TableOfContentsItem;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * This class is the stock implementation of {@link TOCItem}.
+ * This class is the stock implementation of {@link TableOfContentsItem}.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public class TOCItemImpl implements TOCItem {
+public class TableOfContentsItemImpl implements TableOfContentsItem {
 
     private final Object resource;
-    private TOCItem parent;
-    private List<TOCItem> children;
+    private TableOfContentsItem parent;
+    private List<TableOfContentsItem> children;
 
-    public TOCItemImpl(Object resource) {
+    public TableOfContentsItemImpl(Object resource) {
         this.resource = Objects.requireNonNull(resource);
     }
 
     @Override
-    public void addChild(TOCItem item) {
+    public void addChild(TableOfContentsItem item) {
         getChildren().add(item);
         item.setParent(this);
     }
 
     @Override
-    public List<TOCItem> getChildren() {
+    public List<TableOfContentsItem> getChildren() {
         if (children == null) {
             children = new LinkedList<>();
         }
@@ -56,7 +56,7 @@ public class TOCItemImpl implements TOCItem {
     }
 
     @Override
-    public TOCItem getParent() {
+    public TableOfContentsItem getParent() {
         return parent;
     }
 
@@ -66,7 +66,7 @@ public class TOCItemImpl implements TOCItem {
     }
 
     @Override
-    public void setParent(TOCItem parent) {
+    public void setParent(TableOfContentsItem parent) {
         this.parent = parent;
     }
 
