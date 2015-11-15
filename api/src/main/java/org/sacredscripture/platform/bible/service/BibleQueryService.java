@@ -20,7 +20,7 @@
 package org.sacredscripture.platform.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
-import org.sacredscripture.platform.bible.TableOfContentsItem;
+import org.sacredscripture.platform.bible.TableOfContents;
 
 import java.util.List;
 import java.util.Locale;
@@ -59,6 +59,6 @@ public interface BibleQueryService {
      * @param bibleCode the bible's code
      * @return the table of contents or {@code null} if bible not found
      */
-    List<TableOfContentsItem> getTableOfContents(String bibleCode);
+    TableOfContents getTableOfContents(String bibleCode);
 
 }
