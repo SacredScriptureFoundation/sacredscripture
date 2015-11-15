@@ -62,8 +62,8 @@ public class TableOfContentsImpl implements TableOfContents {
             sb.append("]");
             if (!item.getChildren().isEmpty()) {
                 sb.append(", ");
+                toStringNested(item.getChildren(), itemPath, sb);
             }
-            toStringNested(item.getChildren(), itemPath, sb);
             if (i.hasNext()) {
                 sb.append(", ");
             }
