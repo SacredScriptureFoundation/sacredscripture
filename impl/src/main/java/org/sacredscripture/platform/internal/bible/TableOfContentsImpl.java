@@ -58,7 +58,9 @@ public class TableOfContentsImpl implements TableOfContents {
             String itemPath = path + "/" + i.nextIndex();
             sb.append(itemPath);
             sb.append("[");
-            sb.append(Objects.toString(item.getResource()));
+            sb.append(item.getResource().getClass().getSimpleName());
+            sb.append(":");
+            sb.append(item.getResource().toString());
             sb.append("]");
             if (!item.getChildren().isEmpty()) {
                 sb.append(", ");
