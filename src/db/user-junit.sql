@@ -1,4 +1,4 @@
--- Copyright (c) 2014 Sacred Scripture Foundation.
+-- Copyright (c) 2014, 2015 Sacred Scripture Foundation.
 -- "All scripture is given by inspiration of God, and is profitable for
 -- doctrine, for reproof, for correction, for instruction in righteousness:
 -- That the man of God may be perfect, throughly furnished unto all good
@@ -19,4 +19,4 @@
 CREATE USER 'junit'@'localhost' IDENTIFIED BY 'password1';
 
 GRANT SELECT, INSERT, UPDATE, DELETE 
-    ON sacredscripture.* TO 'junit'@'localhost';
+    ON sacredscripture_ut.* TO 'junit'@'localhost';
