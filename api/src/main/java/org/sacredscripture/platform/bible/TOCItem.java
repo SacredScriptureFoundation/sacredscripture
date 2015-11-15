@@ -30,6 +30,7 @@ import java.util.List;
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
+ * @see TOC
  */
 public interface TOCItem extends ParentProvider<TOCItem> {
 
