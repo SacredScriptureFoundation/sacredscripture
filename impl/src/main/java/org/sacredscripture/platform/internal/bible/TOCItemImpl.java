@@ -49,7 +49,7 @@ public class TOCItemImpl implements TOCItem {
 
     @Override
     public List<TOCItem> getChildren() {
-        if (children != null) {
+        if (children == null) {
             children = new LinkedList<>();
         }
         return children;
