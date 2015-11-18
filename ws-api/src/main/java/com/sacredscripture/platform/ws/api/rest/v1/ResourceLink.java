@@ -49,8 +49,8 @@ public interface ResourceLink extends LocaleProvider {
     String getRel();
 
     /**
-     * Stores the new web address for this link. No verification is performed on
-     * whether the address is a well-formed URL/URI.
+     * Stores the new web address for this link. No verification is performed to
+     * determine whether the address is a well-formed URL/URI.
      *
      * @param href the web address
      * @see #getHref()
