@@ -23,13 +23,24 @@ import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 
 import java.util.Locale;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
- * This interface defines a link to an external resource.
+ * This class represents a link to an external resource.
  *
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface ResourceLink extends LocaleProvider {
+@XmlRootElement
+public class ResourceLink implements LocaleProvider {
+
+    @XmlElement(name = "href")
+    private String href;
+    @XmlElement(name = "hreflang")
+    private Locale locale;
+    @XmlElement(name = "rel")
+    private String rel;
 
     /**
      * Retrieves the web address of this link.
@@ -37,7 +48,17 @@ public interface ResourceLink extends LocaleProvider {
      * @return the web address
      * @see #setHref(String)
      */
-    String getHref();
+    public String getHref() {
+        return href;
+    }
+
+    /**
+     * @see #setLocale(Locale)
+     */
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
 
     /**
      * Retrieves the relationship of this link.
@@ -46,7 +67,9 @@ public interface ResourceLink extends LocaleProvider {
      * @see #setRel(String)
      * @see StandardLinkRelation
      */
-    String getRel();
+    public String getRel() {
+        return rel;
+    }
 
     /**
      * Stores the new web address for this link. No verification is performed to
@@ -55,7 +78,9 @@ public interface ResourceLink extends LocaleProvider {
      * @param href the web address
      * @see #getHref()
      */
-    void setHref(String href);
+    public void setHref(String href) {
+        this.href = href;
+    }
 
     /**
      * Stores the new locale for this link.
@@ -63,7 +88,9 @@ public interface ResourceLink extends LocaleProvider {
      * @param locale the locale
      * @see #getLocale()
      */
-    void setLocale(Locale locale);
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
     /**
      * Stores the new relationship for this link.
@@ -72,6 +99,8 @@ public interface ResourceLink extends LocaleProvider {
      * @see #getRel()
      * @see StandardLinkRelation
      */
-    void setRel(String rel);
+    public void setRel(String rel) {
+        this.rel = rel;
+    }
 
 }
