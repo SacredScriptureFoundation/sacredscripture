@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since Sacred Scripture Platform 1.0
  */
 @XmlRootElement
-public class ResourceLink implements LocaleProvider {
+public class ResourceLinkBean implements LocaleProvider {
 
     @XmlElement(name = "href")
     private String href;
