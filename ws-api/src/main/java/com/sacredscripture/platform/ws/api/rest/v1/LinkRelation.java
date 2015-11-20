@@ -34,7 +34,7 @@ package com.sacredscripture.platform.ws.api.rest.v1;
  * Wiki Existing Rel Values</a>
  * @see <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS on Wikipedia</a>
  */
-public enum StandardLinkRelation {
+public enum LinkRelation {
 
     /**
      * Indicates that the referenced document is the subject or topic of the
@@ -126,7 +126,7 @@ public enum StandardLinkRelation {
 
     private String rel;
 
-    private StandardLinkRelation(String rel) {
+    private LinkRelation(String rel) {
         this.rel = rel;
     }
 
