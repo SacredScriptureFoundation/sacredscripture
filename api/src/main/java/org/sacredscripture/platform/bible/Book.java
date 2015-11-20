@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -102,6 +102,8 @@ public interface Book extends Entity<Long>, Named {
      * canonical positioning within its owning Bible.
      *
      * @return the order value
+     * @see #previous()
+     * @see #next()
      */
     int getOrder();
 
@@ -113,6 +115,26 @@ public interface Book extends Entity<Long>, Named {
      */
     @LocaleSensitive
     String getTitle();
+
+    /**
+     * Retrieves the book in the associated bible that proceeds this book
+     * according to canonical ordering.
+     *
+     * @return the next book or {@code null} if last book
+     * @see #previous()
+     * @see #getOrder()
+     */
+    Book next();
+
+    /**
+     * Retrieves the book in the associated bible that preceeds this book
+     * according to canonical ordering.
+     *
+     * @return the previous book or {@code null} if first book
+     * @see #next()
+     * @see #getOrder()
+     */
+    Book previous();
 
     /**
      * Stores the new bible owner for this book.

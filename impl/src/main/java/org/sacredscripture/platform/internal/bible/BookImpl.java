@@ -40,7 +40,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -87,7 +86,6 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     /**
      * Retrieves the localized abbreviations of this book from the book type.
      */
-    @Transient
     @Override
     public List<String> getAbbreviations() {
         return localize().getAbbreviations();
@@ -136,6 +134,17 @@ public class BookImpl extends EntityImpl<Long> implements Book {
             loc = bookType.localize(bible.getLocale());
         }
         return loc;
+    }
+
+    @Override
+    public Book next() {
+        List<Book> books = bible.getBooks();
+        return (order < books.size() - 1) ? books.get(order + 1) : null;
+    }
+
+    @Override
+    public Book previous() {
+        return (order > 0) ? bible.getBooks().get(order - 1) : null;
     }
 
     @Override
