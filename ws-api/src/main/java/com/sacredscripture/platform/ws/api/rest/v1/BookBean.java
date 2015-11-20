@@ -21,8 +21,6 @@ package com.sacredscripture.platform.ws.api.rest.v1;
 
 import java.util.Locale;
 
-import javax.xml.bind.annotation.XmlAccessOrder;
-import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,35 +31,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since Sacred Scripture Platform 1.0
  */
 @XmlRootElement
-@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-public class BookBean {
+public class BookBean extends AbstractHypermediaBean {
+
+    // IMPLEMENTATION NOTE: field order matters!
+    // Order listed here is the order rendered in XML/JSON; don't rearrange them
+    // unless you are intending to change the rendering order.
 
     @XmlElement(name = "id")
     private String id;
 
-    @XmlElement(name = "native")
-    private boolean nativeFlag;
-
     @XmlElement(name = "locale")
     private Locale locale;
-
-    @XmlElement(name = "nativeLocale")
-    private Locale nativeLocale;
-
-    @XmlElement(name = "abbreviation")
-    private String abbreviation;
-
-    @XmlElement(name = "nativeAbbreviation")
-    private String nativeAbbreviation;
 
     @XmlElement(name = "name")
     private String name;
 
-    @XmlElement(name = "nativeName")
-    private String nativeName;
-
     @XmlElement(name = "title")
     private String title;
+
+    @XmlElement(name = "abbreviation")
+    private String abbreviation;
+
+    @XmlElement(name = "native")
+    private boolean nativeFlag;
+
+    @XmlElement(name = "nativeLocale")
+    private Locale nativeLocale;
+
+    @XmlElement(name = "nativeAbbreviation")
+    private String nativeAbbreviation;
+
+    @XmlElement(name = "nativeName")
+    private String nativeName;
 
     @XmlElement(name = "nativeTitle")
     private String nativeTitle;
