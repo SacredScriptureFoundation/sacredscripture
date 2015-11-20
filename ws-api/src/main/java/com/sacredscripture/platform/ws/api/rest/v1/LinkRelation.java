@@ -120,7 +120,11 @@ public enum LinkRelation {
     START("start"),
 
     /**
-     * TODO
+     * Indicates the parent document of the current document in a hierarchy of
+     * documents.
+     *
+     * @see <a href="https://tools.ietf.org/html/rfc5988">Web Linking (RFC
+     * 5988), Section 6.2.2</a>
      */
     UP("up");
 
