@@ -30,6 +30,8 @@ package com.sacredscripture.platform.ws.api.rest.v1;
  * "http://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA
  * Link Relations</a>
  * @see <a href="http://www.w3.org/TR/html5/links.html">HTML 5 links</a>
+ * @see <a href="http://microformats.org/wiki/existing-rel-values">Microformats
+ * Wiki Existing Rel Values</a>
  * @see <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS on Wikipedia</a>
  */
 public enum StandardLinkRelation {
@@ -41,7 +43,7 @@ public enum StandardLinkRelation {
 
     /**
      * Indicates that the current document has an alternate representation (like
-     * different format or language).
+     * different format and/or language).
      *
      * @see <a href="http://www.w3.org/TR/html5/links.html#rel-alternate"> HTML
      * 5 Link type "alternate", Section 4.8.4.1</a>
@@ -49,7 +51,10 @@ public enum StandardLinkRelation {
     ALTERNATE("alternate"),
 
     /**
-     * Table of contents.
+     * Indicates that the referenced document serves as a table of contents.
+     *
+     * @see <a href="http://www.w3.org/TR/html4/types.html#h-6.12">HTML 4.01
+     * Link types, Section 6.12</a>
      */
     CONTENTS("contents"),
 
@@ -63,17 +68,23 @@ public enum StandardLinkRelation {
     LICENSE("license"),
 
     /**
-     * TODO
-     */
-    FIRST("first"),
-
-    /**
-     * TODO
+     * Indicates that the current document is a part of a series, and that the
+     * next document in the series is the referenced document.
+     *
+     * @see <a href="http://www.w3.org/TR/html5/links.html#link-type-next"> HTML
+     * 5 Link type "next", Section 4.8.4.13.1</a>
+     * @see #PREV
      */
     NEXT("next"),
 
     /**
-     * TODO
+     * Indicates that the current document is a part of a series, and that the
+     * previous document in the series is the referenced document.
+     *
+     * @see <a href="http://www.w3.org/TR/html5/links.html#link-type-prev"> HTML
+     * 5 Link type "prev", Section 4.8.4.13.2</a>
+     * @see #NEXT
+     * @see #START
      */
     PREV("prev"),
 
@@ -85,6 +96,19 @@ public enum StandardLinkRelation {
      * Syndication Format (RFC 4287), Section 4.2.7.2 #3</a>
      */
     SELF("self"),
+
+    /**
+     * Indicates the first document in a collection of documents. This link type
+     * tells search engines which document is considered by the author to be the
+     * starting point of the collection.
+     * <p>
+     * RFC 5988 defines a synonym {@code "first"}.
+     *
+     * @see <a href="http://www.w3.org/TR/html4/types.html#h-6.12">HTML 4.01
+     * Link types, Section 6.12</a>
+     * @see #NEXT
+     */
+    START("start"),
 
     /**
      * TODO
