@@ -37,7 +37,16 @@ package com.sacredscripture.platform.ws.api.rest.v1;
 public enum StandardLinkRelation {
 
     /**
-     * TODO
+     * Indicates that the referenced document is the subject or topic of the
+     * link's context. Multiple subjects can be indicated through the use of
+     * multiple "about" link relations. For example, if the context resource is
+     * a review about a particular product, the {@code "about"} link can be used
+     * to reference the URL of the product
+     * <p>
+     * Some HATEOAS experts use synonym {@code "details"}.
+     *
+     * @see <a href="https://tools.ietf.org/html/rfc6903#section-2">Additional
+     * Link Relation Types (RFC 6903), Section 2</a>
      */
     ABOUT("about"),
 
