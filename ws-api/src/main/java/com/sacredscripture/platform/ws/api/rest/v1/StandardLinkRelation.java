@@ -40,17 +40,25 @@ public enum StandardLinkRelation {
     ABOUT("about"),
 
     /**
-     * TODO
+     * Indicates that the current document has an alternate representation (like
+     * different format or language).
+     *
+     * @see <a href="http://www.w3.org/TR/html5/links.html#rel-alternate"> HTML
+     * 5 Link type "alternate", Section 4.8.4.1</a>
      */
     ALTERNATE("alternate"),
 
     /**
-     * TODO
+     * Table of contents.
      */
     CONTENTS("contents"),
 
     /**
-     * TODO
+     * Indicates that the main content of the current document is covered by the
+     * copyright license described by the referenced document.
+     *
+     * @see <a href="http://www.w3.org/TR/html5/links.html#link-type-license">
+     * HTML 5 Link type "license", Section 4.8.4.6</a>
      */
     LICENSE("license"),
 
@@ -70,7 +78,11 @@ public enum StandardLinkRelation {
     PREV("prev"),
 
     /**
-     * TODO
+     * Indicates that the link identifies a resource equivalent to the current
+     * document or containing element.
+     *
+     * @see <a href="https://tools.ietf.org/html/rfc4287#section-4.2.7">The Atom
+     * Syndication Format (RFC 4287), Section 4.2.7.2 #3</a>
      */
     SELF("self"),
 
