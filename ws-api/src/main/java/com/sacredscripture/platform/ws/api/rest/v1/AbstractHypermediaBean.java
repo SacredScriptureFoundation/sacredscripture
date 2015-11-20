@@ -49,4 +49,20 @@ public abstract class AbstractHypermediaBean {
         return links;
     }
 
+    /**
+     * Retrieves the first link that has the specified relationship value.
+     *
+     * @param rel the relationship value
+     * @return the found link or {@code null}
+     * @see #getLinks()
+     */
+    public ResourceLinkBean ofRelFirst(String rel) {
+        for (ResourceLinkBean link : getLinks()) {
+            if (rel.equals(link.getRel())) {
+                return link;
+            }
+        }
+        return null;
+    }
+
 }
