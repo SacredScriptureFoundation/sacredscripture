@@ -46,7 +46,7 @@ public final class ResponseUtils {
         return uriBuilder.queryParam("lang", locale).build(values);
     }
 
-    public static Response multipleChoices(Locale primaryLocale, Set<Locale> otherLocales, UriBuilder uriBuilder, Object... values) {
+    public static Response multipleChoices(Locale primaryLocale, Set<Locale> altLocales, UriBuilder uriBuilder, Object... values) {
         // Build redirect location if possible
         URI location = null;
         if (uriBuilder != null) {
@@ -56,7 +56,7 @@ public final class ResponseUtils {
         // Build choices
         LinkedHashSet<Locale> set = new LinkedHashSet<Locale>();
         set.add(primaryLocale);
-        set.addAll(otherLocales);
+        set.addAll(altLocales);
         Object[] localesArray = set.toArray();
 
         // Add location if available
