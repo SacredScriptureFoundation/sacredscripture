@@ -33,27 +33,36 @@ import javax.ws.rs.core.UriBuilder;
 public final class ResponseUtils {
 
     /**
-     * Creates a standard "alternate" (link relationship) URI by appending a
-     * {@code lang} parameter with the specified locale value plus any
-     * additional values.
+     * Language query parameter.
+     */
+    public static final String LANG = "lang";
+
+    /**
+     * Creates a URI by appending a {@code lang} parameter with the specified
+     * locale value plus any additional values. This method is useful, for
+     * example, to construct an "alternate" link relationship to a resource in
+     * another language, or to construct
      *
      * @param uriBuilder the URI builder
      * @param locale the alternate locale
      * @param values any other values
      * @return the URI
      */
-    public static URI alternateLocalizedUri(UriBuilder uriBuilder, Locale locale, Object... values) {
-        return uriBuilder.queryParam("lang", locale).build(values);
+    public static URI localizedUri(UriBuilder uriBuilder, Locale locale, Object... values) {
+        return uriBuilder.queryParam(LANG, locale).build(values);
     }
 
     public static Response multipleChoices(Locale primaryLocale, Set<Locale> altLocales, UriBuilder uriBuilder, Object... values) {
         // Build redirect location if possible
         URI location = null;
         if (uriBuilder != null) {
-            location = alternateLocalizedUri(uriBuilder, primaryLocale, values);
+            location = localizedUri(uriBuilder, primaryLocale, values);
         }
 
         // Build choices
+        // Little trick here to ensure primary locale comes first by adding it
+        // to the head of a LinkedHashSet; it will retain its position even if
+        // a member of alternate locales.
         LinkedHashSet<Locale> set = new LinkedHashSet<Locale>();
         set.add(primaryLocale);
         set.addAll(altLocales);

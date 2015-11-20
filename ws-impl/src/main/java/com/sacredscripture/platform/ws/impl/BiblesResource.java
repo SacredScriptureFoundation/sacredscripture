@@ -19,12 +19,20 @@
  */
 package com.sacredscripture.platform.ws.impl;
 
+import static com.sacredscripture.platform.ws.impl.ResponseUtils.localizedUri;
+import static com.sacredscripture.platform.ws.impl.ResponseUtils.multipleChoices;
+
+import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
+import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
+import com.sacredscripture.platform.ws.api.rest.v1.LinkRelation;
+
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
+import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -39,23 +47,124 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.core.convert.ConversionService;
 
-import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
-import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
-import com.sacredscripture.platform.ws.api.rest.v1.StandardLinkRelation;
-
 @Path(BiblesResource.ROOT_PATH)
 @Produces("application/json")
 public class BiblesResource extends AbstractSpringAwareResource {
+
+    /**
+     * This private inner class constructs a {@link BibleBean} view.
+     */
+    private class BibleBeanBuilder {
+        public UriInfo uriInfo;
+        public Locale locale;
+        public boolean self;
+
+        public BibleBean build(Bible bible) {
+            BibleBean bibleBean = conversionService.convert(bible, BibleBean.class);
+            if (self) {
+                bibleBean.addLink(makeHref(bible, locale), LinkRelation.SELF.rel());
+
+                // Alternate languages
+                for (Locale altLocale : bible.getLocalizedContents().keySet()) {
+                    if (!altLocale.equals(locale)) {
+                        bibleBean.addLink(makeHref(bible, altLocale), LinkRelation.ALTERNATE.rel(), altLocale);
+                    }
+                }
+            } else {
+                bibleBean.addLink(makeHref(bible, locale), LinkRelation.ABOUT.rel());
+            }
+            return bibleBean;
+        }
+
+        private String makeHref(Bible bible, Locale locale) {
+            URI uri;
+            UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_BIBLE);
+            if (locale != null) {
+                uri = localizedUri(builder, locale, bible.getCode());
+            } else {
+                uri = builder.build(bible.getCode());
+            }
+            return uri.toString();
+        }
+    }
+
+    /**
+     * This private inner class constructs a {@link BookBean} view.
+     */
+    private class BookBeanBuilder {
+        public UriInfo uriInfo;
+        public Locale locale;
+        public Bible bible;
+        public boolean self;
+
+        public BookBean build(Book book) {
+            BookBean bookBean = conversionService.convert(book, BookBean.class);
+            if (self) {
+                bookBean.addLink(makeHref(book, locale), LinkRelation.SELF.rel());
+
+                // Alternate languages
+                for (Locale altLocale : book.getBookType().locales()) {
+                    if (!altLocale.equals(locale)) {
+                        bookBean.addLink(makeHref(book, altLocale), LinkRelation.ALTERNATE.rel(), altLocale);
+                    }
+                }
+
+                // Previous book
+                Book prevBook = book.previous();
+                if (prevBook != null) {
+                    bookBean.addLink(makeHref(prevBook, locale), LinkRelation.PREV.rel());
+                }
+
+                // Next book
+                Book nextBook = book.next();
+                if (nextBook != null) {
+                    bookBean.addLink(makeHref(nextBook, locale), LinkRelation.NEXT.rel());
+                }
+
+                // Bible
+                BibleBeanBuilder b = new BibleBeanBuilder();
+                b.uriInfo = uriInfo;
+                b.locale = locale;
+                bookBean.addLink(b.build(bible).ofRelFirst(LinkRelation.ABOUT.rel()).getHref(), LinkRelation.UP.rel());
+            } else {
+                bookBean.addLink(makeHref(book, locale), LinkRelation.ABOUT.rel());
+            }
+            return bookBean;
+        }
+
+        private String makeHref(Book book, Locale locale) {
+            URI uri;
+            UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOK);
+            if (locale != null) {
+                uri = localizedUri(builder, locale, bible.getCode(), book.getBookType().getCode());
+            } else {
+                uri = builder.build(bible.getCode(), book.getBookType().getCode());
+            }
+            return uri.toString();
+        }
+    }
 
     // Paths
     public static final String ROOT_PATH = "/rest/v1/bibles";
     public static final String SUB_PATH_BIBLE = "/{bible}";
     public static final String SUB_PATH_BOOKS = "/{bible}/books";
     public static final String SUB_PATH_BOOK = "/{bible}/books/{book}";
+
+    /**
+     * Creates a new {@link UriBuilder} to the resource root of this class.
+     * <p>
+     * Remove when
+     * <a href="https://java.net/jira/browse/JAX_RS_SPEC-519">JAX_RS_SPEC-519
+     * </a> gets implemented.
+     */
+    private static UriBuilder getRootResourceBuilder(UriInfo uriInfo) {
+        return uriInfo.getBaseUriBuilder().path(ROOT_PATH);
+    }
 
     @EJB
     private BibleQueryService queryService;
@@ -79,41 +188,50 @@ public class BiblesResource extends AbstractSpringAwareResource {
         Locale userLocale;
         if (locale != null) {
             if (!bible.supportsLocale(locale)) {
-                return ResponseUtils.multipleChoices(
+                return multipleChoices(
                     bible.getLocale(),
                     bible.locales(),
-                    multipleChoicesRedirect ? uriInfo.getBaseUriBuilder().path(SUB_PATH_BIBLE) : null,
+                    multipleChoicesRedirect ? uriInfo.getAbsolutePathBuilder() : null,
                     bibleCode);
             }
             userLocale = locale;
         } else {
             userLocale = bible.getLocale();
         }
-
-        // Prepare response
         LocaleContextHolder.setLocale(userLocale);
-        BibleBean bibleBean = conversionService.convert(bible, BibleBean.class);
-        bibleBean.addLink(uriInfo.getAbsolutePath().toString(), StandardLinkRelation.SELF.rel());
-        for (Locale loc : bible.getLocalizedContents().keySet()) {
-            if (!loc.equals(userLocale)) {
-                bibleBean.addLink(
-                    ResponseUtils.alternateLocalizedUri(uriInfo.getAbsolutePathBuilder(), loc).toString(),
-                    StandardLinkRelation.ALTERNATE.rel(),
-                    loc);
-            }
-        }
+
+        // Build representation
+        BibleBeanBuilder builder = new BibleBeanBuilder();
+        builder.uriInfo = uriInfo;
+        builder.locale = locale;
+        builder.self = true;
+        BibleBean bibleBean = builder.build(bible);
 
         // Send response
         return Response.ok().entity(bibleBean).build();
     }
 
+    /**
+     * Retrieves all bibles supported by the platform.
+     *
+     * @param uriInfo the URI information of the request
+     * @return the response
+     */
     @GET
-    public Response getBibles() {
+    public Response getBibles(@Context UriInfo uriInfo) {
+        // Query for all bibiles
         List<Bible> bibles = queryService.getBibles(null);
+
+        // Build representation
         List<BibleBean> bibleBeans = new LinkedList<>();
         for (Bible bible : bibles) {
-            bibleBeans.add(conversionService.convert(bible, BibleBean.class));
+            BibleBeanBuilder builder = new BibleBeanBuilder();
+            builder.uriInfo = uriInfo;
+            BibleBean bibleBean = builder.build(bible);
+            bibleBeans.add(bibleBean);
         }
+
+        // Send response
         return Response.ok().entity(bibleBeans).build();
     }
 
@@ -137,14 +255,14 @@ public class BiblesResource extends AbstractSpringAwareResource {
             return Response.status(Status.NOT_FOUND).build();
         }
 
-        // Is the user's locale supported? If not, present choices to user
+        // Is the requested locale supported? If not, present choices to user
         Locale userLocale;
         if (locale != null) {
             if (!book.getBookType().supportsLocale(locale)) {
-                return ResponseUtils.multipleChoices(
+                return multipleChoices(
                     bible.getLocale(),
                     book.getBookType().locales(),
-                    multipleChoicesRedirect ? uriInfo.getBaseUriBuilder().path(SUB_PATH_BOOK) : null,
+                    multipleChoicesRedirect ? uriInfo.getAbsolutePathBuilder() : null,
                     bibleCode,
                     bookCode);
             }
@@ -152,10 +270,15 @@ public class BiblesResource extends AbstractSpringAwareResource {
         } else {
             userLocale = bible.getLocale();
         }
-
-        // Prepare response
         LocaleContextHolder.setLocale(userLocale);
-        BookBean bookBean = conversionService.convert(book, BookBean.class);
+
+        // Build representation
+        BookBeanBuilder builder = new BookBeanBuilder();
+        builder.uriInfo = uriInfo;
+        builder.locale = locale;
+        builder.bible = bible;
+        builder.self = true;
+        BookBean bookBean = builder.build(book);
 
         // Send response
         return Response.ok().entity(bookBean).build();
@@ -175,29 +298,33 @@ public class BiblesResource extends AbstractSpringAwareResource {
         }
 
         // Is the user's locale supported? If not, present choices to user.
-        // Use the first book to test the locale.
-        // There should never be a situation where the locale isn't present
-        // for some of the books -- it should be all or nothing.
-        Book bookTest = bible.getBooks().get(0);
+        // Use the first book to test the locale; there should never be a
+        // situation where the locale isn't present for all of the books
         Locale userLocale;
         if (locale != null) {
+            Book bookTest = bible.getBooks().get(0);
             if (!bookTest.getBookType().supportsLocale(locale)) {
-                return ResponseUtils.multipleChoices(
+                return multipleChoices(
                     bible.getLocale(),
                     bookTest.getBookType().locales(),
-                    multipleChoicesRedirect ? uriInfo.getBaseUriBuilder().path(SUB_PATH_BOOKS) : null,
+                    multipleChoicesRedirect ? uriInfo.getAbsolutePathBuilder() : null,
                     bibleCode);
             }
             userLocale = locale;
         } else {
             userLocale = bible.getLocale();
         }
-
-        // Prepare response
         LocaleContextHolder.setLocale(userLocale);
+
+        // Build representation
         List<BookBean> beans = new LinkedList<>();
         for (Book book : bible.getBooks()) {
-            beans.add(conversionService.convert(book, BookBean.class));
+            BookBeanBuilder builder = new BookBeanBuilder();
+            builder.uriInfo = uriInfo;
+            builder.locale = locale;
+            builder.bible = bible;
+            BookBean bookBean = builder.build(book);
+            beans.add(bookBean);
         }
 
         // Send response
