@@ -45,11 +45,13 @@ import org.springframework.core.convert.ConversionService;
 
 import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
 import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
+import com.sacredscripture.platform.ws.api.rest.v1.StandardLinkRelation;
 
 @Path(BiblesResource.ROOT_PATH)
 @Produces("application/json")
 public class BiblesResource extends AbstractSpringAwareResource {
 
+    // Paths
     public static final String ROOT_PATH = "/rest/v1/bibles";
     public static final String SUB_PATH_BIBLE = "/{bible}";
     public static final String SUB_PATH_BOOKS = "/{bible}/books";
@@ -80,8 +82,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 return ResponseUtils.multipleChoices(
                     bible.getLocale(),
                     bible.locales(),
-                    multipleChoicesRedirect ? uriInfo : null,
-                    ROOT_PATH + SUB_PATH_BIBLE,
+                    multipleChoicesRedirect ? uriInfo.getBaseUriBuilder().path(SUB_PATH_BIBLE) : null,
                     bibleCode);
             }
             userLocale = locale;
@@ -92,6 +93,15 @@ public class BiblesResource extends AbstractSpringAwareResource {
         // Prepare response
         LocaleContextHolder.setLocale(userLocale);
         BibleBean bibleBean = conversionService.convert(bible, BibleBean.class);
+        bibleBean.addLink(uriInfo.getAbsolutePath().toString(), StandardLinkRelation.SELF.rel());
+        for (Locale loc : bible.getLocalizedContents().keySet()) {
+            if (!loc.equals(userLocale)) {
+                bibleBean.addLink(
+                    ResponseUtils.alternateLocalizedUri(uriInfo.getAbsolutePathBuilder(), loc).toString(),
+                    StandardLinkRelation.ALTERNATE.rel(),
+                    loc);
+            }
+        }
 
         // Send response
         return Response.ok().entity(bibleBean).build();
@@ -134,8 +144,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 return ResponseUtils.multipleChoices(
                     bible.getLocale(),
                     book.getBookType().locales(),
-                    multipleChoicesRedirect ? uriInfo : null,
-                    ROOT_PATH + SUB_PATH_BOOK,
+                    multipleChoicesRedirect ? uriInfo.getBaseUriBuilder().path(SUB_PATH_BOOK) : null,
                     bibleCode,
                     bookCode);
             }
@@ -176,8 +185,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 return ResponseUtils.multipleChoices(
                     bible.getLocale(),
                     bookTest.getBookType().locales(),
-                    multipleChoicesRedirect ? uriInfo : null,
-                    ROOT_PATH + SUB_PATH_BOOKS,
+                    multipleChoicesRedirect ? uriInfo.getBaseUriBuilder().path(SUB_PATH_BOOKS) : null,
                     bibleCode);
             }
             userLocale = locale;

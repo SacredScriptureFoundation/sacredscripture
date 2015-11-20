@@ -19,6 +19,8 @@
  */
 package com.sacredscripture.platform.ws.impl;
 
+import org.sacredscripturefoundation.commons.InstantiationNotIntendedError;
+
 import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -27,15 +29,28 @@ import java.util.Set;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 
 public final class ResponseUtils {
 
-    public static Response multipleChoices(Locale primaryLocale, Set<Locale> otherLocales, UriInfo uriInfo, String path, Object... values) {
+    /**
+     * Creates a standard "alternate" (link relationship) URI by appending a
+     * {@code lang} parameter with the specified locale value plus any
+     * additional values.
+     *
+     * @param uriBuilder the URI builder
+     * @param locale the alternate locale
+     * @param values any other values
+     * @return the URI
+     */
+    public static URI alternateLocalizedUri(UriBuilder uriBuilder, Locale locale, Object... values) {
+        return uriBuilder.queryParam("lang", locale).build(values);
+    }
+
+    public static Response multipleChoices(Locale primaryLocale, Set<Locale> otherLocales, UriBuilder uriBuilder, Object... values) {
         // Build redirect location if possible
         URI location = null;
-        if (uriInfo != null && path != null) {
-            location = UriBuilder.fromUri(uriInfo.getBaseUri()).path(path).queryParam("lang", primaryLocale).build(values);
+        if (uriBuilder != null) {
+            location = alternateLocalizedUri(uriBuilder, primaryLocale, values);
         }
 
         // Build choices
@@ -51,6 +66,13 @@ public final class ResponseUtils {
         }
 
         return rb.build();
+    }
+
+    /**
+     * No instances possible.
+     */
+    private ResponseUtils() {
+        throw new InstantiationNotIntendedError();
     }
 
 }
