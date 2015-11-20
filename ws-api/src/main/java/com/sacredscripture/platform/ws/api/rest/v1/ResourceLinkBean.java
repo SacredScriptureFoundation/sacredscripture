@@ -65,7 +65,7 @@ public class ResourceLinkBean implements LocaleProvider {
      *
      * @return the relationship value
      * @see #setRel(String)
-     * @see StandardLinkRelation
+     * @see LinkRelation
      */
     public String getRel() {
         return rel;
@@ -97,7 +97,7 @@ public class ResourceLinkBean implements LocaleProvider {
      *
      * @param rel the relationship value
      * @see #getRel()
-     * @see StandardLinkRelation
+     * @see LinkRelation
      */
     public void setRel(String rel) {
         this.rel = rel;
