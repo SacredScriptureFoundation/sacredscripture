@@ -60,7 +60,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
      * This private inner class constructs a {@link BibleBean} view.
      */
     private class BibleBeanBuilder {
-        public UriInfo uriInfo;
         public Locale locale;
         public boolean self;
 
@@ -97,7 +96,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
      * This private inner class constructs a {@link BookBean} view.
      */
     private class BookBeanBuilder {
-        public UriInfo uriInfo;
         public Locale locale;
         public Bible bible;
         public boolean self;
@@ -128,7 +126,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
                 // Bible
                 BibleBeanBuilder b = new BibleBeanBuilder();
-                b.uriInfo = uriInfo;
                 b.locale = locale;
                 bookBean.addLink(b.build(bible).ofRelFirst(LinkRelation.ABOUT.rel()).getHref(), LinkRelation.UP.rel());
             } else {
@@ -169,6 +166,8 @@ public class BiblesResource extends AbstractSpringAwareResource {
     @EJB
     private BibleQueryService queryService;
     private ConversionService conversionService;
+    @Context
+    private UriInfo uriInfo;
 
     @Path(SUB_PATH_BIBLE)
     @GET
@@ -176,8 +175,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
             @PathParam("bible") String bibleCode,
             @QueryParam("bg") int bookGroupDepth,
             @QueryParam("lang") Locale locale,
-            @QueryParam("mcr") boolean multipleChoicesRedirect,
-            @Context UriInfo uriInfo) {
+            @QueryParam("mcr") boolean multipleChoicesRedirect) {
         // Does the bible exist?
         Bible bible = queryService.getBible(bibleCode);
         if (bible == null) {
@@ -202,7 +200,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
         // Build representation
         BibleBeanBuilder builder = new BibleBeanBuilder();
-        builder.uriInfo = uriInfo;
         builder.locale = locale;
         builder.self = true;
         BibleBean bibleBean = builder.build(bible);
@@ -214,11 +211,10 @@ public class BiblesResource extends AbstractSpringAwareResource {
     /**
      * Retrieves all bibles supported by the platform.
      *
-     * @param uriInfo the URI information of the request
      * @return the response
      */
     @GET
-    public Response getBibles(@Context UriInfo uriInfo) {
+    public Response getBibles() {
         // Query for all bibiles
         List<Bible> bibles = queryService.getBibles(null);
 
@@ -226,7 +222,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
         List<BibleBean> bibleBeans = new LinkedList<>();
         for (Bible bible : bibles) {
             BibleBeanBuilder builder = new BibleBeanBuilder();
-            builder.uriInfo = uriInfo;
             BibleBean bibleBean = builder.build(bible);
             bibleBeans.add(bibleBean);
         }
@@ -241,8 +236,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
             @PathParam("bible") String bibleCode,
             @PathParam("book") String bookCode,
             @QueryParam("lang") Locale locale,
-            @QueryParam("mcr") boolean multipleChoicesRedirect,
-            @Context UriInfo uriInfo) {
+            @QueryParam("mcr") boolean multipleChoicesRedirect) {
         // Does the bible exist?
         Bible bible = queryService.getBible(bibleCode);
         if (bible == null) {
@@ -274,7 +268,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
         // Build representation
         BookBeanBuilder builder = new BookBeanBuilder();
-        builder.uriInfo = uriInfo;
         builder.locale = locale;
         builder.bible = bible;
         builder.self = true;
@@ -289,8 +282,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
     public Response getBooks(
             @PathParam("bible") String bibleCode,
             @QueryParam("lang") Locale locale,
-            @QueryParam("mcr") boolean multipleChoicesRedirect,
-            @Context UriInfo uriInfo) {
+            @QueryParam("mcr") boolean multipleChoicesRedirect) {
         // Does the bible exist?
         Bible bible = queryService.getBible(bibleCode);
         if (bible == null) {
@@ -320,7 +312,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
         List<BookBean> beans = new LinkedList<>();
         for (Book book : bible.getBooks()) {
             BookBeanBuilder builder = new BookBeanBuilder();
-            builder.uriInfo = uriInfo;
             builder.locale = locale;
             builder.bible = bible;
             BookBean bookBean = builder.build(book);
