@@ -24,10 +24,12 @@ import static com.sacredscripture.platform.ws.impl.ResponseUtils.multipleChoices
 
 import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
 import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
+import com.sacredscripture.platform.ws.api.rest.v1.ChapterBean;
 import com.sacredscripture.platform.ws.api.rest.v1.LinkRelation;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
+import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
@@ -131,6 +133,18 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 // Bible
                 BibleBeanBuilder bb = new BibleBeanBuilder();
                 bookBean.addLink(bb.makeHref(bible, locale), LinkRelation.UP.rel());
+
+                // Chapters
+                List<Chapter> chapters = queryService.getChapters(bible.getCode(), book.getBookType().getCode());
+                for (Chapter chapter : chapters) {
+                    ChapterBeanBuilder cb = new ChapterBeanBuilder();
+                    cb.locale = locale;
+                    ChapterBean chapterBean = cb.build(chapter);
+                    if (bookBean.getChapters() == null) {
+                        bookBean.setChapters(new LinkedList<ChapterBean>());
+                    }
+                    bookBean.getChapters().add(chapterBean);
+                }
             } else {
                 bookBean.addLink(makeHref(book, locale), LinkRelation.ABOUT.rel());
             }
@@ -149,11 +163,39 @@ public class BiblesResource extends AbstractSpringAwareResource {
         }
     }
 
+    private class ChapterBeanBuilder {
+        public Locale locale;
+        public boolean self;
+
+        public ChapterBean build(Chapter chapter) {
+            ChapterBean chapterBean = conversionService.convert(chapter, ChapterBean.class);
+            if (self) {
+                chapterBean.addLink(makeHref(chapter, locale), LinkRelation.SELF.rel());
+            } else {
+                chapterBean.addLink(makeHref(chapter, locale), LinkRelation.ABOUT.rel());
+            }
+            return chapterBean;
+        }
+
+        private String makeHref(Chapter chapter, Locale locale) {
+            URI uri;
+            UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
+            if (locale != null) {
+                uri = localizedUri(builder, locale, chapter.getBook().getBible().getCode(), chapter.getId());
+            } else {
+                uri = builder.build(chapter.getBook().getBible().getCode(), chapter.getId());
+            }
+            return uri.toString();
+        }
+
+    }
+
     // Paths
     public static final String ROOT_PATH = "/rest/v1/bibles";
     public static final String SUB_PATH_BIBLE = "/{bible}";
-    public static final String SUB_PATH_BOOKS = "/{bible}/books";
     public static final String SUB_PATH_BOOK = "/{bible}/books/{book}";
+    public static final String SUB_PATH_BOOKS = "/{bible}/books";
+    public static final String SUB_PATH_CONTENT = "/{bible}/content/{id}";
 
     /**
      * Creates a new {@link UriBuilder} to the resource root of this class.

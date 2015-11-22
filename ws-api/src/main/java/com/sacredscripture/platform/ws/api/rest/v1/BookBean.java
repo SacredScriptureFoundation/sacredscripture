@@ -19,6 +19,7 @@
  */
 package com.sacredscripture.platform.ws.api.rest.v1;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -67,6 +68,9 @@ public class BookBean extends AbstractHypermediaBean {
     @XmlElement(name = "nativeTitle")
     private String nativeTitle;
 
+    @XmlElement(name = "chapters")
+    private List<ChapterBean> chapters;
+
     public final String getAbbreviation() {
         return abbreviation;
     }
@@ -97,6 +101,10 @@ public class BookBean extends AbstractHypermediaBean {
 
     public final String getNativeTitle() {
         return nativeTitle;
+    }
+
+    public final List<ChapterBean> getChapters() {
+        return chapters;
     }
 
     public final String getTitle() {
@@ -141,6 +149,10 @@ public class BookBean extends AbstractHypermediaBean {
 
     public final void setNativeTitle(String nativeTitle) {
         this.nativeTitle = nativeTitle;
+    }
+
+    public final void setChapters(List<ChapterBean> sections) {
+        this.chapters = sections;
     }
 
     public final void setTitle(String title) {
