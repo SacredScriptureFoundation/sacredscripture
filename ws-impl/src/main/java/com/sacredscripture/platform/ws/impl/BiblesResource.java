@@ -78,6 +78,14 @@ public class BiblesResource extends AbstractSpringAwareResource {
                         bibleBean.addLink(makeHref(bible, altLocale), LinkRelation.ALTERNATE.rel(), altLocale);
                     }
                 }
+
+                // All bibles
+                String allBiblesHref = getRootResourceBuilder(uriInfo).build().toString();
+                bibleBean.addLink(allBiblesHref, LinkRelation.COLLECTION.rel());
+
+                // Books
+                String booksHref = getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOKS).build(bible.getCode()).toString();
+                bibleBean.addLink(booksHref, "x-books");
             } else {
                 bibleBean.addLink(makeHref(bible, locale), LinkRelation.ABOUT.rel());
             }
