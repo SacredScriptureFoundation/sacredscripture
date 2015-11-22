@@ -28,6 +28,7 @@
       <set>
         <bean class="com.sacredscripture.platform.ws.impl.BibleBeanConverter" />
         <bean class="com.sacredscripture.platform.ws.impl.BookBeanConverter" />
+        <bean class="com.sacredscripture.platform.ws.impl.ChapterBeanConverter" />
       </set>
     </property>
   </bean>
