@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -19,9 +19,12 @@
  */
 package org.sacredscripture.platform.internal.bible.dao;
 
+import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.Content;
 
 import org.sacredscripturefoundation.commons.entity.dao.Dao;
+
+import java.util.List;
 
 /**
  * This interface defines persistence operations for {@link Content} entities.
@@ -30,5 +33,14 @@ import org.sacredscripturefoundation.commons.entity.dao.Dao;
  * @since Sacred Scripture Platform 1.0
  */
 public interface ContentDao extends Dao<Content, Long> {
-    // empty
+
+    /**
+     * Queries for the chapters of the specified book.
+     *
+     * @param bibleCode the bible code
+     * @param bookCode the book code
+     * @return the chapters (never {@code null})
+     */
+    List<Chapter> findChapters(String bibleCode, String bookCode);
+
 }

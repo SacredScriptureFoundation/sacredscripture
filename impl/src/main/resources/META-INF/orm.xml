@@ -90,4 +90,20 @@
     </query>
   </named-query>
 
+  <named-query name="Content.findChapters">
+    <query>
+    <![CDATA[
+      SELECT 
+          c 
+      FROM 
+          ChapterImpl c  
+      WHERE 
+          c.book.bookType.code = :bookCode
+          AND c.book.bible.code = :bibleCode
+      ORDER BY
+          c.order
+    ]]>
+    </query>
+  </named-query>
+
 </entity-mappings>
