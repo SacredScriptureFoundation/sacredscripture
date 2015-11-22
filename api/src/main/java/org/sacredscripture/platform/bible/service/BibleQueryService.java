@@ -21,6 +21,7 @@ package org.sacredscripture.platform.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.bible.TableOfContents;
 
 import java.util.List;
@@ -63,6 +64,8 @@ public interface BibleQueryService {
      * @return the chapters (never {@code null})
      */
     List<Chapter> getChapters(String bibleCode, String bookCode);
+
+    Content getContent(String contentId);
 
     /**
      * Retrieves the table of contents for the specified bible.

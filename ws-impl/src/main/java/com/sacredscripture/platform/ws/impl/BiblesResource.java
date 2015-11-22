@@ -30,6 +30,7 @@ import com.sacredscripture.platform.ws.api.rest.v1.LinkRelation;
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
@@ -373,6 +374,33 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
         // Send response
         return Response.ok().entity(beans).build();
+    }
+
+    @Path(SUB_PATH_CONTENT)
+    @GET
+    public Response getContent(@PathParam("bible") String bibleCode, @PathParam("id") String contentId) {
+        // Does the bible exist?
+        Bible bible = queryService.getBible(bibleCode);
+        if (bible == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        Content content = queryService.getContent(contentId);
+        if (content == null || !(content instanceof Chapter)) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        Chapter chapter = (Chapter) content;
+        if (!chapter.getBook().getBible().getCode().equals(bibleCode)) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        ChapterBeanBuilder cb = new ChapterBeanBuilder();
+        cb.locale = bible.getLocale();
+        cb.self = true;
+        ChapterBean chapterBean = cb.build(chapter);
+
+        return Response.ok().entity(chapterBean).build();
     }
 
     @PostConstruct

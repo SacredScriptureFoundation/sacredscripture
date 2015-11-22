@@ -21,6 +21,7 @@ package org.sacredscripture.platform.internal.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Chapter;
+import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.bible.TableOfContents;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 import org.sacredscripture.platform.internal.bible.dao.BibleDao;
@@ -87,6 +88,11 @@ public class BibleQueryServiceImpl implements BibleQueryService {
     @Override
     public List<Chapter> getChapters(String bibleCode, String bookCode) {
         return contentDao.findChapters(bibleCode, bookCode);
+    }
+
+    @Override
+    public Content getContent(String contentId) {
+        return contentDao.get(Long.valueOf(contentId), false);
     }
 
     @Override
