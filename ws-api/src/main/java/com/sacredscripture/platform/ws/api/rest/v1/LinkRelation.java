@@ -54,10 +54,24 @@ public enum LinkRelation {
      * Indicates that the current document has an alternate representation (like
      * different format and/or language).
      *
-     * @see <a href="http://www.w3.org/TR/html5/links.html#rel-alternate"> HTML
-     * 5 Link type "alternate", Section 4.8.4.1</a>
+     * @see <a href="http://www.w3.org/TR/html5/links.html#rel-alternate">HTML 5
+     * Link type "alternate", Section 4.8.4.1</a>
      */
     ALTERNATE("alternate"),
+
+    /**
+     * Indicates that the current document is a member of a collection. For
+     * example, if a resource represents a single product in a catalog, that
+     * same representation may include a link to a resource that represents a
+     * product group to which this single product belongs.
+     * <p>
+     * This relation should not be confused with {@link #UP}, which has specific
+     * semantics regarding nested documents.
+     *
+     * @see <a href="http://www.ietf.org/rfc/rfc6573.txt">The Item and
+     * Collection Link Relations (RFC 6573)</a>
+     */
+    COLLECTION("collection"),
 
     /**
      * Indicates that the referenced document serves as a table of contents.
