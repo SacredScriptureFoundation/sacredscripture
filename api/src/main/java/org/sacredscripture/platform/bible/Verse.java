@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -34,12 +34,12 @@ public interface Verse extends Content, Named {
     /**
      * Retrieves the alternate textual name of this verse. This value is used
      * for historically abnormal naming, which are most likely found within the
-     * deuterocanonical books, such as Additions to Esther (chapters A through
+     * Deuterocanonical books, such as Additions to Esther (chapters A through
      * F) and Additions to Daniel.
      * <p>
-     * For example, given that Esth 11:2 exists in Section A of Additions to
-     * Esther, it is possible for the verse reference to be displayed as "Esth
-     * 11:2 [A:1]" or "Esth A:1 [11:2]" depending on the construct.
+     * For example, given that ESTH 11:2 exists in Section A of Additions to
+     * Esther, it is possible for the verse reference to be displayed as "ESTH
+     * 11:2 [A:1]" or "ESTH A:1 [11:2]" depending on the construct.
      *
      * @return the alternate name
      * @see #setAltName(String)
@@ -68,10 +68,30 @@ public interface Verse extends Content, Named {
     @Override
     String getName();
 
+    /**
+     * Retrieves the reference to the proceeding verse
+     * <em>in the same chapter</em> as this verse.
+     *
+     * @return the next verse
+     * @see #setPrevious(Verse)
+     * @see #getNext()
+     */
+    Verse getNext();
+
+    /**
+     * Retrieves the reference to the preceding verse
+     * <em>in the same chapter</em> as this verse.
+     *
+     * @return the previous verse
+     * @see #setPrevious(Verse)
+     * @see #getNext()
+     */
+    Verse getPrevious();
+
     VerseText getText();
 
     /**
-     * Retrieves a flag indicating whether this verse should be ommited in this
+     * Retrieves a flag indicating whether this verse should be omitted in this
      * bible translation. In some bible translations, there are verses omitted
      * for scholarly reasons (such as reasonable doubt that a verse was not part
      * of the scriptural autograph). In such instances, these verses should be
@@ -107,12 +127,32 @@ public interface Verse extends Content, Named {
     void setName(String name);
 
     /**
+     * Stores a reference to the proceeding verse <em>in the same chapter</em>
+     * as this verse.
+     *
+     * @param next the next verse
+     * @see #getNext()
+     * @see #setPrevious(Verse)
+     */
+    void setNext(Verse next);
+
+    /**
      * Stores whether this verse should be omitted.
      *
      * @param omitted {@code true} to omit; otherwise {@code false}
      * @see #isOmitted()
      */
     void setOmitted(boolean omitted);
+
+    /**
+     * Stores a reference to the preceding verse <em>in the same chapter</em> as
+     * this verse.
+     *
+     * @param previous the previous verse
+     * @see #getPrevious()
+     * @see #setNext(Verse)
+     */
+    void setPrevious(Verse previous);
 
     void setText(VerseText text);
 

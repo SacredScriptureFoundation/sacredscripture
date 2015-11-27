@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -81,6 +81,16 @@ public class VerseImpl extends ContentImpl implements Verse {
     }
 
     @Override
+    public Verse getNext() {
+        return (Verse) next;
+    }
+
+    @Override
+    public Verse getPrevious() {
+        return (Verse) previous;
+    }
+
+    @Override
     public VerseText getText() {
         return text;
     }
@@ -106,8 +116,18 @@ public class VerseImpl extends ContentImpl implements Verse {
     }
 
     @Override
+    public void setNext(Verse next) {
+        this.next = next;
+    }
+
+    @Override
     public void setOmitted(boolean omitted) {
         this.omitted = omitted;
+    }
+
+    @Override
+    public void setPrevious(Verse previous) {
+        this.previous = previous;
     }
 
     @Override

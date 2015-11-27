@@ -50,10 +50,30 @@ public interface Chapter extends Content, Named {
     String getName();
 
     /**
-     * Retrieves the collection of verses that belong to this chapter. The
-     * collection must be sorted according to the index of this edition.
+     * Retrieves the reference to the proceeding chapter
+     * <em>in the same book</em> as this chapter.
      *
-     * @return the collection
+     * @return the next chapter
+     * @see #setPrevious(Chapter)
+     * @see #getNext()
+     */
+    Chapter getNext();
+
+    /**
+     * Retrieves the reference to the preceding chapter
+     * <em>in the same book</em> as this chapter.
+     *
+     * @return the previous verse
+     * @see #setPrevious(Chapter)
+     * @see #getNext()
+     */
+    Chapter getPrevious();
+
+    /**
+     * Retrieves the collection of verses that belong to this chapter. The
+     * verses are sorted according to their content ordering.
+     *
+     * @return the verses
      * @see #addVerse(Verse)
      */
     List<Verse> getVerses();
@@ -65,5 +85,25 @@ public interface Chapter extends Content, Named {
      * @see #getName()
      */
     void setName(String name);
+
+    /**
+     * Stores a reference to the proceeding chapter <em>in the same book</em> as
+     * this chapter.
+     *
+     * @param next the next chapter
+     * @see #getNext()
+     * @see #setPrevious(Chapter)
+     */
+    void setNext(Chapter next);
+
+    /**
+     * Stores a reference to the preceding chapter <em>in the same book</em> as
+     * this chapter.
+     *
+     * @param previous the previous chapter
+     * @see #getPrevious()
+     * @see #setNext(Chapter)
+     */
+    void setPrevious(Chapter previous);
 
 }

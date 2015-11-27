@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -29,6 +29,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -56,6 +57,14 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
 
     @Column(name = ContentTable.COLUMN_CODE)
     private String code;
+
+    @ManyToOne(targetEntity = ContentImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = ContentTable.COLUMN_PREVIOUS)
+    protected Content previous; // subclass access
+
+    @ManyToOne(targetEntity = ContentImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = ContentTable.COLUMN_NEXT)
+    protected Content next; // subclass access
 
     @Override
     public Book getBook() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -124,7 +124,9 @@ public final class DataModel {
         public static final String COLUMN_CHAPTER_NAME = "chapter_name";
         public static final String COLUMN_DISCRIMINATOR = "type_code";
         public static final String COLUMN_ID = "id";
+        public static final String COLUMN_NEXT = "content_type_next";
         public static final String COLUMN_POSITION = "list_position";
+        public static final String COLUMN_PREVIOUS = "content_type_prev";
         public static final String COLUMN_VERSE_ALT_NAME = "verse_alt_name";
         public static final String COLUMN_VERSE_CHAPTER_ID = "verse_chapter_id";
         public static final String COLUMN_VERSE_NAME = "verse_name";

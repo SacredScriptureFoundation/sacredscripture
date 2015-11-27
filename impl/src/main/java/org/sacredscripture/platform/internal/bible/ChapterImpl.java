@@ -54,8 +54,15 @@ public class ChapterImpl extends ContentImpl implements Chapter {
     @Override
     public void addVerse(Verse verse) {
         Objects.requireNonNull(verse);
+        if (verses == null) {
+            verses = new LinkedList<>();
+        } else {
+            Verse last = verses.get(verses.size() - 1);
+            last.setNext(verse);
+            verse.setPrevious(last);
+        }
         verse.setChapter(this);
-        getVerses().add(verse);
+        verses.add(verse);
     }
 
     @Override
@@ -69,6 +76,16 @@ public class ChapterImpl extends ContentImpl implements Chapter {
     }
 
     @Override
+    public Chapter getNext() {
+        return (Chapter) next;
+    }
+
+    @Override
+    public Chapter getPrevious() {
+        return (Chapter) previous;
+    }
+
+    @Override
     public List<Verse> getVerses() {
         if (verses == null) {
             verses = new LinkedList<>();
@@ -79,6 +96,16 @@ public class ChapterImpl extends ContentImpl implements Chapter {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setNext(Chapter next) {
+        this.next = next;
+    }
+
+    @Override
+    public void setPrevious(Chapter previous) {
+        this.previous = previous;
     }
 
 }

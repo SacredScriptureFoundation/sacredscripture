@@ -152,6 +152,8 @@ content
     list_position         INT UNSIGNED NOT NULL,
     type_code             INT(1) NOT NULL,
     content_code          VARCHAR(20),
+    content_type_prev     INT UNSIGNED,
+    content_type_next     INT UNSIGNED,
     chapter_name          VARCHAR(10),
     verse_chapter_id      INT UNSIGNED,
     verse_name            VARCHAR(10),
