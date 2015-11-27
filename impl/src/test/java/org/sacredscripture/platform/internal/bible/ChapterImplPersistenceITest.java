@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -32,11 +32,6 @@ import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUM
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.DISCRIMINATOR_CHAPTER;
 
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BibleImpl;
-import org.sacredscripture.platform.internal.bible.BookImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeImpl;
-import org.sacredscripture.platform.internal.bible.ChapterImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -77,6 +72,36 @@ public class ChapterImplPersistenceITest extends AbstractSpringJpaIntegrationTes
         assertEquals(c.getName(), rs.getString(COLUMN_CHAPTER_NAME));
         assertEquals(c.getOrder(), rs.getInt(COLUMN_POSITION));
         assertEquals(DISCRIMINATOR_CHAPTER, rs.getString(COLUMN_DISCRIMINATOR));
+    }
+
+    /**
+     * Verifies verse ordering isn't offset by how many items precede it.
+     */
+    @Test
+    public void testVerseOrdering() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
+        BibleImpl b = ObjectMother.newBible();
+        BookImpl k = ObjectMother.newBook(b, t);
+        ChapterImpl c1 = ObjectMother.newChapter(k);
+        ChapterImpl c2 = ObjectMother.newChapter(k);
+        VerseImpl v1 = ObjectMother.newVerse(c2);
+        VerseImpl v2 = ObjectMother.newVerse(c2);
+        em.persist(g);
+        em.persist(t);
+        em.persist(b);
+        em.persist(k);
+        em.persist(c1);
+        em.persist(c2);
+        em.persist(v1);
+        em.persist(v2);
+        em.flush();
+        em.clear();
+
+        ChapterImpl cc = em.find(ChapterImpl.class, c2.getId());
+        assertEquals(2, cc.getVerses().size());
+        assertEquals(v1.getId(), cc.getVerses().get(0).getId());
+        assertEquals(v2.getId(), cc.getVerses().get(1).getId());
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -32,7 +32,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
+import javax.persistence.OrderBy;
 
 /**
  * This class is the stock implementation of {@link Chapter}.
@@ -45,7 +45,7 @@ import javax.persistence.OrderColumn;
 public class ChapterImpl extends ContentImpl implements Chapter {
 
     @OneToMany(targetEntity = VerseImpl.class, mappedBy = "chapter")
-    @OrderColumn(name = ContentTable.COLUMN_POSITION)
+    @OrderBy("order")
     private List<Verse> verses;
 
     @Column(name = ContentTable.COLUMN_CHAPTER_NAME)

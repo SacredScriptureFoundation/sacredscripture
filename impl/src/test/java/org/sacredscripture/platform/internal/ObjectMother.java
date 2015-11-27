@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -109,8 +109,8 @@ public final class ObjectMother {
 
     public static ChapterImpl newChapter(BookImpl k) {
         ChapterImpl c = new ChapterImpl();
-        c.setBook(k);
         c.setName(randomText());
+        k.addContent(c);
         return c;
     }
 
@@ -118,10 +118,11 @@ public final class ObjectMother {
         VerseImpl v = new VerseImpl();
         v.setAltName(randomText());
         v.setBook(c.getBook());
-        v.setChapter(c);
         v.setCode(randomText());
         v.setName(randomText());
-        v.setOrder(10);
+        c.getBook().addContent(v);
+        c.addVerse(v);
+
         VerseTextImpl text = new VerseTextImpl();
         text.setText(randomText());
         v.setText(text);
