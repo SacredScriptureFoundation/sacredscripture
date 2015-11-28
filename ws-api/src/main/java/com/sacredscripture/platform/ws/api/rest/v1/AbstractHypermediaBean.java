@@ -39,13 +39,14 @@ public abstract class AbstractHypermediaBean {
         link.setHref(href);
         link.setRel(rel);
         link.setLocale(lang);
-        getLinks().add(link);
-    }
 
-    public List<ResourceLinkBean> getLinks() {
         if (links == null) {
             links = new LinkedList<ResourceLinkBean>();
         }
+        links.add(link);
+    }
+
+    public List<ResourceLinkBean> getLinks() {
         return links;
     }
 
