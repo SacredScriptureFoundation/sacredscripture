@@ -26,11 +26,13 @@ import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
 import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
 import com.sacredscripture.platform.ws.api.rest.v1.ChapterBean;
 import com.sacredscripture.platform.ws.api.rest.v1.LinkRelation;
+import com.sacredscripture.platform.ws.api.rest.v1.VerseBean;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.Content;
+import org.sacredscripture.platform.bible.Verse;
 import org.sacredscripture.platform.bible.service.BibleQueryService;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
@@ -180,6 +182,12 @@ public class BiblesResource extends AbstractSpringAwareResource {
             ChapterBean chapterBean = conversionService.convert(chapter, ChapterBean.class);
             if (self) {
                 chapterBean.addLink(makeHref(chapter, locale), LinkRelation.SELF.rel());
+                // Verses
+                for (Verse verse : chapter.getVerses()) {
+                    VerseBeanBuilder bb = new VerseBeanBuilder();
+                    bb.locale = chapter.getBook().getBible().getLocale();
+                    chapterBean.addContent(bb.build(verse));
+                }
             } else {
                 chapterBean.addLink(makeHref(chapter, locale), LinkRelation.ABOUT.rel());
             }
@@ -190,9 +198,44 @@ public class BiblesResource extends AbstractSpringAwareResource {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
             if (locale != null) {
-                uri = localizedUri(builder, locale, chapter.getBook().getBible().getCode(), chapter.getId());
+                uri = localizedUri(builder, locale, chapter.getId());
             } else {
-                uri = builder.build(chapter.getBook().getBible().getCode(), chapter.getId());
+                uri = builder.build(chapter.getId());
+            }
+            return uri.toString();
+        }
+
+    }
+
+    private class VerseBeanBuilder {
+        public Locale locale;
+        public boolean self;
+
+        public VerseBean build(Verse verse) {
+            VerseBean verseBean = conversionService.convert(verse, VerseBean.class);
+            if (self) {
+                verseBean.addLink(makeHref(verse, locale), LinkRelation.SELF.rel());
+
+                if (verse.getNext() != null) {
+                    verseBean.addLink(makeHref(verse.getNext(), locale), LinkRelation.NEXT.rel());
+                }
+
+                if (verse.getPrevious() != null) {
+                    verseBean.addLink(makeHref(verse.getPrevious(), locale), LinkRelation.PREV.rel());
+                }
+            } else {
+                verseBean.addLink(makeHref(verse, locale), LinkRelation.ABOUT.rel());
+            }
+            return verseBean;
+        }
+
+        private String makeHref(Verse verse, Locale locale) {
+            URI uri;
+            UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
+            if (locale != null) {
+                uri = localizedUri(builder, locale, verse.getId());
+            } else {
+                uri = builder.build(verse.getId());
             }
             return uri.toString();
         }
@@ -204,7 +247,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
     public static final String SUB_PATH_BIBLE = "/{bible}";
     public static final String SUB_PATH_BOOK = "/{bible}/books/{book}";
     public static final String SUB_PATH_BOOKS = "/{bible}/books";
-    public static final String SUB_PATH_CONTENT = "/{bible}/content/{id}";
+    public static final String SUB_PATH_CONTENT = "/content/{id}";
 
     /**
      * Creates a new {@link UriBuilder} to the resource root of this class.
@@ -378,29 +421,31 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
     @Path(SUB_PATH_CONTENT)
     @GET
-    public Response getContent(@PathParam("bible") String bibleCode, @PathParam("id") String contentId) {
-        // Does the bible exist?
-        Bible bible = queryService.getBible(bibleCode);
-        if (bible == null) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
-
+    public Response getContent(@PathParam("id") String contentId) {
         Content content = queryService.getContent(contentId);
-        if (content == null || !(content instanceof Chapter)) {
+        if (content == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
 
-        Chapter chapter = (Chapter) content;
-        if (!chapter.getBook().getBible().getCode().equals(bibleCode)) {
+        Object entity;
+        if (content instanceof Chapter) {
+            Chapter chapter = (Chapter) content;
+            ChapterBeanBuilder bb = new ChapterBeanBuilder();
+            bb.locale = chapter.getBook().getBible().getLocale();
+            bb.self = true;
+            entity = bb.build(chapter);
+        } else if (content instanceof Verse) {
+            Verse verse = (Verse) content;
+            VerseBeanBuilder bb = new VerseBeanBuilder();
+            bb.locale = verse.getChapter().getBook().getBible().getLocale();
+            bb.self = true;
+            entity = bb.build(verse);
+        } else {
+            // TODO what really to do here?
             return Response.status(Status.NOT_FOUND).build();
         }
 
-        ChapterBeanBuilder cb = new ChapterBeanBuilder();
-        cb.locale = bible.getLocale();
-        cb.self = true;
-        ChapterBean chapterBean = cb.build(chapter);
-
-        return Response.ok().entity(chapterBean).build();
+        return Response.ok().entity(entity).build();
     }
 
     @PostConstruct

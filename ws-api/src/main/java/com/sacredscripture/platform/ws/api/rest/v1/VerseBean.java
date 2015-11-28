@@ -19,12 +19,9 @@
  */
 package com.sacredscripture.platform.ws.api.rest.v1;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 
-public class ChapterBean extends AbstractHypermediaBean {
+public class VerseBean extends AbstractHypermediaBean {
 
     // IMPLEMENTATION NOTE: field order matters!
     // Order listed here is the order rendered in XML/JSON; don't rearrange them
@@ -36,18 +33,17 @@ public class ChapterBean extends AbstractHypermediaBean {
     @XmlElement(name = "name")
     private String name;
 
-    @XmlElement(name = "contents")
-    private List<VerseBean> contents;
+    @XmlElement(name = "altName")
+    private String altName;
 
-    public final void addContent(VerseBean content) {
-        if (contents == null) {
-            contents = new LinkedList<VerseBean>();
-        }
-        contents.add(content);
-    }
+    @XmlElement(name = "ommitted")
+    private String ommitted;
 
-    public final List<VerseBean> getContents() {
-        return contents;
+    @XmlElement(name = "text")
+    private String text;
+
+    public final String getAltName() {
+        return altName;
     }
 
     public final String getId() {
@@ -58,8 +54,16 @@ public class ChapterBean extends AbstractHypermediaBean {
         return name;
     }
 
-    public final void setContents(List<VerseBean> contents) {
-        this.contents = contents;
+    public final String getOmmitted() {
+        return ommitted;
+    }
+
+    public final String getText() {
+        return text;
+    }
+
+    public final void setAltName(String altName) {
+        this.altName = altName;
     }
 
     public final void setId(String id) {
@@ -68,6 +72,14 @@ public class ChapterBean extends AbstractHypermediaBean {
 
     public final void setName(String name) {
         this.name = name;
+    }
+
+    public final void setOmmitted(String ommitted) {
+        this.ommitted = ommitted;
+    }
+
+    public final void setText(String text) {
+        this.text = text;
     }
 
 }
