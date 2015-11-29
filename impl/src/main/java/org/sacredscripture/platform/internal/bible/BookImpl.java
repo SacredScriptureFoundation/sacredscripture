@@ -23,7 +23,9 @@ import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookType;
 import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.Content;
+import org.sacredscripture.platform.bible.ContentKind;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
@@ -67,6 +69,11 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @OrderBy("order")
     private List<Content> contents;
 
+    @OneToMany(targetEntity = ChapterImpl.class)
+    @JoinColumn(insertable = false, updatable = false)
+    @OrderBy("order")
+    private List<Chapter> chapters;
+
     @ManyToOne(targetEntity = BibleImpl.class, optional = false)
     @JoinColumn(name = BookTable.COLUMN_BIBLE_ID)
     private Bible bible;
@@ -76,6 +83,18 @@ public class BookImpl extends EntityImpl<Long> implements Book {
         content.setBook(this);
         content.setOrder(getContents().size());
         getContents().add(content);
+
+        if (content.getContentKind() == ContentKind.CHAPTER) {
+            Chapter chapter = (Chapter) content;
+            if (chapters == null) {
+                chapters = new LinkedList<>();
+            } else {
+                Chapter last = chapters.get(chapters.size() - 1);
+                last.setNext(chapter);
+                chapter.setPrevious(last);
+            }
+            chapters.add(chapter);
+        }
     }
 
     @Override
@@ -99,6 +118,14 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     @Override
     public BookType getBookType() {
         return bookType;
+    }
+
+    @Override
+    public List<Chapter> getChapters() {
+        if (chapters == null) {
+            chapters = new LinkedList<>();
+        }
+        return chapters;
     }
 
     @Override

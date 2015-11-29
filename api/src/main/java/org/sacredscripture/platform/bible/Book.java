@@ -73,6 +73,15 @@ public interface Book extends Entity<Long>, Named {
     BookType getBookType();
 
     /**
+     * Retrieves the list of chapters in this book. This method is a convenient
+     * filter of the {@link #getContents() contents}.
+     *
+     * @return the list of chapters (never {@code null})
+     * @see #getContents()
+     */
+    List<Chapter> getChapters();
+
+    /**
      * Retrieves the collection of content that belong to this book. The
      * collection is sorted to the "reading order" of the bible edition.
      * <p>

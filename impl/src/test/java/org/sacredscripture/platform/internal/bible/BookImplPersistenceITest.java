@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -29,10 +29,6 @@ import static org.sacredscripture.platform.internal.DataModel.BookTable.COLUMN_B
 import static org.sacredscripture.platform.internal.DataModel.BookTable.COLUMN_ID;
 
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BibleImpl;
-import org.sacredscripture.platform.internal.bible.BookImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -46,6 +42,28 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
  * @since Sacred Scripture Platform 1.0
  */
 public class BookImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
+
+    /**
+     * Verifies chapters are appropriately materialized.
+     */
+    @Test
+    public void testGetChapters() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
+        BibleImpl b = ObjectMother.newBible();
+        BookImpl k = ObjectMother.newBook(b, t);
+        ChapterImpl c = ObjectMother.newChapter(k);
+        em.persist(g);
+        em.persist(t);
+        em.persist(b);
+        em.persist(k);
+        em.persist(c);
+        em.flush();
+        em.clear();
+
+        assertEquals(1, k.getChapters().size());
+        assertEquals(c.getId(), k.getChapters().get(0).getId());
+    }
 
     /**
      * Verifies row after entity insert.
