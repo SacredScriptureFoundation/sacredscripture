@@ -93,6 +93,7 @@ public interface Book extends Entity<Long>, Named {
      * @return the contents
      * @see #addContent(Content)
      */
+    // XXX refactor into Contents with chapters() filter?
     List<Content> getContents();
 
     /**
