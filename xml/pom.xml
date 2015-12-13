@@ -59,6 +59,7 @@
             <goals>
               <goal>xjc</goal>
             </goals>
+            <!-- 1.x does not respect catalog or offline mode -->
             <configuration>
               <catalog>${project.basedir}/src/main/xsd/catalog.xml</catalog>
               <schemaFiles>canon-1.0.xsd,nls-1.0.xsd</schemaFiles>
