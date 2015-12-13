@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -231,11 +231,13 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         // Find or create the bible
         Bible bible = bibleDao.findByCode(req.getCode());
         if (bible == null) {
-            bible = new BibleImpl();
-            bible.setCode(req.getCode().toUpperCase());
-            bible.setLocale(req.getLocale());
-            bible.setRightToLeftReading(req.isRightToLeftReading());
-            bibleDao.insert(bible);
+            BibleImpl newBible = new BibleImpl();
+            newBible.setCode(req.getCode().toLowerCase());
+            newBible.setLocale(req.getLocale());
+            newBible.setRightToLeftReading(req.isRightToLeftReading());
+            newBible.setPublicId(req.getId());
+            bibleDao.insert(newBible);
+            bible = newBible;
         }
 
         // Create or update the default localization

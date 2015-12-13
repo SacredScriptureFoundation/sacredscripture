@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -130,6 +130,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         req.setAbbreviation(xmlBible.getAbbreviation());
         req.setCode(xmlBible.getCode());
         req.setCopyrightNotice(xmlBible.getCopyright());
+        req.setId(xmlBible.getPid());
         req.setLicense(xmlBible.getLicense());
         req.setLocale(Locale.forLanguageTag(xmlBible.getLang()));
         req.setName(xmlBible.getName());
@@ -283,6 +284,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
 
             xsr.nextTag();
             xsr.require(START_ELEMENT, null, "bible");
+            xmlBible.setPid(xsr.getAttributeValue(null, "pid"));
             xmlBible.setCode(xsr.getAttributeValue(null, "code"));
 
             xsr.nextTag();
