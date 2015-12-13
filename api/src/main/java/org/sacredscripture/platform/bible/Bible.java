@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -22,6 +22,7 @@ package org.sacredscripture.platform.bible;
 import org.sacredscripturefoundation.commons.Coded;
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
+import org.sacredscripturefoundation.commons.entity.PublicIdProvider;
 import org.sacredscripturefoundation.commons.locale.LocaleProvider;
 import org.sacredscripturefoundation.commons.locale.LocaleSensitive;
 import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
@@ -35,7 +36,14 @@ import java.util.Locale;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface Bible extends Entity<Long>, LocalizableContainer<BibleLocalization>, Coded<String>, LocaleProvider, Named {
+public interface Bible
+        extends
+            Entity<Long>,
+            PublicIdProvider<String>,
+            LocalizableContainer<BibleLocalization>,
+            Coded<String>,
+            LocaleProvider,
+            Named {
 
     /**
      * Adds the specified book to this bible edition. In turn, the book's bible

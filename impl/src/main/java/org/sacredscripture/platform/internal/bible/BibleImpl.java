@@ -57,6 +57,9 @@ import javax.persistence.Table;
 @Table(name = BibleTable.TABLE_NAME)
 public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implements Bible {
 
+    @Column(name = BibleTable.COLUMN_PUBLIC_ID)
+    private String publicId;
+
     @Column(name = BibleTable.COLUMN_CODE)
     private String code;
 
@@ -152,6 +155,11 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     }
 
     @Override
+    public String getPublicId() {
+        return publicId;
+    }
+
+    @Override
     public String getTitle() {
         return localize().getTitle();
     }
@@ -198,6 +206,10 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     @Override
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    public void setPublicId(String publicId) {
+        this.publicId = publicId;
     }
 
     @Override

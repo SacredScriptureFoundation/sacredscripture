@@ -22,14 +22,17 @@ bible
     id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
     created       DATETIME NOT NULL,
     updated       DATETIME,
+    public_id     CHAR(22) NOT NULL,
     code          VARCHAR(10) NOT NULL,
     locale_lang   CHAR(2) NOT NULL,
     rtol          BIT NOT NULL,
     fallback      BIT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT bible_ix01fk UNIQUE (code)
+    CONSTRAINT bible_ix01fk UNIQUE (public_id),
+    CONSTRAINT bible_ix02fk UNIQUE (code)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE 
 bible_loc 

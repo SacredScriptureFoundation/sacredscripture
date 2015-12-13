@@ -51,6 +51,7 @@ public final class DataModel {
         public static final String COLUMN_CODE = "code";
         public static final String COLUMN_DEFAULT = "fallback";
         public static final String COLUMN_LOCALE = "locale_lang";
+        public static final String COLUMN_PUBLIC_ID = "public_id";
         public static final String COLUMN_RTOL = "rtol";
     }
 
@@ -66,7 +67,8 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.BookTypeGroupLocalizationImpl
+     * @see org.sacredscripture.platform.internal.bible.
+     * BookTypeGroupLocalizationImpl
      */
     public static final class BookTypeGroupLocalizationTable {
         public static final String TABLE_NAME = "book_type_group_loc";

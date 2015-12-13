@@ -50,6 +50,7 @@ public final class ObjectMother {
         BibleImpl b = new BibleImpl();
         b.setCode(randomText(6));
         b.setLocale(Locale.ENGLISH);
+        b.setPublicId(randomText(22));
         b.setRightToLeftReading(true);
         b.setDefault(true);
         return b;
