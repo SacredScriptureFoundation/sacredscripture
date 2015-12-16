@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -34,10 +34,11 @@ import org.sacredscripturefoundation.commons.entity.dao.Dao;
 public interface BookTypeDao extends Dao<BookType, Long> {
 
     /**
-     * Retrieves the book type by the specified code.
+     * Queries for the book type of the specified code. The code comparison is
+     * not case-sensitive.
      *
      * @param code the code
-     * @return the book type or {@code null}
+     * @return the found book type or {@code null}
      * @throws NullPointerException if code is {@code null}
      */
     BookType findByCode(String code);

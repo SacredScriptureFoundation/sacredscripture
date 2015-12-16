@@ -45,7 +45,7 @@ public class BookTypeGroupDaoImpl extends JpaDaoImpl<BookTypeGroup, BookTypeGrou
     @Override
     public BookTypeGroup findByCode(String code) {
         TypedQuery<BookTypeGroupImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
-        q.setParameter("code", code.toUpperCase());
+        q.setParameter("code", code.toLowerCase());
         return singleResultOf(q);
     }
 

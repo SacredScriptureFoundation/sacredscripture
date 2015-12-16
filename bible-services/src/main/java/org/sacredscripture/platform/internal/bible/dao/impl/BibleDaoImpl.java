@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -47,7 +47,7 @@ public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements 
     @Override
     public Bible findByCode(String code) {
         TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_BY_CODE);
-        q.setParameter("code", code.toUpperCase());
+        q.setParameter("code", code.toLowerCase());
         return singleResultOf(q);
     }
 

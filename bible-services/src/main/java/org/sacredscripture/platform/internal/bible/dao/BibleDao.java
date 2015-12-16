@@ -36,25 +36,26 @@ import java.util.Locale;
 public interface BibleDao extends Dao<Bible, Long> {
 
     /**
-     * Retrieves the bible by the specified code.
+     * Queries for the bible of the specified code. The code comparison is not
+     * case-sensitive.
      *
      * @param code the code
-     * @return the bible or {@code null}
+     * @return the found bible or {@code null}
      * @throws NullPointerException if code is {@code null}
      * @see Bible#getCode()
      */
     Bible findByCode(String code);
 
     /**
-     * Retrieves any bibles that are written in the specified locale.
+     * Queries for any bibles that are written in the specified locale.
      *
      * @param locale the locale to match
-     * @return list of bibles (never {@code null})
+     * @return list of found bibles (never {@code null})
      */
     List<Bible> findByLocale(Locale locale);
 
     /**
-     * Retrieves the bible flagged as the system default.
+     * Queries for the bible flagged as the system default.
      *
      * @return the found bible or {@code null}
      * @see Bible#isDefault()

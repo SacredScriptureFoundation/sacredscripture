@@ -36,7 +36,8 @@ import java.util.List;
 public interface BookTypeGroupDao extends Dao<BookTypeGroup, Long> {
 
     /**
-     * Queries the group by the specified code.
+     * Queries for the group of the specified code. The code comparison is not
+     * case-sensitive.
      *
      * @param code the code
      * @return the found group or {@code null}
@@ -44,9 +45,10 @@ public interface BookTypeGroupDao extends Dao<BookTypeGroup, Long> {
     BookTypeGroup findByCode(String code);
 
     /**
-     * Queries the groups that are the top-most level parents.
+     * Queries for the groups that are top-level parents. The list is expected
+     * to always contain elements unless the system has not been initialized.
      *
-     * @return the root groups (never {@code null})
+     * @return the found root groups or empty list
      */
     List<BookTypeGroup> findRoots();
 
