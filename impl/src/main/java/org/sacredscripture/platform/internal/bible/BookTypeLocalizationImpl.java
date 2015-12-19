@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -135,7 +135,6 @@ public class BookTypeLocalizationImpl extends LocalizedContentEntity<Long> imple
         abbreviation3 = null;
         abbreviation4 = null;
         if (abbreviations != null) {
-            this.abbreviations.clear();
             for (String abbr : abbreviations) {
                 addAbbreviation(abbr);
             }
