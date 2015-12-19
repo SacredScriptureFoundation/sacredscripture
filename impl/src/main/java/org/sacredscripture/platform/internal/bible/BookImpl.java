@@ -90,9 +90,11 @@ public class BookImpl extends EntityImpl<Long> implements Book {
             if (chapters == null) {
                 chapters = new LinkedList<>();
             } else {
-                Chapter last = chapters.get(chapters.size() - 1);
-                last.setNext(chapter);
-                chapter.setPrevious(last);
+                if (!chapters.isEmpty()) {
+                    Chapter last = chapters.get(chapters.size() - 1);
+                    last.setNext(chapter);
+                    chapter.setPrevious(last);
+                }
             }
             chapters.add(chapter);
         }
