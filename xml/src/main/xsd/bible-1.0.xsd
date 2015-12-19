@@ -478,6 +478,11 @@
       <element name="verse" type="bible:VerseType" maxOccurs="unbounded" />
     </sequence>
     <attribute name="name" use="required"/>
+    <attribute name="pid" type="string" use="required">
+      <annotation>
+        <documentation>Public identifier of the chapter.</documentation>
+      </annotation>
+    </attribute>
     <attribute name="code">
       <annotation>
         <documentation>Internal code to uniquely identify this chapter across any bible edition.</documentation>
@@ -486,13 +491,18 @@
   </complexType>
 
   <complexType name="VerseType" mixed="true">
-    <attribute name="name" use="required" />
-    <attribute name="altName" />
+    <attribute name="pid" type="string" use="required">
+      <annotation>
+        <documentation>Public identifier of the verse.</documentation>
+      </annotation>
+    </attribute>
     <attribute name="code">
       <annotation>
         <documentation>Internal code to uniquely identify this verse across any bible edition.</documentation>
       </annotation>
     </attribute>
+    <attribute name="name" use="required" />
+    <attribute name="altName" />
     <attribute name="deprecated" type="boolean">
       <annotation>
         <documentation>Transcribers have concluded this verse is a later edit/gloss and not part of the original manuscript.</documentation>
