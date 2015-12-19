@@ -154,6 +154,13 @@ public interface Bible
      */
     boolean isRightToLeftReading();
 
+    /**
+     * Stores the new code for this bible edition. This method normalizes the
+     * code value to lowercase.
+     *
+     * @param code the code
+     * @see #getCode()
+     */
     void setCode(String code);
 
     void setDefault(boolean defaultFlag);

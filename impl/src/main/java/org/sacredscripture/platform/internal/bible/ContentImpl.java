@@ -88,7 +88,7 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
 
     @Override
     public void setCode(String code) {
-        this.code = code;
+        this.code = (code != null ? code.toLowerCase() : null);
     }
 
     @Override

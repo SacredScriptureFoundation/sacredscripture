@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -88,7 +88,8 @@ public interface Content extends Entity<Long>, Coded<String> {
     void setBook(Book book);
 
     /**
-     * Stores the new code for this content.
+     * Stores the new code for this content. This method normalizes the code
+     * value to lowercase.
      *
      * @param code the code
      * @see #getCode()

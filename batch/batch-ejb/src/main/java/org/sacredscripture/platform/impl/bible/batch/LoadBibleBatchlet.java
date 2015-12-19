@@ -77,12 +77,10 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     private static final String LOG_MSG_BOOK_UM = "Unmarshalling book...";
     private static final String LOG_MSG_BOOK_UM_ERR = "Failure unmarshalling book";
     private static final String LOG_MSG_BOOK_UM_OK = "Success unmarshalling book [{}]";
-    private static final String LOG_MSG_CHAPTER_AUTOCODE = "Auto-generating chapter code";
     private static final String LOG_MSG_CHAPTER_PROCESS = "Processing chapter [{}] in book [{}]";
     private static final String LOG_MSG_CHAPTER_UM = "Unmarshalling chapter...";
     private static final String LOG_MSG_CHAPTER_UM_ERR = "Failure unmarshalling chapter";
     private static final String LOG_MSG_CHAPTER_UM_OK = "Success unmarshalling chapter [{}]";
-    private static final String LOG_MSG_VERSE_AUTOCODE = "Auto-generating verse code";
     private static final String LOG_MSG_VERSE_SAVING = "Adding verse to system";
     private static final String LOG_MSG_VERSE_PROCESS = "Processing verse [{}]";
     private static final String LOG_MSG_VERSE_PROCESS_ERR = "Failure processing verse [{}]";
@@ -92,11 +90,6 @@ public class LoadBibleBatchlet extends BaseBatchlet {
      * Batch parameter specifying the XML document path.
      */
     public static final String PARAMETER_DOC_PATH = "docPath";
-
-    /**
-     * Pattern used to identify "normal" chapter and verse numbering.
-     */
-    private static final String NATURAL_NUMBER_PATTERN = "^[1-9][0-9]*$";
 
     @EJB
     private BibleMaintenanceService service;
@@ -208,23 +201,11 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         XmlChapterType xmlChapter = unmarshallChapter(xsr);
         log.debug(LOG_MSG_CHAPTER_PROCESS, xmlChapter.getName(), book.getBookType().getCode());
 
-        // Auto-generate code if none is explicitly specified and the chapter
-        // name is a natural number
-        String code = xmlChapter.getCode();
-        if ((code == null) && xmlChapter.getName().matches(NATURAL_NUMBER_PATTERN)) {
-            log.trace(LOG_MSG_CHAPTER_AUTOCODE);
-            StringBuilder sb = new StringBuilder();
-            sb.append(book.getBookType().getCode());
-            sb.append(":");
-            sb.append(xmlChapter.getName());
-            code = sb.toString();
-        }
-
         // Add the chapter to the system
         AddChapterRequest req = new AddChapterRequest();
         req.setBibleCode(book.getBible().getCode());
         req.setBookTypeCode(book.getBookType().getCode());
-        req.setCode(code);
+        req.setCode(xmlChapter.getCode());
         req.setName(xmlChapter.getName());
         Chapter chapter = service.add(req);
 
@@ -237,26 +218,12 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     private void processVerse(XmlVerseType xmlVerse, Chapter chapter) {
         log.debug(LOG_MSG_VERSE_PROCESS, xmlVerse.getName());
         try {
-            // Auto-generate a code if no code is explicitly specified and the
-            // verse name is a natural number
-            String code = xmlVerse.getCode();
-            if ((code == null) && xmlVerse.getName().matches(NATURAL_NUMBER_PATTERN)) {
-                log.trace(LOG_MSG_VERSE_AUTOCODE);
-                StringBuilder sb = new StringBuilder();
-                sb.append(chapter.getBook().getBookType().getCode());
-                sb.append(":");
-                sb.append(chapter.getName());
-                sb.append(":");
-                sb.append(xmlVerse.getName());
-                code = sb.toString();
-            }
-
             // Save verse
             log.trace(LOG_MSG_VERSE_SAVING);
             AddVerseRequest req = new AddVerseRequest();
             req.setAltName(xmlVerse.getAltName());
             req.setChapterId(chapter.getId());
-            req.setCode(code);
+            req.setCode(xmlVerse.getCode());
             req.setName(xmlVerse.getName());
             req.setOmitted(xmlVerse.isDeprecated() != null ? xmlVerse.isDeprecated() : false);
             req.setText(xmlVerse.getContent());

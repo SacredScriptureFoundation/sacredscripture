@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -22,12 +22,9 @@ package org.sacredscripture.platform.internal.bible;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-
-import org.sacredscripture.platform.internal.bible.BibleImpl;
-import org.sacredscripture.platform.internal.bible.BibleLocalizationImpl;
-import org.sacredscripture.platform.internal.bible.BookImpl;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
@@ -62,6 +59,10 @@ public class BibleImplTest {
         bible = new BibleImpl();
     }
 
+    /**
+     * Verifies adding a book appends it to the bible's book list, and that the
+     * book receives a back-reference to the bible.
+     */
     @Test
     public void testAddBook() {
         assertTrue(bible.getBooks().isEmpty());
@@ -71,6 +72,9 @@ public class BibleImplTest {
         assertSame(bible, book.getBible());
     }
 
+    /**
+     * Verifies NPE adding a {@code null} book.
+     */
     @Test(expected = NullPointerException.class)
     public void testAddBookNull() {
         bible.addBook(null);
@@ -186,6 +190,24 @@ public class BibleImplTest {
         assertTrue(bible.isRightToLeftReading());
         bible.setRightToLeftReading(false);
         assertFalse(bible.isRightToLeftReading());
+    }
+
+    /**
+     * Verifies the code is normalized to lowercase.
+     */
+    @Test
+    public void testSetCodeNormalize() {
+        bible.setCode("X");
+        assertEquals("x", bible.getCode());
+    }
+
+    /**
+     * Verifies a {@code null} code is accepted.
+     */
+    @Test
+    public void testSetCodeNull() {
+        bible.setCode(null);
+        assertNull(bible.getCode());
     }
 
 }

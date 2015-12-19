@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -30,8 +30,12 @@ import java.util.List;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTypeGroupLocalization>,
-        ParentProvider<BookTypeGroup>, Coded<String> {
+public interface BookTypeGroup
+        extends
+            Entity<Long>,
+            LocalizableContainer<BookTypeGroupLocalization>,
+            ParentProvider<BookTypeGroup>,
+            Coded<String> {
 
     void addBookType(BookType type);
 
@@ -59,8 +63,8 @@ public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTy
     /**
      * Retrieves the code that uniquely identifies this group.
      *
-     * @see #setCode(String)
      * @return the code
+     * @see #setCode(String)
      */
     @Override
     String getCode();
@@ -73,6 +77,13 @@ public interface BookTypeGroup extends Entity<Long>, LocalizableContainer<BookTy
      */
     int getOrder();
 
+    /**
+     * Stores the new code for this group. This method normalizes the code value
+     * to lowercase.
+     *
+     * @param code the code
+     * @see #getCode()
+     */
     void setCode(String code);
 
     void setOrder(int order);

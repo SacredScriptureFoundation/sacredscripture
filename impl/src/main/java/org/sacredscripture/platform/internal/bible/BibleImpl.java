@@ -195,7 +195,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
 
     @Override
     public final void setCode(String code) {
-        this.code = code;
+        this.code = (code != null ? code.toLowerCase() : null);
     }
 
     @Override

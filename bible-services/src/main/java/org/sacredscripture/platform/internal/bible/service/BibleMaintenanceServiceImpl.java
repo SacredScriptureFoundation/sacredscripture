@@ -143,7 +143,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         // Construct and persist new group
         BookTypeGroupImpl group = new BookTypeGroupImpl();
-        group.setCode(req.getCode().toUpperCase());
+        group.setCode(req.getCode());
         if (parent != null) {
             parent.addChild(group);
         }
@@ -167,7 +167,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         // Construct and persist new book type
         BookTypeImpl bookType = new BookTypeImpl();
-        bookType.setCode(req.getCode().toUpperCase());
+        bookType.setCode(req.getCode());
         group.addBookType(bookType);
         bookTypeDao.insert(bookType);
 
@@ -188,7 +188,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         Chapter chapter = new ChapterImpl();
         chapter.setName(req.getName());
-        chapter.setCode(req.getCode() != null ? req.getCode().toUpperCase() : null);
+        chapter.setCode(req.getCode());
         book.addContent(chapter);
         contentDao.insert(chapter);
 
@@ -206,7 +206,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         verse.setAltName(req.getAltName());
         verse.setBook(content.getBook());
         verse.setChapter((Chapter) content);
-        verse.setCode(req.getCode() != null ? req.getCode().toUpperCase() : null);
+        verse.setCode(req.getCode());
         verse.setName(req.getName());
         verse.setOmitted(req.isOmitted());
 

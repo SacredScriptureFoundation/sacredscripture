@@ -160,7 +160,7 @@ public class BookTypeGroupImpl extends LocalizableEntity<Long, BookTypeGroupLoca
 
     @Override
     public void setCode(String code) {
-        this.code = code;
+        this.code = (code != null ? code.toLowerCase() : null);
     }
 
     @Override
