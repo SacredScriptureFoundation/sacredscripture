@@ -27,6 +27,7 @@ import org.sacredscripture.platform.bible.Chapter;
 import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.bible.ContentKind;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
+import org.sacredscripture.platform.internal.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
@@ -70,7 +71,7 @@ public class BookImpl extends EntityImpl<Long> implements Book {
     private List<Content> contents;
 
     @OneToMany(targetEntity = ChapterImpl.class)
-    @JoinColumn(insertable = false, updatable = false)
+    @JoinColumn(name = ContentTable.COLUMN_BOOK_ID, insertable = false, updatable = false)
     @OrderBy("order")
     private List<Chapter> chapters;
 

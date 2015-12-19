@@ -61,6 +61,7 @@ public class BookImplPersistenceITest extends AbstractSpringJpaIntegrationTests 
         em.flush();
         em.clear();
 
+        k = em.find(BookImpl.class, k.getId());
         assertEquals(1, k.getChapters().size());
         assertEquals(c.getId(), k.getChapters().get(0).getId());
     }
