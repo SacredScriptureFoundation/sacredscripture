@@ -86,6 +86,7 @@ public class BibleImpl extends LocalizableEntity<Long, BibleLocalization> implem
     public void addBook(Book book) {
         Objects.requireNonNull(book);
         book.setBible(this);
+        book.setOrder(getBooks().size());
         getBooks().add(book);
     }
 

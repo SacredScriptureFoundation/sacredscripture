@@ -112,6 +112,7 @@ public interface Book extends Entity<Long>, Named {
      * canonical positioning within its owning Bible.
      *
      * @return the order value
+     * @see #setOrder(int)
      * @see #previous()
      * @see #next()
      */
@@ -155,5 +156,14 @@ public interface Book extends Entity<Long>, Named {
     void setBible(Bible bible);
 
     void setBookType(BookType type);
+
+    /**
+     * Stores the new order value for this book.
+     *
+     * @param order the order value
+     * @throws IllegalArgumentException if value is negative
+     * @see #getOrder()
+     */
+    void setOrder(int order);
 
 }

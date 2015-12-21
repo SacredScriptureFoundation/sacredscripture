@@ -60,16 +60,20 @@ public class BibleImplTest {
     }
 
     /**
-     * Verifies adding a book appends it to the bible's book list, and that the
-     * book receives a back-reference to the bible.
+     * Verifies adding a book appends it to the bible's book list, book receives
+     * a back-reference to the bible, and book gets it's list position.
      */
     @Test
     public void testAddBook() {
         assertTrue(bible.getBooks().isEmpty());
-        BookImpl book = new BookImpl();
-        bible.addBook(book);
-        assertSame(book, bible.getBooks().get(0));
-        assertSame(bible, book.getBible());
+        for (int i = 0; i <= 1; i++) {
+            BookImpl book = new BookImpl();
+            bible.addBook(book);
+            assertEquals(i + 1, bible.getBooks().size());
+            assertSame(book, bible.getBooks().get(i));
+            assertSame(bible, book.getBible());
+            assertEquals(i, book.getOrder());
+        }
     }
 
     /**
