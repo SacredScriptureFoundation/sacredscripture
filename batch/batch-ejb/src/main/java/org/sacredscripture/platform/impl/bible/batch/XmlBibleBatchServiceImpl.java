@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -28,9 +28,6 @@ import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 /**
  * This class is the stock implementation of {@link XmlBibleBatchService}.
  *
@@ -41,51 +38,34 @@ import org.apache.log4j.Logger;
 @Startup
 public class XmlBibleBatchServiceImpl implements XmlBibleBatchService {
 
-    private static final Logger log = LogManager.getLogger(XmlBibleBatchServiceImpl.class);
     private static final String JOB_NAME_LOAD_BIBLE = "load-bible";
     private static final String JOB_NAME_LOAD_CANON = "load-canon";
     private static final String JOB_NAME_LOAD_LOCALIZATIONS = "load-localizations";
-    private static final String LOG_MSG_STARTING_JOB = "Starting batch job \"%s\"";
 
     @Override
     public void loadBible(String docPath) {
         Objects.requireNonNull(docPath);
-
-        // Prepare job parameters
         Properties props = new Properties();
         props.setProperty(LoadBibleBatchlet.PARAMETER_DOC_PATH, docPath);
-
-        // Start job
-        log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_BIBLE));
         BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_BIBLE, props);
     }
 
     @Override
     public void loadCanon(String docPath) {
         Objects.requireNonNull(docPath);
-
-        // Prepare job parameters
         Properties props = new Properties();
         props.setProperty(LoadCanonBatchlet.PARAMETER_DOC_PATH, docPath);
-
-        // Start job
-        log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_CANON));
         BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_CANON, props);
     }
 
     @Override
     public void loadLocalizations(String docPath, String langCode) {
         Objects.requireNonNull(docPath);
-
-        // Prepare job parameters
         Properties props = new Properties();
         props.setProperty(LoadLocalizationsBatchlet.PARAMETER_DOC_PATH, docPath);
         if (langCode != null) {
             props.setProperty(LoadLocalizationsBatchlet.PARAMETER_LANG_CODE, langCode);
         }
-
-        // Start job
-        log.info(String.format(LOG_MSG_STARTING_JOB, JOB_NAME_LOAD_LOCALIZATIONS));
         BatchRuntime.getJobOperator().start(JOB_NAME_LOAD_LOCALIZATIONS, props);
     }
 

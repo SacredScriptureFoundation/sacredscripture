@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -34,6 +34,11 @@ import javax.inject.Inject;
  */
 abstract class BaseBatchlet extends AbstractBatchlet {
 
+    // Log messages
+    private static final String LOG_MSG_COMPLETED = "Job [{}] completed with status [{}]";
+    private static final String LOG_MSG_ERRED = "Job [{}] failed with exception";
+    private static final String LOG_MSG_STARTED = "Job [{}] started";
+
     /**
      * Instance logger.
      */
@@ -44,5 +49,21 @@ abstract class BaseBatchlet extends AbstractBatchlet {
      */
     @Inject
     protected JobContext jobContext;
+
+    public abstract String doProcess() throws Exception;
+
+    @Override
+    public String process() throws Exception {
+        String jobName = jobContext.getJobName();
+        log.info(LOG_MSG_STARTED, jobName);
+        try {
+            String status = doProcess();
+            log.info(LOG_MSG_COMPLETED, jobName, status);
+            return status;
+        } catch (Throwable t) {
+            log.error(LOG_MSG_ERRED, t, jobName);
+            throw t;
+        }
+    }
 
 }

@@ -95,7 +95,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
     private BibleMaintenanceService service;
 
     @Override
-    public String process() throws Exception {
+    public String doProcess() throws Exception {
         Properties params = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
         Path docPath = FileSystems.getDefault().getPath(params.getProperty(PARAMETER_DOC_PATH));
         File f = new File(docPath.toString());
@@ -105,9 +105,6 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         try {
             xsr = xif.createXMLStreamReader(new StreamSource(f));
             process(xsr, docPath);
-        } catch (Exception e) {
-            log.error("Error processing bible", e);
-            throw e;
         } finally {
             if (xsr != null) {
                 xsr.close();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -65,7 +65,7 @@ public class LoadLocalizationsBatchlet extends BaseBatchlet {
     private BibleMaintenanceService service;
 
     @Override
-    public String process() throws Exception {
+    public String doProcess() throws Exception {
         Properties params = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
         File f = new File(params.getProperty(PARAMETER_DOC_PATH));
         String langCode = params.getProperty(PARAMETER_LANG_CODE);
