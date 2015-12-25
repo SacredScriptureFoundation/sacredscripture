@@ -43,9 +43,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
  */
 public class BookImplPersistenceITest extends AbstractSpringJpaIntegrationTests {
 
-    /**
-     * Verifies chapters are appropriately materialized.
-     */
+    // HHH-7635
+    // @formatter:off
+    /*
     @Test
     public void testGetChapters() {
         BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
@@ -65,6 +65,8 @@ public class BookImplPersistenceITest extends AbstractSpringJpaIntegrationTests 
         assertEquals(1, k.getChapters().size());
         assertEquals(c.getId(), k.getChapters().get(0).getId());
     }
+    */
+    // @formatter:on
 
     /**
      * Verifies row after entity insert.

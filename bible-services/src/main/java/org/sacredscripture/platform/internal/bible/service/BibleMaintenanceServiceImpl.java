@@ -59,6 +59,7 @@ import org.sacredscripture.platform.internal.bible.dao.ContentDao;
 import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.ejb.Local;
@@ -176,21 +177,40 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
     @Override
     public Chapter add(AddChapterRequest req) {
-        Bible bible = bibleDao.findByCode(req.getBibleCode());
+        // Find bible
+        String bibleCode = req.getBibleCode();
+        Bible bible = bibleDao.findByCode(bibleCode);
         if (bible == null) {
-            throw new UnknownEntityException(ERR_BIBLE_CODE, req.getBibleCode());
+            throw new UnknownEntityException(ERR_BIBLE_CODE, bibleCode);
         }
 
-        Book book = bible.getBook(req.getBookTypeCode());
+        // Find book
+        String bookCode = req.getBookTypeCode();
+        Book book = bible.getBook(bookCode);
         if (book == null) {
-            throw new UnknownEntityException(ERR_BOOK_TYPE_CODE, req.getBookTypeCode());
+            throw new UnknownEntityException(ERR_BOOK_TYPE_CODE, bookCode);
         }
 
+        // Find previous chapter
+        Chapter previous = null;
+        List<Chapter> chapters = contentDao.findChapters(bibleCode, bookCode);
+        if (!chapters.isEmpty()) {
+            previous = chapters.get(chapters.size() - 1);
+        }
+
+        // Build and persist new chapter
         Chapter chapter = new ChapterImpl();
         chapter.setName(req.getName());
         chapter.setCode(req.getCode());
+        chapter.setPrevious(previous);
         book.addContent(chapter);
         contentDao.insert(chapter);
+
+        // Update previous chapter with next reference
+        if (previous != null) {
+            previous.setNext(chapter);
+            contentDao.update(previous);
+        }
 
         return chapter;
     }

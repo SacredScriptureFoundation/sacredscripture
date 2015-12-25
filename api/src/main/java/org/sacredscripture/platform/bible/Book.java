@@ -79,7 +79,8 @@ public interface Book extends Entity<Long>, Named {
      * @return the list of chapters (never {@code null})
      * @see #getContents()
      */
-    List<Chapter> getChapters();
+    // HHH-7635
+    // List<Chapter> getChapters();
 
     /**
      * Retrieves the collection of content that belong to this book. The
@@ -93,7 +94,6 @@ public interface Book extends Entity<Long>, Named {
      * @return the contents
      * @see #addContent(Content)
      */
-    // XXX refactor into Contents with chapters() filter?
     List<Content> getContents();
 
     /**
