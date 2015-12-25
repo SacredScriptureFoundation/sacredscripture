@@ -204,6 +204,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
         req.setBookTypeCode(book.getBookType().getCode());
         req.setCode(xmlChapter.getCode());
         req.setName(xmlChapter.getName());
+        req.setPublicId(xmlChapter.getPid());
         Chapter chapter = service.add(req);
 
         // Process each verse
@@ -223,6 +224,7 @@ public class LoadBibleBatchlet extends BaseBatchlet {
             req.setCode(xmlVerse.getCode());
             req.setName(xmlVerse.getName());
             req.setOmitted(xmlVerse.isDeprecated() != null ? xmlVerse.isDeprecated() : false);
+            req.setPublicId(xmlVerse.getPid());
             req.setText(xmlVerse.getContent());
             service.add(req);
 

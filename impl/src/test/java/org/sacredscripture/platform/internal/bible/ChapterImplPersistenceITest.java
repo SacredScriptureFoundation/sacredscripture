@@ -29,6 +29,7 @@ import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUM
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_CHAPTER_NAME;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_DISCRIMINATOR;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_POSITION;
+import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_PUBLIC_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.DISCRIMINATOR_CHAPTER;
 
 import org.sacredscripture.platform.internal.ObjectMother;
@@ -71,6 +72,7 @@ public class ChapterImplPersistenceITest extends AbstractSpringJpaIntegrationTes
         assertEquals(c.getBook().getId().longValue(), rs.getLong(COLUMN_BOOK_ID));
         assertEquals(c.getName(), rs.getString(COLUMN_CHAPTER_NAME));
         assertEquals(c.getOrder(), rs.getInt(COLUMN_POSITION));
+        assertEquals(c.getPublicId(), rs.getString(COLUMN_PUBLIC_ID));
         assertEquals(DISCRIMINATOR_CHAPTER, rs.getString(COLUMN_DISCRIMINATOR));
     }
 

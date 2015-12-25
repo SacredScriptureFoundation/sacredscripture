@@ -28,8 +28,8 @@ bible
     rtol          BIT NOT NULL,
     fallback      BIT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT bible_ix01fk UNIQUE (public_id),
-    CONSTRAINT bible_ix02fk UNIQUE (code)
+    CONSTRAINT bible_ix01uq UNIQUE (public_id),
+    CONSTRAINT bible_ix02uq UNIQUE (code)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -154,6 +154,7 @@ content
     book_id               INT UNSIGNED NOT NULL,
     list_position         INT UNSIGNED NOT NULL,
     type_code             INT(1) NOT NULL,
+    public_id             CHAR(22) NULL,
     content_code          VARCHAR(20),
     content_type_prev     INT UNSIGNED,
     content_type_next     INT UNSIGNED,
@@ -166,7 +167,8 @@ content
     PRIMARY KEY (id),
     CONSTRAINT content_ix01fk FOREIGN KEY (book_id) REFERENCES book (id),
     CONSTRAINT content_ix02uq UNIQUE (book_id, list_position),    
-    CONSTRAINT content_ix03fk FOREIGN KEY (verse_chapter_id) REFERENCES content (id),
-    CONSTRAINT content_ix04fk FOREIGN KEY (verse_text_id) REFERENCES verse_text (id)
+    CONSTRAINT content_ix03uq UNIQUE (public_id),
+    CONSTRAINT content_ix04fk FOREIGN KEY (verse_chapter_id) REFERENCES content (id),
+    CONSTRAINT content_ix05fk FOREIGN KEY (verse_text_id) REFERENCES verse_text (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -128,6 +128,7 @@ public final class DataModel {
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_NEXT = "content_type_next";
         public static final String COLUMN_POSITION = "list_position";
+        public static final String COLUMN_PUBLIC_ID = "public_id";
         public static final String COLUMN_PREVIOUS = "content_type_prev";
         public static final String COLUMN_VERSE_ALT_NAME = "verse_alt_name";
         public static final String COLUMN_VERSE_CHAPTER_ID = "verse_chapter_id";

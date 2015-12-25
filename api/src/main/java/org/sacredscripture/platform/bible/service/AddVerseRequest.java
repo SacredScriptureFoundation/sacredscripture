@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -36,6 +36,7 @@ import javax.validation.constraints.Size;
 public class AddVerseRequest extends ServiceRequestMessage {
 
     private Long chapterId;
+    private String publicId;
     private String name;
     private String altName;
     private boolean omitted;
@@ -62,6 +63,12 @@ public class AddVerseRequest extends ServiceRequestMessage {
     @Size(max = 10)
     public final String getName() {
         return name;
+    }
+
+    @NotNull
+    @Size(min = 22, max = 22)
+    public final String getPublicId() {
+        return publicId;
     }
 
     @NotNull
@@ -92,6 +99,10 @@ public class AddVerseRequest extends ServiceRequestMessage {
 
     public final void setOmitted(boolean omitted) {
         this.omitted = omitted;
+    }
+
+    public final void setPublicId(String publicId) {
+        this.publicId = publicId;
     }
 
     public final void setText(String text) {

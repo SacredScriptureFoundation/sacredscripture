@@ -32,6 +32,7 @@ import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUM
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_NEXT;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_POSITION;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_PREVIOUS;
+import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_PUBLIC_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_ALT_NAME;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_CHAPTER_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_NAME;
@@ -90,6 +91,7 @@ public class VerseImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertEquals(v.getNext().getId().longValue(), rs.getLong(COLUMN_NEXT));
         assertEquals(v.getOrder(), rs.getInt(COLUMN_POSITION));
         assertEquals(v.getPrevious().getId().longValue(), rs.getInt(COLUMN_PREVIOUS));
+        assertEquals(v.getPublicId(), rs.getString(COLUMN_PUBLIC_ID));
         assertEquals(v.getText().getId().longValue(), rs.getLong(COLUMN_VERSE_TEXT_ID));
         assertEquals(v.isOmitted(), rs.getBoolean(COLUMN_VERSE_OMIT));
         assertEquals(DISCRIMINATOR_VERSE, rs.getString(COLUMN_DISCRIMINATOR));

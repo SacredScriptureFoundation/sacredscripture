@@ -111,6 +111,7 @@ public final class ObjectMother {
     public static ChapterImpl newChapter(BookImpl k) {
         ChapterImpl c = new ChapterImpl();
         c.setName(randomText());
+        c.setPublicId(randomText(22));
         k.addContent(c);
         return c;
     }
@@ -121,6 +122,7 @@ public final class ObjectMother {
         v.setBook(c.getBook());
         v.setCode(randomText());
         v.setName(randomText());
+        v.setPublicId(randomText(22));
         c.getBook().addContent(v);
         c.addVerse(v);
 

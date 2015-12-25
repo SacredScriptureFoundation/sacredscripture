@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.bible;
 
 import org.sacredscripturefoundation.commons.Named;
+import org.sacredscripturefoundation.commons.entity.PublicIdProvider;
 
 /**
  * This interface defines a verse within a chapter.
@@ -29,7 +30,7 @@ import org.sacredscripturefoundation.commons.Named;
  * @see VerseText
  * @since Sacred Scripture Platform 1.0
  */
-public interface Verse extends Content, Named {
+public interface Verse extends Content, Named, PublicIdProvider<String> {
 
     /**
      * Retrieves the alternate textual name of this verse. This value is used

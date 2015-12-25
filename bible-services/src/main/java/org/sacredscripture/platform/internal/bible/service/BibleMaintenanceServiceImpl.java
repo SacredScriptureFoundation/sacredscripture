@@ -199,9 +199,10 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         }
 
         // Build and persist new chapter
-        Chapter chapter = new ChapterImpl();
+        ChapterImpl chapter = new ChapterImpl();
         chapter.setName(req.getName());
         chapter.setCode(req.getCode());
+        chapter.setPublicId(req.getPublicId());
         chapter.setPrevious(previous);
         book.addContent(chapter);
         contentDao.insert(chapter);
@@ -222,13 +223,14 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
             throw new UnknownEntityException(ERR_CHAPTER_ID, req.getChapterId());
         }
 
-        Verse verse = new VerseImpl();
+        VerseImpl verse = new VerseImpl();
         verse.setAltName(req.getAltName());
         verse.setBook(content.getBook());
         verse.setChapter((Chapter) content);
         verse.setCode(req.getCode());
         verse.setName(req.getName());
         verse.setOmitted(req.isOmitted());
+        verse.setPublicId(req.getPublicId());
 
         VerseText text = new VerseTextImpl();
         text.setText(req.getText());

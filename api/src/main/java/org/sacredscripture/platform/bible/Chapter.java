@@ -20,6 +20,7 @@
 package org.sacredscripture.platform.bible;
 
 import org.sacredscripturefoundation.commons.Named;
+import org.sacredscripturefoundation.commons.entity.PublicIdProvider;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public interface Chapter extends Content, Named {
+public interface Chapter extends Content, Named, PublicIdProvider<String> {
 
     /**
      * Adds the specified verse to this chapter.
