@@ -79,6 +79,9 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
         if (!(obj instanceof BookType)) {
             return false;
         }
+        if (obj == this) {
+            return true;
+        }
         return Objects.equals(code, ((BookType) obj).getCode());
     }
 
