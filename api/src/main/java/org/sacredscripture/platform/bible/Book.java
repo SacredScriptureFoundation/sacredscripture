@@ -69,6 +69,7 @@ public interface Book extends Entity<Long>, Named {
      * Retrieves the type of this book.
      *
      * @return the book type
+     * @see #setBookType(BookType)
      */
     BookType getBookType();
 
