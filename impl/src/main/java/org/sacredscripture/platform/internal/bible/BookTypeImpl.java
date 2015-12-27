@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -55,6 +55,9 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     @Column(name = BookTypeTable.COLUMN_CODE)
     private String code;
 
+    @Column(name = BookTypeTable.COLUMN_POSITION)
+    private int order;
+
     @ManyToOne(targetEntity = BookTypeGroupImpl.class)
     @JoinColumn(name = BookTypeTable.COLUMN_BOOK_TYPE_GROUP_ID)
     private BookTypeGroup bookTypeGroup;
@@ -89,12 +92,25 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     }
 
     @Override
+    public int getOrder() {
+        return order;
+    }
+
+    @Override
     public void setBookTypeGroup(BookTypeGroup bookTypeGroup) {
         this.bookTypeGroup = bookTypeGroup;
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public void setOrder(int order) {
+        if (order < 0) {
+            throw new IllegalArgumentException("Order cannot be negative");
+        }
+        this.order = order;
     }
 
 }

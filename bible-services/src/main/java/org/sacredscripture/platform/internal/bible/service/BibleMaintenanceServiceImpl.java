@@ -169,6 +169,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         // Construct and persist new book type
         BookTypeImpl bookType = new BookTypeImpl();
         bookType.setCode(req.getCode());
+        bookType.setOrder((int) bookTypeDao.count());
         group.addBookType(bookType);
         bookTypeDao.insert(bookType);
 

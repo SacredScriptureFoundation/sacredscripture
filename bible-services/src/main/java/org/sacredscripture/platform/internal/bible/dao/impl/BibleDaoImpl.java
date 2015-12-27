@@ -25,6 +25,7 @@ import org.sacredscripture.platform.internal.bible.dao.BibleDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,6 +43,7 @@ public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements 
 
     private static final String NQ_FIND_BY_CODE = "Bible.findByCode";
     private static final String NQ_FIND_BY_LOCALE = "Bible.findByLocale";
+    private static final String NQ_FIND_BY_PUBLIC_ID = "Bible.findByPublicId";
     private static final String NQ_FIND_DEFAULT = "Bible.findDefault";
 
     @Override
@@ -62,6 +64,13 @@ public class BibleDaoImpl extends JpaDaoImpl<Bible, BibleImpl, Long> implements 
     @Override
     public Bible findDefault() {
         TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_DEFAULT);
+        return singleResultOf(q);
+    }
+
+    @Override
+    public Bible getByNaturalId(Serializable naturalId) {
+        TypedQuery<BibleImpl> q = newNamedQuery(NQ_FIND_BY_PUBLIC_ID);
+        q.setParameter("id", naturalId);
         return singleResultOf(q);
     }
 

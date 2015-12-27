@@ -49,6 +49,19 @@
     </query>
   </named-query>
 
+  <named-query name="Bible.findByPublicId">
+    <query>
+    <![CDATA[
+      SELECT 
+          b
+      FROM 
+          BibleImpl b
+      WHERE 
+          b.publicId = :id
+    ]]>
+    </query>
+  </named-query>
+
   <named-query name="BookType.findByCode">
     <query>
     <![CDATA[

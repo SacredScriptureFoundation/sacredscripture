@@ -114,6 +114,7 @@ public final class DataModel {
         public static final String COLUMN_BOOK_TYPE_GROUP_ID = "book_type_group_id";
         public static final String COLUMN_CODE = "code";
         public static final String COLUMN_ID = "id";
+        public static final String COLUMN_POSITION = "list_position";
     }
 
     /**

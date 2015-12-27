@@ -33,7 +33,6 @@ bible
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 CREATE TABLE 
 bible_loc 
 (
@@ -90,6 +89,7 @@ book_type
     created             DATETIME NOT NULL,
     updated             DATETIME,
     code                CHAR(3) NOT NULL,
+    list_position       INT UNSIGNED NOT NULL,
     book_type_group_id  INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT book_type_ix01uq UNIQUE (code),

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2013, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -39,12 +39,30 @@ import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
 public interface BookType extends Entity<Long>, LocalizableContainer<BookTypeLocalization>, Coded<String> {
 
     /**
-     * Retrieves the grouping of this type.
+     * Retrieves the grouping of this book type.
      *
      * @return the book type group
      */
     BookTypeGroup getBookTypeGroup();
 
+    /**
+     * Retrieves the canonical order of this book type, with a higher value
+     * meaning greater in terms of sorting.
+     *
+     * @return the order value
+     * @see #setOrder(int)
+     */
+    int getOrder();
+
     void setBookTypeGroup(BookTypeGroup bookTypeGroup);
+
+    /**
+     * Stores the new order value for this book type.
+     *
+     * @param order the order value
+     * @throws IllegalArgumentException if value is negative
+     * @see #getOrder()
+     */
+    void setOrder(int order);
 
 }

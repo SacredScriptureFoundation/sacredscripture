@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -27,11 +27,9 @@ import static org.sacredscripture.platform.internal.DataModel.AUDIT_COLUMN_UPDAT
 import static org.sacredscripture.platform.internal.DataModel.BookTypeTable.COLUMN_BOOK_TYPE_GROUP_ID;
 import static org.sacredscripture.platform.internal.DataModel.BookTypeTable.COLUMN_CODE;
 import static org.sacredscripture.platform.internal.DataModel.BookTypeTable.COLUMN_ID;
+import static org.sacredscripture.platform.internal.DataModel.BookTypeTable.COLUMN_POSITION;
 
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeLocalizationImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 
@@ -64,6 +62,7 @@ public class BookTypeImplPersistenceITest extends AbstractSpringJpaIntegrationTe
         assertEquals(t.getId().longValue(), rs.getLong(COLUMN_ID));
         assertEquals(t.getBookTypeGroup().getId().longValue(), rs.getLong(COLUMN_BOOK_TYPE_GROUP_ID));
         assertEquals(t.getCode(), rs.getString(COLUMN_CODE));
+        assertEquals(t.getOrder(), rs.getInt(COLUMN_POSITION));
     }
 
     /**

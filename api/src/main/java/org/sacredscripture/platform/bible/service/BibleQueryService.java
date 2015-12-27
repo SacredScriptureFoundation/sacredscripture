@@ -42,8 +42,19 @@ public interface BibleQueryService {
      * @param bibleCode the bible's code
      * @return the found bible or {@code null}
      * @see Bible#getCode()
+     * @see #getBibleByPublicId(String)
      */
-    Bible getBible(String bibleCode);
+    Bible getBibleByCode(String bibleCode);
+
+    /**
+     * Retrieves the bible of the specified public identifier.
+     *
+     * @param bibleId the public identifier of the bible
+     * @return the found bible or {@code null}
+     * @see Bible#getPublicId()
+     * @see #getBibleByCode(String)
+     */
+    Bible getBibleByPublicId(String bibleId);
 
     /**
      * Retrieves the list of bibles. If {@code bibleLocale} is not {@code null},

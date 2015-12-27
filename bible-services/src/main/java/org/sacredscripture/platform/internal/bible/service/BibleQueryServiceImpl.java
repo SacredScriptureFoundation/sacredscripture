@@ -61,8 +61,13 @@ public class BibleQueryServiceImpl implements BibleQueryService {
     private ContentDao contentDao;
 
     @Override
-    public Bible getBible(String bibleCode) {
-        return bibleDao.findByCode(bibleCode);
+    public Bible getBibleByCode(String code) {
+        return bibleDao.findByCode(code);
+    }
+
+    @Override
+    public Bible getBibleByPublicId(String id) {
+        return bibleDao.getByNaturalId(id);
     }
 
     @Override
