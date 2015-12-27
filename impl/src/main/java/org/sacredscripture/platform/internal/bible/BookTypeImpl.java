@@ -30,6 +30,7 @@ import org.sacredscripturefoundation.commons.locale.entity.LocalizableEntity;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -74,6 +75,14 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof BookType)) {
+            return false;
+        }
+        return Objects.equals(code, ((BookType) obj).getCode());
+    }
+
+    @Override
     public BookTypeGroup getBookTypeGroup() {
         return bookTypeGroup;
     }
@@ -94,6 +103,11 @@ public class BookTypeImpl extends LocalizableEntity<Long, BookTypeLocalization> 
     @Override
     public int getOrder() {
         return order;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(code);
     }
 
     @Override

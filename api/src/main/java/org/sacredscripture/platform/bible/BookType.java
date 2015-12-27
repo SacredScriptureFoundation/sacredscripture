@@ -39,6 +39,18 @@ import org.sacredscripturefoundation.commons.locale.entity.LocalizableContainer;
 public interface BookType extends Entity<Long>, LocalizableContainer<BookTypeLocalization>, Coded<String> {
 
     /**
+     * Compares the specified object to this instance. The object is equal if it
+     * is an instance of {@link BookType} and its code is equal to this
+     * instance's code.
+     *
+     * @param obj the object to compare
+     * @return {@code true} if codes are equal; otherwise {@code false}
+     * @see #getCode()
+     */
+    @Override
+    boolean equals(Object obj);
+
+    /**
      * Retrieves the grouping of this book type.
      *
      * @return the book type group
@@ -53,6 +65,14 @@ public interface BookType extends Entity<Long>, LocalizableContainer<BookTypeLoc
      * @see #setOrder(int)
      */
     int getOrder();
+
+    /**
+     * Calculates the hash of this instance. The hash is based on the code.
+     *
+     * @return the hash code
+     */
+    @Override
+    public int hashCode();
 
     void setBookTypeGroup(BookTypeGroup bookTypeGroup);
 
