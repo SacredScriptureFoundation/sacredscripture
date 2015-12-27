@@ -66,14 +66,50 @@ public class BibleImplTest {
     @Test
     public void testAddBook() {
         assertTrue(bible.getBooks().isEmpty());
-        for (int i = 0; i <= 1; i++) {
-            BookImpl book = new BookImpl();
-            bible.addBook(book);
-            assertEquals(i + 1, bible.getBooks().size());
-            assertSame(book, bible.getBooks().get(i));
-            assertSame(bible, book.getBible());
-            assertEquals(i, book.getOrder());
-        }
+
+        BookImpl book = new BookImpl();
+        BookTypeImpl bt = new BookTypeImpl();
+        bt.setOrder(0);
+        book.setBookType(bt);
+        bible.addBook(book);
+
+        assertEquals(1, bible.getBooks().size());
+        assertSame(book, bible.getBooks().get(0));
+        assertSame(bible, book.getBible());
+        assertEquals(0, book.getOrder());
+    }
+
+    @Test
+    public void testAddBook2() {
+        BookImpl b1 = new BookImpl();
+        BookTypeImpl bt1 = new BookTypeImpl();
+        bt1.setOrder(1);
+        b1.setBookType(bt1);
+        bible.addBook(b1);
+
+        assertEquals(1, bible.getBooks().size());
+        assertSame(b1, bible.getBooks().get(0));
+
+        BookImpl b2 = new BookImpl();
+        BookTypeImpl bt2 = new BookTypeImpl();
+        bt2.setOrder(2);
+        b2.setBookType(bt2);
+        bible.addBook(b2);
+
+        assertEquals(2, bible.getBooks().size());
+        assertSame(b1, bible.getBooks().get(0));
+        assertSame(b2, bible.getBooks().get(1));
+
+        BookImpl b3 = new BookImpl();
+        BookTypeImpl bt3 = new BookTypeImpl();
+        bt3.setOrder(0);
+        b3.setBookType(bt3);
+        bible.addBook(b3);
+
+        assertEquals(3, bible.getBooks().size());
+        assertSame(b3, bible.getBooks().get(0));
+        assertSame(b1, bible.getBooks().get(1));
+        assertSame(b2, bible.getBooks().get(2));
     }
 
     /**
