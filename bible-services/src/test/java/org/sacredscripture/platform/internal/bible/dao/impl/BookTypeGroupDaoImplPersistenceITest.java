@@ -25,7 +25,7 @@ import static org.junit.Assert.assertSame;
 
 import org.sacredscripture.platform.bible.canon.BookTypeGroup;
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 

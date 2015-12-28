@@ -67,8 +67,7 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.
-     * BookTypeGroupLocalizationImpl
+     * @see org.sacredscripture.platform.internal.bible.canon.BookTypeGroupLocalizationImpl
      */
     public static final class BookTypeGroupLocalizationTable {
         public static final String TABLE_NAME = "book_type_group_loc";
@@ -79,7 +78,7 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.BookTypeGroupImpl
+     * @see org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl
      */
     public static final class BookTypeGroupTable {
         public static final String TABLE_NAME = "book_type_group";
@@ -91,7 +90,7 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.BookTypeLocalizationImpl
+     * @see org.sacredscripture.platform.internal.bible.canon.BookTypeLocalizationImpl
      */
     public static final class BookTypeLocalizationTable {
         public static final String TABLE_NAME = "book_type_loc";
@@ -107,7 +106,7 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.BookTypeImpl
+     * @see org.sacredscripture.platform.internal.bible.canon.BookTypeImpl
      */
     public static final class BookTypeTable {
         public static final String TABLE_NAME = "book_type";

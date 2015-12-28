@@ -29,6 +29,8 @@ import static org.sacredscripture.platform.internal.DataModel.BookTable.COLUMN_B
 import static org.sacredscripture.platform.internal.DataModel.BookTable.COLUMN_ID;
 
 import org.sacredscripture.platform.internal.ObjectMother;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 

@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.internal.bible;
+package org.sacredscripture.platform.internal.bible.canon;
 
 import org.sacredscripture.platform.bible.canon.BookType;
 import org.sacredscripture.platform.bible.canon.BookTypeGroup;

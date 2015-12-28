@@ -25,6 +25,7 @@ import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.bible.canon.BookType;
 import org.sacredscripture.platform.bible.canon.BookTypeLocalization;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeImpl;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;

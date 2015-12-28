@@ -20,7 +20,7 @@
 package org.sacredscripture.platform.internal.bible.dao.impl;
 
 import org.sacredscripture.platform.bible.canon.BookTypeGroup;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl;
 import org.sacredscripture.platform.internal.bible.dao.BookTypeGroupDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;

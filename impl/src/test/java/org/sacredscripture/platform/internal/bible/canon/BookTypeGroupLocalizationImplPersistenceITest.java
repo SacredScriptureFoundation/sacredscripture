@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.internal.bible;
+package org.sacredscripture.platform.internal.bible.canon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -31,7 +31,7 @@ import static org.sacredscripture.platform.internal.DataModel.BookTypeGroupLocal
 
 import org.sacredscripture.platform.bible.canon.BookTypeGroup;
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupLocalizationImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupLocalizationImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 

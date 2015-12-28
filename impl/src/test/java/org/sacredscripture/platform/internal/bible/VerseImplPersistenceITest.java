@@ -41,6 +41,8 @@ import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUM
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.DISCRIMINATOR_VERSE;
 
 import org.sacredscripture.platform.internal.ObjectMother;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 

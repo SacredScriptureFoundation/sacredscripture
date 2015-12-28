@@ -27,13 +27,13 @@ import org.sacredscripture.platform.bible.canon.BookTypeGroup;
 import org.sacredscripture.platform.internal.bible.BibleImpl;
 import org.sacredscripture.platform.internal.bible.BibleLocalizationImpl;
 import org.sacredscripture.platform.internal.bible.BookImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupLocalizationImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeLocalizationImpl;
 import org.sacredscripture.platform.internal.bible.ChapterImpl;
 import org.sacredscripture.platform.internal.bible.VerseImpl;
 import org.sacredscripture.platform.internal.bible.VerseTextImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupLocalizationImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeLocalizationImpl;
 
 import java.util.Locale;
 

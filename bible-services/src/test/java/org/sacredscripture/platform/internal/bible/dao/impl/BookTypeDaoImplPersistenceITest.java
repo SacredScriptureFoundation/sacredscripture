@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sacred Scripture Foundation.
+ * Copyright (c) 2014, 2015 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -23,9 +23,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import org.sacredscripture.platform.internal.ObjectMother;
-import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
-import org.sacredscripture.platform.internal.bible.BookTypeImpl;
-import org.sacredscripture.platform.internal.bible.dao.impl.BookTypeDaoImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeGroupImpl;
+import org.sacredscripture.platform.internal.bible.canon.BookTypeImpl;
 
 import org.sacredscripturefoundation.commons.test.AbstractSpringJpaIntegrationTests;
 

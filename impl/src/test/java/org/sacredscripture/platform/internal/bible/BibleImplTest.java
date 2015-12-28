@@ -26,6 +26,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import org.sacredscripture.platform.internal.bible.canon.BookTypeImpl;
+
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 
 import java.util.Locale;
