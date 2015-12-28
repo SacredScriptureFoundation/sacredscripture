@@ -91,13 +91,13 @@ public class BibleQueryServiceImpl implements BibleQueryService {
     }
 
     @Override
-    public List<Chapter> getChapters(String bibleCode, String bookCode) {
-        return contentDao.findChapters(bibleCode, bookCode);
+    public List<Chapter> getChapters(String bibleId, int bookPos) {
+        return contentDao.findChapters(bibleId, bookPos);
     }
 
     @Override
     public Content getContent(String contentId) {
-        return contentDao.get(Long.valueOf(contentId), false);
+        return contentDao.getByNaturalId(contentId);
     }
 
     @Override

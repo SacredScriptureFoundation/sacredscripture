@@ -26,6 +26,7 @@ import org.sacredscripture.platform.internal.bible.dao.ContentDao;
 
 import org.sacredscripturefoundation.commons.entity.dao.JpaDaoImpl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -40,15 +41,23 @@ import javax.persistence.TypedQuery;
 @ApplicationScoped
 public class ContentDaoImpl extends JpaDaoImpl<Content, ContentImpl, Long> implements ContentDao {
 
+    private static final String NQ_FIND_BY_PUBLIC_ID = "Content.findByPublicId";
     private static final String NQ_FIND_CHAPTERS = "Content.findChapters";
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Chapter> findChapters(String bibleCode, String bookCode) {
+    public List<Chapter> findChapters(String bibleId, int bookPos) {
         TypedQuery<ContentImpl> q = newNamedQuery(NQ_FIND_CHAPTERS);
-        q.setParameter("bibleCode", bibleCode.toLowerCase());
-        q.setParameter("bookCode", bookCode.toLowerCase());
+        q.setParameter("id", bibleId);
+        q.setParameter("pos", bookPos);
         return List.class.cast(q.getResultList());
+    }
+
+    @Override
+    public Content getByNaturalId(Serializable naturalId) {
+        TypedQuery<ContentImpl> q = newNamedQuery(NQ_FIND_BY_PUBLIC_ID);
+        q.setParameter("id", naturalId);
+        return singleResultOf(q);
     }
 
 }

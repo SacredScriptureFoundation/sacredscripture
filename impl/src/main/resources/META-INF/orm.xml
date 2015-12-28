@@ -103,6 +103,19 @@
     </query>
   </named-query>
 
+  <named-query name="Content.findByPublicId">
+    <query>
+    <![CDATA[
+      SELECT 
+          c 
+      FROM 
+          ContentImpl c  
+      WHERE 
+          c.publicId = :id
+    ]]>
+    </query>
+  </named-query>
+
   <named-query name="Content.findChapters">
     <query>
     <![CDATA[
@@ -111,8 +124,8 @@
       FROM 
           ChapterImpl c  
       WHERE 
-          c.book.bookType.code = :bookCode
-          AND c.book.bible.code = :bibleCode
+          c.book.bible.publicId = :id
+          AND c.book.order = :pos
       ORDER BY
           c.order
     ]]>

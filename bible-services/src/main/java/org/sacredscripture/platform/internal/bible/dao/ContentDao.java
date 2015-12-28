@@ -35,13 +35,13 @@ import java.util.List;
 public interface ContentDao extends Dao<Content, Long> {
 
     /**
-     * Queries for the chapters of the specified book. The code comparisons are
-     * not case-sensitive.
+     * Queries for the chapters of the specified bible and book. The code
+     * comparisons are not case-sensitive.
      *
-     * @param bibleCode the bible code
-     * @param bookCode the book code
+     * @param bibleId the public identifier of the bible
+     * @param bookPos the ordinal position of the book
      * @return the found chapters or empty list
      */
-    List<Chapter> findChapters(String bibleCode, String bookCode);
+    List<Chapter> findChapters(String bibleId, int bookPos);
 
 }

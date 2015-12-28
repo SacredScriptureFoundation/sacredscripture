@@ -194,7 +194,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         // Find previous chapter
         Chapter previous = null;
-        List<Chapter> chapters = contentDao.findChapters(bibleCode, bookCode);
+        List<Chapter> chapters = contentDao.findChapters(bible.getPublicId(), book.getOrder());
         if (!chapters.isEmpty()) {
             previous = chapters.get(chapters.size() - 1);
         }

@@ -62,19 +62,19 @@ public interface BibleQueryService {
      * bibles are retrieved.
      *
      * @param bibleLocale the filtering locale (can be {@code null})
-     * @return list of bibles (never {@code null})
+     * @return the list of found bibles or empty list
      */
     List<Bible> getBibles(Locale bibleLocale);
 
     /**
-     * Retrieves the chapters of the specified book. The chapters are sorted in
-     * the order of appearance in the book.
+     * Retrieves the chapters of the specified bible and book. The chapters are
+     * sorted in the order of appearance in the book.
      *
-     * @param bibleCode the bible code
-     * @param bookCode the book code
-     * @return the chapters (never {@code null})
+     * @param bibleId the public identifier of the bible
+     * @param bookPos the ordinal position of the book
+     * @return the list of found chapters or empty list
      */
-    List<Chapter> getChapters(String bibleCode, String bookCode);
+    List<Chapter> getChapters(String bibleId, int bookPos);
 
     Content getContent(String contentId);
 
