@@ -19,6 +19,8 @@
  */
 package com.sacredscripture.platform.ws.impl;
 
+import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
+
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.BibleLocalization;
 
@@ -28,8 +30,6 @@ import java.util.Locale;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.sacredscripture.platform.ws.api.rest.v1.BibleBean;
-
 public class BibleBeanConverter implements Converter<Bible, BibleBean> {
 
     @Override
@@ -37,7 +37,7 @@ public class BibleBeanConverter implements Converter<Bible, BibleBean> {
         BibleBean bean = new BibleBean();
 
         bean.setAbbreviation(source.getAbbreviation());
-        bean.setId(source.getCode());
+        bean.setId(source.getPublicId());
         bean.setCopyrightNotice(source.getCopyrightNotice());
         bean.setLicense(source.getLicense());
         bean.setName(source.getName());

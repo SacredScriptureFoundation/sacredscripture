@@ -31,7 +31,7 @@ public class VerseBeanConverter implements Converter<Verse, VerseBean> {
     public VerseBean convert(Verse source) {
         VerseBean bean = new VerseBean();
 
-        bean.setId(source.getId().toString());
+        bean.setId(source.getPublicId());
         bean.setName(source.getName());
         bean.setAltName(source.getAltName());
         bean.setText(source.getText().getText());

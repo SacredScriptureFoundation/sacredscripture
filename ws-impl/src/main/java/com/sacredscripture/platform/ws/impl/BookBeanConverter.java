@@ -19,6 +19,8 @@
  */
 package com.sacredscripture.platform.ws.impl;
 
+import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
+
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.BookTypeLocalization;
 
@@ -28,8 +30,6 @@ import java.util.Locale;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
-
 public class BookBeanConverter implements Converter<Book, BookBean> {
 
     @Override
@@ -38,7 +38,7 @@ public class BookBeanConverter implements Converter<Book, BookBean> {
 
         bean.setAbbreviation(source.getAbbreviation());
         bean.setName(source.getName());
-        bean.setId(source.getBookType().getCode());
+        bean.setId(Integer.toString(source.getOrder()));
         bean.setTitle(source.getTitle());
 
         Locale userLocale = LocaleContextHolder.getLocale();

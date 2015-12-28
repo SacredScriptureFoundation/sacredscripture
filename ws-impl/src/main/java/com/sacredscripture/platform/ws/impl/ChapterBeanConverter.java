@@ -31,7 +31,7 @@ public class ChapterBeanConverter implements Converter<Chapter, ChapterBean> {
     public ChapterBean convert(Chapter source) {
         ChapterBean bean = new ChapterBean();
 
-        bean.setId(source.getId().toString());
+        bean.setId(source.getPublicId());
         bean.setName(source.getName());
 
         return bean;

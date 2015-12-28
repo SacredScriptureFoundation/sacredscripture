@@ -87,7 +87,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 bibleBean.addLink(allBiblesHref, LinkRelation.COLLECTION.rel());
 
                 // Books
-                String booksHref = getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOKS).build(bible.getCode()).toString();
+                String booksHref = getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOKS).build(bible.getPublicId()).toString();
                 bibleBean.addLink(booksHref, "x-books");
             } else {
                 bibleBean.addLink(makeHref(bible, locale), LinkRelation.ABOUT.rel());
@@ -99,9 +99,9 @@ public class BiblesResource extends AbstractSpringAwareResource {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_BIBLE);
             if (locale != null) {
-                uri = localizedUri(builder, locale, bible.getCode());
+                uri = localizedUri(builder, locale, bible.getPublicId());
             } else {
-                uri = builder.build(bible.getCode());
+                uri = builder.build(bible.getPublicId());
             }
             return uri.toString();
         }
@@ -146,7 +146,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 bookBean.addLink(bb.makeHref(bible, locale), LinkRelation.UP.rel());
 
                 // Chapters
-                List<Chapter> chapters = queryService.getChapters(bible.getCode(), book.getBookType().getCode());
+                List<Chapter> chapters = queryService.getChapters(bible.getPublicId(), book.getOrder());
                 for (Chapter chapter : chapters) {
                     ChapterBeanBuilder cb = new ChapterBeanBuilder();
                     cb.locale = locale;
@@ -166,9 +166,9 @@ public class BiblesResource extends AbstractSpringAwareResource {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOK);
             if (locale != null) {
-                uri = localizedUri(builder, locale, bible.getCode(), book.getBookType().getCode());
+                uri = localizedUri(builder, locale, bible.getPublicId(), book.getOrder());
             } else {
-                uri = builder.build(bible.getCode(), book.getBookType().getCode());
+                uri = builder.build(bible.getPublicId(), book.getOrder());
             }
             return uri.toString();
         }
@@ -198,9 +198,9 @@ public class BiblesResource extends AbstractSpringAwareResource {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
             if (locale != null) {
-                uri = localizedUri(builder, locale, chapter.getId());
+                uri = localizedUri(builder, locale, chapter.getPublicId());
             } else {
-                uri = builder.build(chapter.getId());
+                uri = builder.build(chapter.getPublicId());
             }
             return uri.toString();
         }
@@ -233,7 +233,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
             if (locale != null) {
-                uri = localizedUri(builder, locale, verse.getId());
+                uri = localizedUri(builder, locale, verse.getPublicId());
             } else {
                 uri = builder.build(verse.getId());
             }
@@ -269,12 +269,12 @@ public class BiblesResource extends AbstractSpringAwareResource {
     @Path(SUB_PATH_BIBLE)
     @GET
     public Response getBible(
-            @PathParam("bible") String bibleCode,
+            @PathParam("bible") String bibleId,
             @QueryParam("bg") int bookGroupDepth,
             @QueryParam("lang") Locale locale,
             @QueryParam("mcr") boolean multipleChoicesRedirect) {
         // Does the bible exist?
-        Bible bible = queryService.getBible(bibleCode);
+        Bible bible = queryService.getBibleByPublicId(bibleId);
         if (bible == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
@@ -287,7 +287,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                     bible.getLocale(),
                     bible.locales(),
                     multipleChoicesRedirect ? uriInfo.getAbsolutePathBuilder() : null,
-                    bibleCode);
+                    bibleId);
             }
             userLocale = locale;
         } else {
@@ -312,7 +312,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
      */
     @GET
     public Response getBibles() {
-        // Query for all bibiles
+        // Query for all bibles
         List<Bible> bibles = queryService.getBibles(null);
 
         // Build representation
@@ -330,19 +330,22 @@ public class BiblesResource extends AbstractSpringAwareResource {
     @Path(SUB_PATH_BOOK)
     @GET
     public Response getBook(
-            @PathParam("bible") String bibleCode,
-            @PathParam("book") String bookCode,
+            @PathParam("bible") String bibleId,
+            @PathParam("book") int bookIndex,
             @QueryParam("lang") Locale locale,
             @QueryParam("mcr") boolean multipleChoicesRedirect) {
         // Does the bible exist?
-        Bible bible = queryService.getBible(bibleCode);
+        Bible bible = queryService.getBibleByPublicId(bibleId);
         if (bible == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
 
         // Does the book exist?
-        Book book = bible.getBook(bookCode);
-        if (book == null) {
+        List<Book> books = bible.getBooks();
+        Book book;
+        try {
+            book = books.get(bookIndex);
+        } catch (IndexOutOfBoundsException e) {
             return Response.status(Status.NOT_FOUND).build();
         }
 
@@ -354,8 +357,8 @@ public class BiblesResource extends AbstractSpringAwareResource {
                     bible.getLocale(),
                     book.getBookType().locales(),
                     multipleChoicesRedirect ? uriInfo.getAbsolutePathBuilder() : null,
-                    bibleCode,
-                    bookCode);
+                    bibleId,
+                    bookIndex);
             }
             userLocale = locale;
         } else {
@@ -377,11 +380,11 @@ public class BiblesResource extends AbstractSpringAwareResource {
     @Path(SUB_PATH_BOOKS)
     @GET
     public Response getBooks(
-            @PathParam("bible") String bibleCode,
+            @PathParam("bible") String bibleId,
             @QueryParam("lang") Locale locale,
             @QueryParam("mcr") boolean multipleChoicesRedirect) {
         // Does the bible exist?
-        Bible bible = queryService.getBible(bibleCode);
+        Bible bible = queryService.getBibleByPublicId(bibleId);
         if (bible == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
@@ -397,7 +400,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
                     bible.getLocale(),
                     bookTest.getBookType().locales(),
                     multipleChoicesRedirect ? uriInfo.getAbsolutePathBuilder() : null,
-                    bibleCode);
+                    bibleId);
             }
             userLocale = locale;
         } else {
