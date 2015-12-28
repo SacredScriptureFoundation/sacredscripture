@@ -19,9 +19,9 @@
  */
 package org.sacredscripture.platform.internal.bible;
 
-import org.sacredscripture.platform.bible.BookType;
-import org.sacredscripture.platform.bible.BookTypeGroup;
-import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.canon.BookType;
+import org.sacredscripture.platform.bible.canon.BookTypeGroup;
+import org.sacredscripture.platform.bible.canon.BookTypeLocalization;
 import org.sacredscripture.platform.internal.DataModel.BookTypeLocalizationTable;
 import org.sacredscripture.platform.internal.DataModel.BookTypeTable;
 

@@ -19,6 +19,8 @@
  */
 package org.sacredscripture.platform.bible;
 
+import org.sacredscripture.platform.bible.canon.BookType;
+
 import org.sacredscripturefoundation.commons.Named;
 import org.sacredscripturefoundation.commons.entity.Entity;
 import org.sacredscripturefoundation.commons.locale.LocaleSensitive;

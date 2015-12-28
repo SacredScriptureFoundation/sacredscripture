@@ -21,9 +21,9 @@ package org.sacredscripture.platform.internal.bible.service;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
-import org.sacredscripture.platform.bible.BookTypeGroup;
 import org.sacredscripture.platform.bible.TableOfContents;
 import org.sacredscripture.platform.bible.TableOfContentsItem;
+import org.sacredscripture.platform.bible.canon.BookTypeGroup;
 import org.sacredscripture.platform.internal.bible.TableOfContentsImpl;
 import org.sacredscripture.platform.internal.bible.TableOfContentsItemImpl;
 

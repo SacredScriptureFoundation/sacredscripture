@@ -21,9 +21,9 @@ package org.sacredscripture.platform.internal.bible;
 
 import org.sacredscripture.platform.bible.Bible;
 import org.sacredscripture.platform.bible.Book;
-import org.sacredscripture.platform.bible.BookType;
-import org.sacredscripture.platform.bible.BookTypeLocalization;
 import org.sacredscripture.platform.bible.Content;
+import org.sacredscripture.platform.bible.canon.BookType;
+import org.sacredscripture.platform.bible.canon.BookTypeLocalization;
 import org.sacredscripture.platform.internal.DataModel.BookTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;

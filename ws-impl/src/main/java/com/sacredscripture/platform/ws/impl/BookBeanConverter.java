@@ -22,7 +22,7 @@ package com.sacredscripture.platform.ws.impl;
 import com.sacredscripture.platform.ws.api.rest.v1.BookBean;
 
 import org.sacredscripture.platform.bible.Book;
-import org.sacredscripture.platform.bible.BookTypeLocalization;
+import org.sacredscripture.platform.bible.canon.BookTypeLocalization;
 
 import org.sacredscripturefoundation.commons.locale.LocaleContextHolder;
 

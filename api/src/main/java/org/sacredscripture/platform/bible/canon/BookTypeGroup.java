@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sacredscripture.platform.bible;
+package org.sacredscripture.platform.bible.canon;
 
 import org.sacredscripturefoundation.commons.Coded;
 import org.sacredscripturefoundation.commons.ParentProvider;

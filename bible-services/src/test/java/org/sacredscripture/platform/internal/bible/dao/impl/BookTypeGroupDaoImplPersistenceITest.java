@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-import org.sacredscripture.platform.bible.BookTypeGroup;
+import org.sacredscripture.platform.bible.canon.BookTypeGroup;
 import org.sacredscripture.platform.internal.ObjectMother;
 import org.sacredscripture.platform.internal.bible.BookTypeGroupImpl;
 
