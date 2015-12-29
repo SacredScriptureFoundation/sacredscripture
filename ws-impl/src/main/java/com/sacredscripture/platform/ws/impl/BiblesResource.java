@@ -216,13 +216,19 @@ public class BiblesResource extends AbstractSpringAwareResource {
             if (self) {
                 verseBean.addLink(makeHref(verse, locale), LinkRelation.SELF.rel());
 
+                // Next verse
                 if (verse.getNext() != null) {
                     verseBean.addLink(makeHref(verse.getNext(), locale), LinkRelation.NEXT.rel());
                 }
 
+                // Previous verse
                 if (verse.getPrevious() != null) {
                     verseBean.addLink(makeHref(verse.getPrevious(), locale), LinkRelation.PREV.rel());
                 }
+
+                // Up to chapter
+                ChapterBeanBuilder cb = new ChapterBeanBuilder();
+                verseBean.addLink(cb.makeHref(verse.getChapter(), locale), LinkRelation.UP.rel());
             } else {
                 verseBean.addLink(makeHref(verse, locale), LinkRelation.ABOUT.rel());
             }
