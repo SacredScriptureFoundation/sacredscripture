@@ -241,7 +241,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
             if (locale != null) {
                 uri = localizedUri(builder, locale, verse.getPublicId());
             } else {
-                uri = builder.build(verse.getId());
+                uri = builder.build(verse.getPublicId());
             }
             return uri.toString();
         }
