@@ -79,6 +79,33 @@ public class ChapterImplPersistenceITest extends AbstractSpringJpaIntegrationTes
     }
 
     /**
+     * Verifies next/previous references can be lazily loaded.
+     */
+    @Test
+    public void testLazyLoadNextPrevious() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
+        BibleImpl b = ObjectMother.newBible();
+        BookImpl k = ObjectMother.newBook(b, t);
+        ChapterImpl cPrev = ObjectMother.newChapter(k);
+        ChapterImpl c = ObjectMother.newChapter(k);
+        ChapterImpl cNext = ObjectMother.newChapter(k);
+        em.persist(g);
+        em.persist(t);
+        em.persist(b);
+        em.persist(k);
+        em.persist(cPrev);
+        em.persist(c);
+        em.persist(cNext);
+        em.flush();
+        em.clear();
+
+        c = em.find(ChapterImpl.class, c.getId());
+        assertEquals(cNext.getId(), c.getNext().getId());
+        assertEquals(cPrev.getId(), c.getPrevious().getId());
+    }
+
+    /**
      * Verifies verse ordering isn't offset by how many items precede it.
      */
     @Test

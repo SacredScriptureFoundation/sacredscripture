@@ -30,7 +30,6 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -61,14 +60,6 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
 
     @Column(name = ContentTable.COLUMN_CODE)
     private String code;
-
-    @ManyToOne(targetEntity = ContentImpl.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = ContentTable.COLUMN_PREVIOUS)
-    protected Content previous; // subclass access
-
-    @ManyToOne(targetEntity = ContentImpl.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = ContentTable.COLUMN_NEXT)
-    protected Content next; // subclass access
 
     @Override
     public Book getBook() {

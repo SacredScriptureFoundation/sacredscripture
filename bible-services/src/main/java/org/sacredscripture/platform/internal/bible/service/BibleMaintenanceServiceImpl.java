@@ -224,21 +224,37 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
             throw new UnknownEntityException(ERR_CHAPTER_ID, req.getChapterId());
         }
 
+        // Find previous verse
+        Chapter chapter = (Chapter) content;
+        Verse previous = null;
+        List<Verse> verses = chapter.getVerses();
+        if (!verses.isEmpty()) {
+            previous = verses.get(verses.size() - 1);
+        }
+
+        // Build and persist new verse
         VerseImpl verse = new VerseImpl();
         verse.setAltName(req.getAltName());
-        verse.setBook(content.getBook());
-        verse.setChapter((Chapter) content);
+        verse.setBook(chapter.getBook());
+        verse.setChapter(chapter);
         verse.setCode(req.getCode());
         verse.setName(req.getName());
         verse.setOmitted(req.isOmitted());
+        verse.setPrevious(previous);
         verse.setPublicId(req.getPublicId());
 
         VerseText text = new VerseTextImpl();
         text.setText(req.getText());
         verse.setText(text);
 
-        content.getBook().addContent(verse);
+        chapter.getBook().addContent(verse);
         contentDao.insert(verse);
+
+        // Update previous verse with next reference
+        if (previous != null) {
+            previous.setNext(verse);
+            contentDao.update(previous);
+        }
 
         return verse;
     }

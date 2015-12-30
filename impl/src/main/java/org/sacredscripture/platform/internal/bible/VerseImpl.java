@@ -29,6 +29,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -60,6 +61,14 @@ public class VerseImpl extends ContentImpl implements Verse {
     @JoinColumn(name = ContentTable.COLUMN_VERSE_TEXT_ID)
     private VerseText text;
 
+    @ManyToOne(targetEntity = VerseImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = ContentTable.COLUMN_VERSE_PREVIOUS_ID)
+    private Verse previous;
+
+    @ManyToOne(targetEntity = VerseImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = ContentTable.COLUMN_VERSE_NEXT_ID)
+    private Verse next;
+
     @Override
     public String getAltName() {
         return altName;
@@ -82,12 +91,12 @@ public class VerseImpl extends ContentImpl implements Verse {
 
     @Override
     public Verse getNext() {
-        return (Verse) next;
+        return next;
     }
 
     @Override
     public Verse getPrevious() {
-        return (Verse) previous;
+        return previous;
     }
 
     @Override

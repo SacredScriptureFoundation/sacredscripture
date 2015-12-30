@@ -31,6 +31,9 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
@@ -50,6 +53,14 @@ public class ChapterImpl extends ContentImpl implements Chapter {
 
     @Column(name = ContentTable.COLUMN_CHAPTER_NAME)
     private String name;
+
+    @ManyToOne(targetEntity = ChapterImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = ContentTable.COLUMN_CHAPTER_PREVIOUS_ID)
+    private Chapter previous;
+
+    @ManyToOne(targetEntity = ChapterImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = ContentTable.COLUMN_CHAPTER_NEXT_ID)
+    private Chapter next;
 
     @Override
     public void addVerse(Verse verse) {
@@ -77,12 +88,12 @@ public class ChapterImpl extends ContentImpl implements Chapter {
 
     @Override
     public Chapter getNext() {
-        return (Chapter) next;
+        return next;
     }
 
     @Override
     public Chapter getPrevious() {
-        return (Chapter) previous;
+        return previous;
     }
 
     @Override

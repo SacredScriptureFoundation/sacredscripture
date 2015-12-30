@@ -29,14 +29,14 @@ import static org.sacredscripture.platform.internal.DataModel.BibleLocalizationT
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_BOOK_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_CODE;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_DISCRIMINATOR;
-import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_NEXT;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_POSITION;
-import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_PREVIOUS;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_PUBLIC_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_ALT_NAME;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_CHAPTER_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_NAME;
+import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_NEXT_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_OMIT;
+import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_PREVIOUS_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.COLUMN_VERSE_TEXT_ID;
 import static org.sacredscripture.platform.internal.DataModel.ContentTable.DISCRIMINATOR_VERSE;
 
@@ -90,14 +90,43 @@ public class VerseImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         assertEquals(v.getChapter().getId().longValue(), rs.getLong(COLUMN_VERSE_CHAPTER_ID));
         assertEquals(v.getCode(), rs.getString(COLUMN_CODE));
         assertEquals(v.getName(), rs.getString(COLUMN_VERSE_NAME));
-        assertEquals(v.getNext().getId().longValue(), rs.getLong(COLUMN_NEXT));
+        assertEquals(v.getNext().getId().longValue(), rs.getLong(COLUMN_VERSE_NEXT_ID));
         assertEquals(v.getOrder(), rs.getInt(COLUMN_POSITION));
-        assertEquals(v.getPrevious().getId().longValue(), rs.getInt(COLUMN_PREVIOUS));
+        assertEquals(v.getPrevious().getId().longValue(), rs.getInt(COLUMN_VERSE_PREVIOUS_ID));
         assertEquals(v.getPublicId(), rs.getString(COLUMN_PUBLIC_ID));
         assertEquals(v.getText().getId().longValue(), rs.getLong(COLUMN_VERSE_TEXT_ID));
         assertEquals(v.isOmitted(), rs.getBoolean(COLUMN_VERSE_OMIT));
         assertEquals(DISCRIMINATOR_VERSE, rs.getString(COLUMN_DISCRIMINATOR));
         assertSame(v.getChapter().getBook(), v.getBook());
+    }
+
+    /**
+     * Verifies next/previous references can be lazily loaded.
+     */
+    @Test
+    public void testLazyLoadNextPrevious() {
+        BookTypeGroupImpl g = ObjectMother.newBookTypeGroup();
+        BookTypeImpl t = ObjectMother.newBookType(g);
+        BibleImpl b = ObjectMother.newBible();
+        BookImpl k = ObjectMother.newBook(b, t);
+        ChapterImpl c = ObjectMother.newChapter(k);
+        VerseImpl vPrev = ObjectMother.newVerse(c);
+        VerseImpl v = ObjectMother.newVerse(c);
+        VerseImpl vNext = ObjectMother.newVerse(c);
+        em.persist(g);
+        em.persist(t);
+        em.persist(b);
+        em.persist(k);
+        em.persist(c);
+        em.persist(vPrev);
+        em.persist(v);
+        em.persist(vNext);
+        em.flush();
+        em.clear();
+
+        v = em.find(VerseImpl.class, v.getId());
+        assertEquals(vNext.getId(), v.getNext().getId());
+        assertEquals(vPrev.getId(), v.getPrevious().getId());
     }
 
 }

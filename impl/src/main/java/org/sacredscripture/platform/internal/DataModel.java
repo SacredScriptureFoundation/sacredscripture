@@ -67,7 +67,8 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.canon.BookTypeGroupLocalizationImpl
+     * @see org.sacredscripture.platform.internal.bible.canon.
+     * BookTypeGroupLocalizationImpl
      */
     public static final class BookTypeGroupLocalizationTable {
         public static final String TABLE_NAME = "book_type_group_loc";
@@ -90,7 +91,8 @@ public final class DataModel {
     }
 
     /**
-     * @see org.sacredscripture.platform.internal.bible.canon.BookTypeLocalizationImpl
+     * @see org.sacredscripture.platform.internal.bible.canon.
+     * BookTypeLocalizationImpl
      */
     public static final class BookTypeLocalizationTable {
         public static final String TABLE_NAME = "book_type_loc";
@@ -124,16 +126,18 @@ public final class DataModel {
         public static final String COLUMN_BOOK_ID = "book_id";
         public static final String COLUMN_CODE = "content_code";
         public static final String COLUMN_CHAPTER_NAME = "chapter_name";
+        public static final String COLUMN_CHAPTER_NEXT_ID = "chapter_next_id";
+        public static final String COLUMN_CHAPTER_PREVIOUS_ID = "chapter_prev_id";
         public static final String COLUMN_DISCRIMINATOR = "type_code";
         public static final String COLUMN_ID = "id";
-        public static final String COLUMN_NEXT = "content_type_next";
         public static final String COLUMN_POSITION = "list_position";
         public static final String COLUMN_PUBLIC_ID = "public_id";
-        public static final String COLUMN_PREVIOUS = "content_type_prev";
         public static final String COLUMN_VERSE_ALT_NAME = "verse_alt_name";
         public static final String COLUMN_VERSE_CHAPTER_ID = "verse_chapter_id";
         public static final String COLUMN_VERSE_NAME = "verse_name";
+        public static final String COLUMN_VERSE_NEXT_ID = "verse_next_id";
         public static final String COLUMN_VERSE_OMIT = "verse_omit";
+        public static final String COLUMN_VERSE_PREVIOUS_ID = "verse_prev_id";
         public static final String COLUMN_VERSE_TEXT_ID = "verse_text_id";
         public static final String DISCRIMINATOR_CHAPTER = "0";
         public static final String DISCRIMINATOR_VERSE = "1";
