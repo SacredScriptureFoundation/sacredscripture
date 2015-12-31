@@ -51,20 +51,24 @@ public interface Chapter extends Content, Named, PublicIdProvider<String> {
     String getName();
 
     /**
-     * Retrieves the reference to the proceeding chapter
-     * <em>in the same book</em> as this chapter.
+     * Retrieves the chapter proceeding this chapter. If this chapter is the
+     * last in its {@link #getBook() book}, then this method will return the
+     * first chapter in the next book (according to canonical ordering). If this
+     * chapter is the last in the bible, then {@code null} is returned.
      *
-     * @return the next chapter
+     * @return the next chapter or {@code null}
      * @see #setPrevious(Chapter)
      * @see #getNext()
      */
     Chapter getNext();
 
     /**
-     * Retrieves the reference to the preceding chapter
-     * <em>in the same book</em> as this chapter.
+     * Retrieves the chapter preceding this chapter. If this chapter is the
+     * first in its {@link #getBook() book}, then this method will return the
+     * last chapter in the previous book (according to canonical ordering). If
+     * this chapter is the first in the bible, then {@code null} is returned.
      *
-     * @return the previous verse
+     * @return the previous verse or {@code null}
      * @see #setPrevious(Chapter)
      * @see #getNext()
      */
@@ -88,8 +92,7 @@ public interface Chapter extends Content, Named, PublicIdProvider<String> {
     void setName(String name);
 
     /**
-     * Stores a reference to the proceeding chapter <em>in the same book</em> as
-     * this chapter.
+     * Stores a reference to the proceeding chapter.
      *
      * @param next the next chapter
      * @see #getNext()
@@ -98,8 +101,7 @@ public interface Chapter extends Content, Named, PublicIdProvider<String> {
     void setNext(Chapter next);
 
     /**
-     * Stores a reference to the preceding chapter <em>in the same book</em> as
-     * this chapter.
+     * Stores a reference to the preceding chapter.
      *
      * @param previous the previous chapter
      * @see #getPrevious()

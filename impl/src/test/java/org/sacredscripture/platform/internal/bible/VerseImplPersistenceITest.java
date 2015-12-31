@@ -70,6 +70,8 @@ public class VerseImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         VerseImpl vPrev = ObjectMother.newVerse(c);
         VerseImpl v = ObjectMother.newVerse(c);
         VerseImpl vNext = ObjectMother.newVerse(c);
+        v.setPrevious(vPrev);
+        v.setNext(vNext);
         em.persist(g);
         em.persist(t);
         em.persist(b);
@@ -113,6 +115,8 @@ public class VerseImplPersistenceITest extends AbstractSpringJpaIntegrationTests
         VerseImpl vPrev = ObjectMother.newVerse(c);
         VerseImpl v = ObjectMother.newVerse(c);
         VerseImpl vNext = ObjectMother.newVerse(c);
+        v.setPrevious(vPrev);
+        v.setNext(vNext);
         em.persist(g);
         em.persist(t);
         em.persist(b);

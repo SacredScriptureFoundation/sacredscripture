@@ -60,7 +60,6 @@ import org.sacredscripturefoundation.commons.entity.DuplicateEntityException;
 import org.sacredscripturefoundation.commons.entity.UnknownEntityException;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.ejb.Local;
 import javax.ejb.Singleton;
@@ -193,11 +192,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         }
 
         // Find previous chapter
-        Chapter previous = null;
-        List<Chapter> chapters = contentDao.findChapters(bible.getPublicId(), book.getOrder());
-        if (!chapters.isEmpty()) {
-            previous = chapters.get(chapters.size() - 1);
-        }
+        Chapter previous = lastChapter(book);
 
         // Build and persist new chapter
         ChapterImpl chapter = new ChapterImpl();
@@ -226,11 +221,7 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
 
         // Find previous verse
         Chapter chapter = (Chapter) content;
-        Verse previous = null;
-        List<Verse> verses = chapter.getVerses();
-        if (!verses.isEmpty()) {
-            previous = verses.get(verses.size() - 1);
-        }
+        Verse previous = lastVerse(chapter);
 
         // Build and persist new verse
         VerseImpl verse = new VerseImpl();
@@ -259,10 +250,37 @@ public class BibleMaintenanceServiceImpl implements BibleMaintenanceService {
         return verse;
     }
 
-    @Override
-    public Bible findBibleByCode(String bibleCode) {
-        Objects.requireNonNull(bibleCode);
-        return bibleDao.findByCode(bibleCode);
+    private Chapter lastChapter(Book book) {
+        Bible bible = book.getBible();
+
+        // Is last chapter in this book?
+        List<Chapter> chapters = contentDao.findChapters(bible.getPublicId(), book.getOrder());
+        if (!chapters.isEmpty()) {
+            return chapters.get(chapters.size() - 1);
+        }
+
+        // Get from preceding book, if exists
+        if (book.getOrder() > 0) {
+            chapters = contentDao.findChapters(bible.getPublicId(), book.getOrder() - 1);
+            return chapters.get(chapters.size() - 1);
+        }
+
+        return null;
+    }
+
+    private Verse lastVerse(Chapter chapter) {
+        List<Verse> verses = chapter.getVerses();
+        if (!verses.isEmpty()) {
+            return verses.get(verses.size() - 1);
+        }
+
+        Chapter prevChapter = chapter.getPrevious();
+        if (prevChapter != null) {
+            verses = prevChapter.getVerses();
+            return verses.get(verses.size() - 1);
+        }
+
+        return null;
     }
 
     @Override

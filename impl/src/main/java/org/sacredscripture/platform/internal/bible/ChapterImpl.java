@@ -67,10 +67,6 @@ public class ChapterImpl extends ContentImpl implements Chapter {
         Objects.requireNonNull(verse);
         if (verses == null) {
             verses = new LinkedList<>();
-        } else {
-            Verse last = verses.get(verses.size() - 1);
-            last.setNext(verse);
-            verse.setPrevious(last);
         }
         verse.setChapter(this);
         verses.add(verse);

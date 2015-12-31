@@ -90,6 +90,8 @@ public class ChapterImplPersistenceITest extends AbstractSpringJpaIntegrationTes
         ChapterImpl cPrev = ObjectMother.newChapter(k);
         ChapterImpl c = ObjectMother.newChapter(k);
         ChapterImpl cNext = ObjectMother.newChapter(k);
+        c.setPrevious(cPrev);
+        c.setNext(cNext);
         em.persist(g);
         em.persist(t);
         em.persist(b);
