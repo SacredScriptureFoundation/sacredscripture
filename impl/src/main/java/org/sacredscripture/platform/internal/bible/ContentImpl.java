@@ -24,6 +24,7 @@ import org.sacredscripture.platform.bible.Content;
 import org.sacredscripture.platform.internal.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
+import org.sacredscripturefoundation.commons.entity.PublicIdProvider;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -45,7 +46,14 @@ import javax.persistence.Table;
 @Table(name = ContentTable.TABLE_NAME)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = ContentTable.COLUMN_DISCRIMINATOR, discriminatorType = DiscriminatorType.INTEGER)
-public abstract class ContentImpl extends EntityImpl<Long> implements Content {
+public abstract class ContentImpl extends EntityImpl<Long> implements Content, PublicIdProvider<String> {
+
+    /*
+     * Implementing PublicIdProvider shouldn't be necessary here, but HHH cannot
+     * proxy getPublicIdProvider() and lazy-load the value in the subclasses
+     * without it (always null). Bug in Javassist? Need to check if this problem
+     * still exists in HHH 5.x before reporting it.
+     */
 
     @Column(name = ContentTable.COLUMN_PUBLIC_ID)
     private String publicId;
@@ -75,6 +83,7 @@ public abstract class ContentImpl extends EntityImpl<Long> implements Content {
         return order;
     }
 
+    @Override
     public String getPublicId() {
         return publicId;
     }
