@@ -21,7 +21,6 @@ package org.sacredscripture.platform.internal.bible;
 
 import org.sacredscripture.platform.bible.Book;
 import org.sacredscripture.platform.bible.Content;
-import org.sacredscripture.platform.internal.DataModel.BibleTable;
 import org.sacredscripture.platform.internal.DataModel.ContentTable;
 
 import org.sacredscripturefoundation.commons.entity.EntityImpl;
@@ -48,7 +47,7 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name = ContentTable.COLUMN_DISCRIMINATOR, discriminatorType = DiscriminatorType.INTEGER)
 public abstract class ContentImpl extends EntityImpl<Long> implements Content {
 
-    @Column(name = BibleTable.COLUMN_PUBLIC_ID)
+    @Column(name = ContentTable.COLUMN_PUBLIC_ID)
     private String publicId;
 
     @ManyToOne(targetEntity = BookImpl.class, optional = false)
