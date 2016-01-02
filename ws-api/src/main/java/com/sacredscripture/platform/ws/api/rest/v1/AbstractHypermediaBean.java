@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015, 2016 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -22,6 +22,7 @@ package com.sacredscripture.platform.ws.api.rest.v1;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -30,20 +31,57 @@ public abstract class AbstractHypermediaBean {
     @XmlElement(name = "links")
     private List<ResourceLinkBean> links;
 
-    public void addLink(String href, String rel) {
-        addLink(href, rel, null);
-    }
-
-    public void addLink(String href, String rel, Locale lang) {
-        ResourceLinkBean link = new ResourceLinkBean();
-        link.setHref(href);
-        link.setRel(rel);
-        link.setLocale(lang);
-
+    /**
+     * Adds the specified link to this bean.
+     *
+     * @param link the link to add
+     * @throws NullPointerException if the link or its {@code href} is
+     * {@code null}
+     * @see #addLink(String, String)
+     * @see #addLink(String, String, Locale)
+     * @see #addLink(String, String, String)
+     * @see #addLink(String, String, Locale, String)
+     */
+    public void addLink(ResourceLinkBean link) {
+        Objects.requireNonNull(link);
+        Objects.requireNonNull(link.getHref());
         if (links == null) {
             links = new LinkedList<ResourceLinkBean>();
         }
         links.add(link);
+    }
+
+    /**
+     * Constructs a new {@link ResourceLinkBean} instance with the specified
+     * values and adds it to this bean.
+     *
+     * @param href the web address
+     * @param rel the relationship type (can be {@code null})
+     * @throws NullPointerException if {@code href} is {@code null}
+     * @see #addLink(ResourceLinkBean)
+     * @see #addLink(String, String, Locale)
+     * @see #addLink(String, String, String)
+     * @see #addLink(String, String, Locale, String)
+     */
+    public void addLink(String href, String rel) {
+        addLink(href, rel, null, null);
+    }
+
+    public void addLink(String href, String rel, Locale lang) {
+        addLink(href, rel, lang, null);
+    }
+
+    public void addLink(String href, String rel, Locale lang, String title) {
+        ResourceLinkBean link = new ResourceLinkBean();
+        link.setHref(Objects.requireNonNull(href));
+        link.setRel(rel);
+        link.setLocale(lang);
+        link.setTitle(title);
+        addLink(link);
+    }
+
+    public void addLink(String href, String rel, String title) {
+        addLink(href, rel, null, title);
     }
 
     public List<ResourceLinkBean> getLinks() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015, 2016 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -37,10 +37,15 @@ public class ResourceLinkBean implements LocaleProvider {
 
     @XmlElement(name = "href")
     private String href;
+
     @XmlElement(name = "hreflang")
     private Locale locale;
+
     @XmlElement(name = "rel")
     private String rel;
+
+    @XmlElement(name = "title")
+    private String title;
 
     /**
      * Retrieves the web address of this link.
@@ -48,7 +53,7 @@ public class ResourceLinkBean implements LocaleProvider {
      * @return the web address
      * @see #setHref(String)
      */
-    public String getHref() {
+    public final String getHref() {
         return href;
     }
 
@@ -56,7 +61,7 @@ public class ResourceLinkBean implements LocaleProvider {
      * @see #setLocale(Locale)
      */
     @Override
-    public Locale getLocale() {
+    public final Locale getLocale() {
         return locale;
     }
 
@@ -67,8 +72,12 @@ public class ResourceLinkBean implements LocaleProvider {
      * @see #setRel(String)
      * @see LinkRelation
      */
-    public String getRel() {
+    public final String getRel() {
         return rel;
+    }
+
+    public final String getTitle() {
+        return title;
     }
 
     /**
@@ -78,7 +87,7 @@ public class ResourceLinkBean implements LocaleProvider {
      * @param href the web address
      * @see #getHref()
      */
-    public void setHref(String href) {
+    public final void setHref(String href) {
         this.href = href;
     }
 
@@ -88,7 +97,7 @@ public class ResourceLinkBean implements LocaleProvider {
      * @param locale the locale
      * @see #getLocale()
      */
-    public void setLocale(Locale locale) {
+    public final void setLocale(Locale locale) {
         this.locale = locale;
     }
 
@@ -99,8 +108,12 @@ public class ResourceLinkBean implements LocaleProvider {
      * @see #getRel()
      * @see LinkRelation
      */
-    public void setRel(String rel) {
+    public final void setRel(String rel) {
         this.rel = rel;
+    }
+
+    public final void setTitle(String title) {
+        this.title = title;
     }
 
 }
