@@ -26,6 +26,17 @@ import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * This abstract class is the superclass for any bean which requires hypermedia
+ * support to be HATEOAS compliant. To quote Spring, "HATEOAS (Hypermedia as the
+ * Engine of Application State) is a constraint of the REST application
+ * architecture. A hypermedia-driven site provides information to navigate the
+ * site's REST interfaces dynamically by including hypermedia links with the
+ * responses."
+ *
+ * @author Paul Benedict
+ * @since Sacred Scripture Platform 1.0
+ */
 public abstract class AbstractHypermediaBean {
 
     @XmlElement(name = "links")
@@ -33,11 +44,16 @@ public abstract class AbstractHypermediaBean {
 
     /**
      * Adds the specified link to this bean.
+     * <p>
+     * If a link requires minimal customization, an alternative and concise mean
+     * exists in the many overloaded methods to construct and add a new link
+     * instance from a few parameters.
      *
      * @param link the link to add
-     * @throws NullPointerException if the link or its {@code href} is
-     * {@code null}
+     * @throws NullPointerException if the link is {@code null}, or its
+     * {@code href} or {@code rel} properties are {@code null}
      * @see #addLink(String, String)
+     * @see #addLink(String, LinkRelation, String)
      * @see #addLink(String, String, Locale)
      * @see #addLink(String, String, String)
      * @see #addLink(String, String, Locale, String)
@@ -45,6 +61,7 @@ public abstract class AbstractHypermediaBean {
     public void addLink(ResourceLinkBean link) {
         Objects.requireNonNull(link);
         Objects.requireNonNull(link.getHref());
+        Objects.requireNonNull(link.getRel());
         if (links == null) {
             links = new LinkedList<ResourceLinkBean>();
         }
@@ -52,13 +69,34 @@ public abstract class AbstractHypermediaBean {
     }
 
     /**
-     * Constructs a new {@link ResourceLinkBean} instance with the specified
-     * values and adds it to this bean.
+     * Constructs a new {@link ResourceLinkBean} instance with the specified web
+     * address, standard relationship, and optional title; then adds it to this
+     * bean.
      *
      * @param href the web address
-     * @param rel the relationship type (can be {@code null})
-     * @throws NullPointerException if {@code href} is {@code null}
+     * @param rel the standard relationship
+     * @param title the title (can be {@code null})
+     * @throws NullPointerException if either {@code href} or {@code rel} are
+     * {@code null}
      * @see #addLink(ResourceLinkBean)
+     * @see #addLink(String, String)
+     * @see #addLink(String, String, Locale)
+     * @see #addLink(String, String, String)
+     * @see #addLink(String, String, Locale, String)
+     */
+    public void addLink(String href, LinkRelation rel, String title) {
+        addLink(href, rel.rel(), title);
+    }
+
+    /**
+     * Constructs a new {@link ResourceLinkBean} instance with the specified web
+     * address and custom relationship; then adds it to this bean.
+     *
+     * @param href the web address
+     * @param rel the custom relationship
+     * @throws NullPointerException if any arguments are {@code null}
+     * @see #addLink(ResourceLinkBean)
+     * @see #addLink(String, LinkRelation, String)
      * @see #addLink(String, String, Locale)
      * @see #addLink(String, String, String)
      * @see #addLink(String, String, Locale, String)
@@ -74,34 +112,40 @@ public abstract class AbstractHypermediaBean {
     public void addLink(String href, String rel, Locale lang, String title) {
         ResourceLinkBean link = new ResourceLinkBean();
         link.setHref(Objects.requireNonNull(href));
-        link.setRel(rel);
+        link.setRel(Objects.requireNonNull(rel));
         link.setLocale(lang);
         link.setTitle(title);
         addLink(link);
     }
 
+    /**
+     * Constructs a new {@link ResourceLinkBean} instance with the specified web
+     * address, custom relationship, and optional title; then adds it to this
+     * bean.
+     *
+     * @param href the web address
+     * @param rel the custom relationship
+     * @param title the title (can be {@code null})
+     * @throws NullPointerException if either {@code href} or {@code rel} are
+     * {@code null}
+     * @see #addLink(ResourceLinkBean)
+     * @see #addLink(String, String)
+     * @see #addLink(String, LinkRelation, String)
+     * @see #addLink(String, String, Locale)
+     * @see #addLink(String, String, Locale, String)
+     */
     public void addLink(String href, String rel, String title) {
         addLink(href, rel, null, title);
     }
 
+    /**
+     * Retrieves the links associated to this bean.
+     *
+     * @return the list of links or empty list
+     * @see #addLink(ResourceLinkBean)
+     */
     public List<ResourceLinkBean> getLinks() {
         return links;
-    }
-
-    /**
-     * Retrieves the first link that has the specified relationship value.
-     *
-     * @param rel the relationship value
-     * @return the found link or {@code null}
-     * @see #getLinks()
-     */
-    public ResourceLinkBean ofRelFirst(String rel) {
-        for (ResourceLinkBean link : getLinks()) {
-            if (rel.equals(link.getRel())) {
-                return link;
-            }
-        }
-        return null;
     }
 
 }
