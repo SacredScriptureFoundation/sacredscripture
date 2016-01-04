@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015, 2016 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -114,36 +114,36 @@ public class BiblesResource extends AbstractSpringAwareResource {
     // subclasses for build()
     private class BookBeanBuilder {
         public Locale locale;
-        public Bible bible;
         public boolean self;
 
         public BookBean build(Book book) {
             BookBean bookBean = conversionService.convert(book, BookBean.class);
             if (self) {
-                bookBean.addLink(makeHref(book, locale), LinkRelation.SELF.rel());
+                bookBean.addLink(linkHref(book, locale), LinkRelation.SELF, linkTitle(book));
 
                 // Alternate languages
                 for (Locale altLocale : book.getBookType().locales()) {
                     if (!altLocale.equals(locale)) {
-                        bookBean.addLink(makeHref(book, altLocale), LinkRelation.ALTERNATE.rel(), altLocale);
+                        bookBean.addLink(linkHref(book, altLocale), LinkRelation.ALTERNATE.rel(), altLocale, linkTitle(book));
                     }
                 }
 
                 // Previous book
                 Book prevBook = book.previous();
                 if (prevBook != null) {
-                    bookBean.addLink(makeHref(prevBook, locale), LinkRelation.PREV.rel());
+                    bookBean.addLink(linkHref(prevBook, locale), LinkRelation.PREV, linkTitle(book));
                 }
 
                 // Next book
                 Book nextBook = book.next();
                 if (nextBook != null) {
-                    bookBean.addLink(makeHref(nextBook, locale), LinkRelation.NEXT.rel());
+                    bookBean.addLink(linkHref(nextBook, locale), LinkRelation.NEXT, linkTitle(book));
                 }
 
-                // Bible
+                // Up to Bible
+                Bible bible = book.getBible();
                 BibleBeanBuilder bb = new BibleBeanBuilder();
-                bookBean.addLink(bb.makeHref(bible, locale), LinkRelation.UP.rel());
+                bookBean.addLink(bb.makeHref(bible, locale), LinkRelation.UP, linkTitle(book));
 
                 // Chapters
                 List<Chapter> chapters = queryService.getChapters(bible.getPublicId(), book.getOrder());
@@ -157,20 +157,29 @@ public class BiblesResource extends AbstractSpringAwareResource {
                     bookBean.getChapters().add(chapterBean);
                 }
             } else {
-                bookBean.addLink(makeHref(book, locale), LinkRelation.ABOUT.rel());
+                bookBean.addLink(linkHref(book, locale), LinkRelation.ABOUT, linkTitle(book));
             }
             return bookBean;
         }
 
-        private String makeHref(Book book, Locale locale) {
+        private String linkHref(Book book, Locale locale) {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOK);
             if (locale != null) {
-                uri = localizedUri(builder, locale, bible.getPublicId(), book.getOrder());
+                uri = localizedUri(builder, locale, book.getBible().getPublicId(), book.getOrder());
             } else {
-                uri = builder.build(bible.getPublicId(), book.getOrder());
+                uri = builder.build(book.getBible().getPublicId(), book.getOrder());
             }
             return uri.toString();
+        }
+
+        private String linkTitle(Book book) {
+            StringBuilder buf = new StringBuilder();
+            buf.append(book.getName());
+            buf.append(" (");
+            buf.append(book.getBible().getAbbreviation());
+            buf.append(")");
+            return buf.toString();
         }
     }
 
@@ -181,20 +190,26 @@ public class BiblesResource extends AbstractSpringAwareResource {
         public ChapterBean build(Chapter chapter) {
             ChapterBean chapterBean = conversionService.convert(chapter, ChapterBean.class);
             if (self) {
-                chapterBean.addLink(makeHref(chapter, locale), LinkRelation.SELF.rel());
+                chapterBean.addLink(linkHref(chapter, locale), LinkRelation.SELF, linkTitle(chapter));
+
                 // Verses
                 for (Verse verse : chapter.getVerses()) {
                     VerseBeanBuilder bb = new VerseBeanBuilder();
                     bb.locale = chapter.getBook().getBible().getLocale();
                     chapterBean.addContent(bb.build(verse));
                 }
+
+                // Up to book
+                BookBeanBuilder bb = new BookBeanBuilder();
+                Book book = chapter.getBook();
+                chapterBean.addLink(bb.linkHref(book, locale), LinkRelation.UP, bb.linkTitle(book));
             } else {
-                chapterBean.addLink(makeHref(chapter, locale), LinkRelation.ABOUT.rel());
+                chapterBean.addLink(linkHref(chapter, locale), LinkRelation.ABOUT, linkTitle(chapter));
             }
             return chapterBean;
         }
 
-        private String makeHref(Chapter chapter, Locale locale) {
+        private String linkHref(Chapter chapter, Locale locale) {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
             if (locale != null) {
@@ -205,6 +220,16 @@ public class BiblesResource extends AbstractSpringAwareResource {
             return uri.toString();
         }
 
+        private String linkTitle(Chapter chapter) {
+            StringBuilder buf = new StringBuilder();
+            buf.append(chapter.getBook().getName());
+            buf.append(" ");
+            buf.append(chapter.getName());
+            buf.append(" (");
+            buf.append(chapter.getBook().getBible().getAbbreviation());
+            buf.append(")");
+            return buf.toString();
+        }
     }
 
     private class VerseBeanBuilder {
@@ -214,28 +239,31 @@ public class BiblesResource extends AbstractSpringAwareResource {
         public VerseBean build(Verse verse) {
             VerseBean verseBean = conversionService.convert(verse, VerseBean.class);
             if (self) {
-                verseBean.addLink(makeHref(verse, locale), LinkRelation.SELF.rel());
-
-                // Next verse
-                if (verse.getNext() != null) {
-                    verseBean.addLink(makeHref(verse.getNext(), locale), LinkRelation.NEXT.rel());
-                }
+                verseBean.addLink(linkHref(verse, locale), LinkRelation.SELF, linkTitle(verse));
 
                 // Previous verse
-                if (verse.getPrevious() != null) {
-                    verseBean.addLink(makeHref(verse.getPrevious(), locale), LinkRelation.PREV.rel());
+                Verse previous = verse.getPrevious();
+                if (previous != null) {
+                    verseBean.addLink(linkHref(previous, locale), LinkRelation.PREV, linkTitle(previous));
+                }
+
+                // Next verse
+                Verse next = verse.getNext();
+                if (next != null) {
+                    verseBean.addLink(linkHref(next, locale), LinkRelation.NEXT, linkTitle(next));
                 }
 
                 // Up to chapter
                 ChapterBeanBuilder cb = new ChapterBeanBuilder();
-                verseBean.addLink(cb.makeHref(verse.getChapter(), locale), LinkRelation.UP.rel());
+                Chapter chapter = verse.getChapter();
+                verseBean.addLink(cb.linkHref(chapter, locale), LinkRelation.UP, cb.linkTitle(chapter));
             } else {
-                verseBean.addLink(makeHref(verse, locale), LinkRelation.ABOUT.rel());
+                verseBean.addLink(linkHref(verse, locale), LinkRelation.ABOUT, linkTitle(verse));
             }
             return verseBean;
         }
 
-        private String makeHref(Verse verse, Locale locale) {
+        private String linkHref(Verse verse, Locale locale) {
             URI uri;
             UriBuilder builder = getRootResourceBuilder(uriInfo).path(SUB_PATH_CONTENT);
             if (locale != null) {
@@ -246,6 +274,18 @@ public class BiblesResource extends AbstractSpringAwareResource {
             return uri.toString();
         }
 
+        private String linkTitle(Verse verse) {
+            StringBuilder buf = new StringBuilder();
+            buf.append(verse.getBook().getName());
+            buf.append(" ");
+            buf.append(verse.getChapter().getName());
+            buf.append(":");
+            buf.append(verse.getName());
+            buf.append(" (");
+            buf.append(verse.getBook().getBible().getAbbreviation());
+            buf.append(")");
+            return buf.toString();
+        }
     }
 
     // Paths
@@ -375,7 +415,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
         // Build representation
         BookBeanBuilder builder = new BookBeanBuilder();
         builder.locale = locale;
-        builder.bible = bible;
         builder.self = true;
         BookBean bookBean = builder.build(book);
 
@@ -419,7 +458,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
         for (Book book : bible.getBooks()) {
             BookBeanBuilder builder = new BookBeanBuilder();
             builder.locale = locale;
-            builder.bible = bible;
             BookBean bookBean = builder.build(book);
             beans.add(bookBean);
         }
