@@ -64,8 +64,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
     /**
      * This private inner class constructs a {@link BibleBean} view.
      */
-    // NOTE if both views get too complex, get rid of "self" and create
-    // subclasses for build()
     private class BibleBeanBuilder {
         public Locale locale;
         public boolean self;
@@ -110,8 +108,6 @@ public class BiblesResource extends AbstractSpringAwareResource {
     /**
      * This private inner class constructs a {@link BookBean} view.
      */
-    // NOTE if both views get too complex, get rid of "self" and create
-    // subclasses for build()
     private class BookBeanBuilder {
         public Locale locale;
         public boolean self;
@@ -257,6 +253,17 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 ChapterBeanBuilder cb = new ChapterBeanBuilder();
                 Chapter chapter = verse.getChapter();
                 verseBean.addLink(cb.linkHref(chapter, locale), LinkRelation.UP, cb.linkTitle(chapter));
+
+                // Embedded chapter
+                verseBean.addEmbedded("chapter", cb.build(chapter));
+
+                // Embedded book
+                BookBeanBuilder bb = new BookBeanBuilder();
+                verseBean.addEmbedded("book", bb.build(chapter.getBook()));
+
+                // Embedded bible
+                BibleBeanBuilder bb2 = new BibleBeanBuilder();
+                verseBean.addEmbedded("bible", bb2.build(chapter.getBook().getBible()));
             } else {
                 verseBean.addLink(linkHref(verse, locale), LinkRelation.ABOUT, linkTitle(verse));
             }
