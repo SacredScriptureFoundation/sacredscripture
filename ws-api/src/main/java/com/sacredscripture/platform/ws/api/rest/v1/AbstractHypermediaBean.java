@@ -19,9 +19,11 @@
  */
 package com.sacredscripture.platform.ws.api.rest.v1;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -41,6 +43,13 @@ public abstract class AbstractHypermediaBean {
 
     @XmlElement(name = "links")
     private List<ResourceLinkBean> links;
+
+    @XmlElement(name = "embedded")
+    private Map<String, AbstractHypermediaBean> embedded;
+
+    public void addEmbedded(String name, AbstractHypermediaBean bean) {
+        getEmbedded().put(name, bean);
+    }
 
     /**
      * Adds the specified link to this bean.
@@ -62,10 +71,7 @@ public abstract class AbstractHypermediaBean {
         Objects.requireNonNull(link);
         Objects.requireNonNull(link.getHref());
         Objects.requireNonNull(link.getRel());
-        if (links == null) {
-            links = new LinkedList<ResourceLinkBean>();
-        }
-        links.add(link);
+        getLinks().add(link);
     }
 
     /**
@@ -139,12 +145,29 @@ public abstract class AbstractHypermediaBean {
     }
 
     /**
+     * Retrieves the mappings of resource representations (full or partial)
+     * embedded in this bean. Each resource is mapped to a unique name.
+     *
+     * @return the embedded resource mappings or empty map
+     * @see #addEmbedded(String, AbstractHypermediaBean)
+     */
+    public Map<String, AbstractHypermediaBean> getEmbedded() {
+        if (embedded == null) {
+            embedded = new HashMap<>();
+        }
+        return embedded;
+    }
+
+    /**
      * Retrieves the links associated to this bean.
      *
      * @return the list of links or empty list
      * @see #addLink(ResourceLinkBean)
      */
     public List<ResourceLinkBean> getLinks() {
+        if (links == null) {
+            links = new LinkedList<ResourceLinkBean>();
+        }
         return links;
     }
 
