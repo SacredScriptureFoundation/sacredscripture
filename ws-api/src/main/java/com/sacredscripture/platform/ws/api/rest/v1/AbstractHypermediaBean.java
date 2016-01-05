@@ -41,10 +41,10 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public abstract class AbstractHypermediaBean {
 
-    @XmlElement(name = "links")
+    @XmlElement(name = "_links")
     private List<ResourceLinkBean> links;
 
-    @XmlElement(name = "embedded")
+    @XmlElement(name = "_embedded")
     private Map<String, AbstractHypermediaBean> embedded;
 
     public void addEmbedded(String name, AbstractHypermediaBean bean) {
