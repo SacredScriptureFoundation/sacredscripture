@@ -199,6 +199,13 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 BookBeanBuilder bb = new BookBeanBuilder();
                 Book book = chapter.getBook();
                 chapterBean.addLink(bb.linkHref(book, locale), LinkRelation.UP, bb.linkTitle(book));
+
+                // Embedded book
+                chapterBean.addEmbedded("book", bb.build(chapter.getBook()));
+
+                // Embedded bible
+                BibleBeanBuilder bb2 = new BibleBeanBuilder();
+                chapterBean.addEmbedded("bible", bb2.build(chapter.getBook().getBible()));
             } else {
                 chapterBean.addLink(linkHref(chapter, locale), LinkRelation.ABOUT, linkTitle(chapter));
             }
