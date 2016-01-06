@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Paul Benedict
  * @since Sacred Scripture Platform 1.0
  */
-public abstract class AbstractHypermediaBean {
+public abstract class AbstractHypermediaBean extends AbstractRepresentationBean {
 
     @XmlElement(name = "_links")
     private List<ResourceLinkBean> links;
@@ -169,6 +169,19 @@ public abstract class AbstractHypermediaBean {
             links = new LinkedList<ResourceLinkBean>();
         }
         return links;
+    }
+
+    /**
+     * Removes the embedded resource of the specified name from this bean. If
+     * there is no resource by the specified name, nothing occurs.
+     *
+     * @param name the resource name
+     * @see #addEmbedded(String, AbstractHypermediaBean)
+     */
+    public void removeEmbedded(String name) {
+        if (embedded != null) {
+            embedded.remove(name);
+        }
     }
 
 }

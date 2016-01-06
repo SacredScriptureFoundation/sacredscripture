@@ -238,39 +238,49 @@ public class BiblesResource extends AbstractSpringAwareResource {
     private class VerseBeanBuilder {
         public Locale locale;
         public boolean self;
+        public boolean embedChapter;
+        public boolean embedBook;
+        public boolean embedBible;
 
         public VerseBean build(Verse verse) {
             VerseBean verseBean = conversionService.convert(verse, VerseBean.class);
             if (self) {
+                // Link to self
                 verseBean.addLink(linkHref(verse, locale), LinkRelation.SELF, linkTitle(verse));
 
-                // Previous verse
+                // Link to previous verse
                 Verse previous = verse.getPrevious();
                 if (previous != null) {
                     verseBean.addLink(linkHref(previous, locale), LinkRelation.PREV, linkTitle(previous));
                 }
 
-                // Next verse
+                // Link to next verse
                 Verse next = verse.getNext();
                 if (next != null) {
                     verseBean.addLink(linkHref(next, locale), LinkRelation.NEXT, linkTitle(next));
                 }
 
-                // Up to chapter
-                ChapterBeanBuilder cb = new ChapterBeanBuilder();
+                // Link to chapter
                 Chapter chapter = verse.getChapter();
+                ChapterBeanBuilder cb = new ChapterBeanBuilder();
                 verseBean.addLink(cb.linkHref(chapter, locale), LinkRelation.UP, cb.linkTitle(chapter));
 
                 // Embedded chapter
-                verseBean.addEmbedded("chapter", cb.build(chapter));
+                if (embedChapter) {
+                    verseBean.setEmbeddedChapter(cb.build(chapter));
+                }
 
                 // Embedded book
-                BookBeanBuilder bb = new BookBeanBuilder();
-                verseBean.addEmbedded("book", bb.build(chapter.getBook()));
+                if (embedBook) {
+                    BookBeanBuilder builder = new BookBeanBuilder();
+                    verseBean.setEmbeddedBook(builder.build(chapter.getBook()));
+                }
 
                 // Embedded bible
-                BibleBeanBuilder bb2 = new BibleBeanBuilder();
-                verseBean.addEmbedded("bible", bb2.build(chapter.getBook().getBible()));
+                if (embedBible) {
+                    BibleBeanBuilder builder = new BibleBeanBuilder();
+                    verseBean.setEmbeddedBible(builder.build(chapter.getBook().getBible()));
+                }
             } else {
                 verseBean.addLink(linkHref(verse, locale), LinkRelation.ABOUT, linkTitle(verse));
             }
@@ -482,7 +492,7 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
     @Path(SUB_PATH_CONTENT)
     @GET
-    public Response getContent(@PathParam("id") String contentId) {
+    public Response getContent(@PathParam("id") String contentId, @QueryParam("embed") List<String> embed) {
         Content content = queryService.getContent(contentId);
         if (content == null) {
             return Response.status(Status.NOT_FOUND).build();
@@ -500,6 +510,9 @@ public class BiblesResource extends AbstractSpringAwareResource {
             VerseBeanBuilder bb = new VerseBeanBuilder();
             bb.locale = verse.getChapter().getBook().getBible().getLocale();
             bb.self = true;
+            bb.embedBible = embed.contains(VerseBean.EMBEDDED_BIBLE);
+            bb.embedBook = embed.contains(VerseBean.EMBEDDED_BOOK);
+            bb.embedChapter = embed.contains(VerseBean.EMBEDDED_CHAPTER);
             entity = bb.build(verse);
         } else {
             // TODO what really to do here?

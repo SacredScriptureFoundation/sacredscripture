@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015, 2016 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -22,6 +22,30 @@ package com.sacredscripture.platform.ws.api.rest.v1;
 import javax.xml.bind.annotation.XmlElement;
 
 public class VerseBean extends AbstractHypermediaBean {
+
+    /**
+     * Key name of the embedded bible.
+     *
+     * @see #getEmbeddedBible()
+     * @see #setEmbeddedBible(BibleBean)
+     */
+    public static String EMBEDDED_BIBLE = "bible";
+
+    /**
+     * Key name of the embedded book.
+     *
+     * @see #getEmbeddedBook()
+     * @see #setEmbeddedBook(BookBean)
+     */
+    public static String EMBEDDED_BOOK = "book";
+
+    /**
+     * Key name of the embedded chapter.
+     *
+     * @see #getEmbeddedChapter()
+     * @see #setEmbeddedChapter(ChapterBean)
+     */
+    public static String EMBEDDED_CHAPTER = "chapter";
 
     // IMPLEMENTATION NOTE: field order matters!
     // Order listed here is the order rendered in XML/JSON; don't rearrange them
@@ -46,6 +70,18 @@ public class VerseBean extends AbstractHypermediaBean {
         return altName;
     }
 
+    public final BibleBean getEmbeddedBible() {
+        return (BibleBean) getEmbedded().get(EMBEDDED_BIBLE);
+    }
+
+    public final BookBean getEmbeddedBook() {
+        return (BookBean) getEmbedded().get(EMBEDDED_BOOK);
+    }
+
+    public final ChapterBean getEmbeddedChapter() {
+        return (ChapterBean) getEmbedded().get(EMBEDDED_CHAPTER);
+    }
+
     public final String getId() {
         return id;
     }
@@ -64,6 +100,30 @@ public class VerseBean extends AbstractHypermediaBean {
 
     public final void setAltName(String altName) {
         this.altName = altName;
+    }
+
+    public final void setEmbeddedBible(BibleBean bible) {
+        if (bible != null) {
+            addEmbedded(EMBEDDED_BIBLE, bible);
+        } else {
+            removeEmbedded(EMBEDDED_BIBLE);
+        }
+    }
+
+    public final void setEmbeddedBook(BookBean book) {
+        if (book != null) {
+            addEmbedded(EMBEDDED_BOOK, book);
+        } else {
+            removeEmbedded(EMBEDDED_BOOK);
+        }
+    }
+
+    public final void setEmbeddedChapter(ChapterBean chapter) {
+        if (chapter != null) {
+            addEmbedded(EMBEDDED_CHAPTER, chapter);
+        } else {
+            removeEmbedded(EMBEDDED_CHAPTER);
+        }
     }
 
     public final void setId(String id) {
