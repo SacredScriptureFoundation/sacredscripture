@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015, 2016 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -26,6 +26,22 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class ChapterBean extends AbstractHypermediaBean {
 
+    /**
+     * Key name of the embedded bible.
+     *
+     * @see #getEmbeddedBible()
+     * @see #setEmbeddedBible(BibleBean)
+     */
+    public static String EMBEDDED_BIBLE = "bible";
+
+    /**
+     * Key name of the embedded book.
+     *
+     * @see #getEmbeddedBook()
+     * @see #setEmbeddedBook(BookBean)
+     */
+    public static String EMBEDDED_BOOK = "book";
+
     // IMPLEMENTATION NOTE: field order matters!
     // Order listed here is the order rendered in XML/JSON; don't rearrange them
     // unless you are intending to change the rendering order.
@@ -50,6 +66,14 @@ public class ChapterBean extends AbstractHypermediaBean {
         return contents;
     }
 
+    public final BibleBean getEmbeddedBible() {
+        return (BibleBean) getEmbedded().get(EMBEDDED_BIBLE);
+    }
+
+    public final BookBean getEmbeddedBook() {
+        return (BookBean) getEmbedded().get(EMBEDDED_BOOK);
+    }
+
     public final String getId() {
         return id;
     }
@@ -60,6 +84,22 @@ public class ChapterBean extends AbstractHypermediaBean {
 
     public final void setContents(List<VerseBean> contents) {
         this.contents = contents;
+    }
+
+    public final void setEmbeddedBible(BibleBean bible) {
+        if (bible != null) {
+            addEmbedded(EMBEDDED_BIBLE, bible);
+        } else {
+            removeEmbedded(EMBEDDED_BIBLE);
+        }
+    }
+
+    public final void setEmbeddedBook(BookBean book) {
+        if (book != null) {
+            addEmbedded(EMBEDDED_BOOK, book);
+        } else {
+            removeEmbedded(EMBEDDED_BOOK);
+        }
     }
 
     public final void setId(String id) {
