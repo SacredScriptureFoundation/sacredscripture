@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Sacred Scripture Foundation.
+ * Copyright (c) 2015, 2016 Sacred Scripture Foundation.
  * "All scripture is given by inspiration of God, and is profitable for
  * doctrine, for reproof, for correction, for instruction in righteousness:
  * That the man of God may be perfect, throughly furnished unto all good
@@ -33,6 +33,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class BookBean extends AbstractHypermediaBean {
+
+    /**
+     * Key name of the embedded bible.
+     *
+     * @see #getEmbeddedBible()
+     * @see #setEmbeddedBible(BibleBean)
+     */
+    public static String EMBEDDED_BIBLE = "bible";
 
     // IMPLEMENTATION NOTE: field order matters!
     // Order listed here is the order rendered in XML/JSON; don't rearrange them
@@ -75,6 +83,14 @@ public class BookBean extends AbstractHypermediaBean {
         return abbreviation;
     }
 
+    public final List<ChapterBean> getChapters() {
+        return chapters;
+    }
+
+    public final BibleBean getEmbeddedBible() {
+        return (BibleBean) getEmbedded().get(EMBEDDED_BIBLE);
+    }
+
     public final String getId() {
         return id;
     }
@@ -103,10 +119,6 @@ public class BookBean extends AbstractHypermediaBean {
         return nativeTitle;
     }
 
-    public final List<ChapterBean> getChapters() {
-        return chapters;
-    }
-
     public final String getTitle() {
         return title;
     }
@@ -117,6 +129,18 @@ public class BookBean extends AbstractHypermediaBean {
 
     public final void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public final void setChapters(List<ChapterBean> sections) {
+        chapters = sections;
+    }
+
+    public final void setEmbeddedBible(BibleBean bible) {
+        if (bible != null) {
+            addEmbedded(EMBEDDED_BIBLE, bible);
+        } else {
+            removeEmbedded(EMBEDDED_BIBLE);
+        }
     }
 
     public final void setId(String id) {
@@ -149,10 +173,6 @@ public class BookBean extends AbstractHypermediaBean {
 
     public final void setNativeTitle(String nativeTitle) {
         this.nativeTitle = nativeTitle;
-    }
-
-    public final void setChapters(List<ChapterBean> sections) {
-        this.chapters = sections;
     }
 
     public final void setTitle(String title) {

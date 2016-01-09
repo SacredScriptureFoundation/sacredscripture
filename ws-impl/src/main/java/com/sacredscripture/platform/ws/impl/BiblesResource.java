@@ -111,35 +111,47 @@ public class BiblesResource extends AbstractSpringAwareResource {
     private class BookBeanBuilder {
         public Locale locale;
         public boolean self;
+        public boolean embedBible;
 
         public BookBean build(Book book) {
             BookBean bookBean = conversionService.convert(book, BookBean.class);
             if (self) {
+                // Link to self
                 bookBean.addLink(linkHref(book, locale), LinkRelation.SELF, linkTitle(book));
 
-                // Alternate languages
+                // Link to alternate languages
                 for (Locale altLocale : book.getBookType().locales()) {
                     if (!altLocale.equals(locale)) {
                         bookBean.addLink(linkHref(book, altLocale), LinkRelation.ALTERNATE.rel(), altLocale, linkTitle(book));
                     }
                 }
 
-                // Previous book
+                // Link to previous book
                 Book prevBook = book.previous();
                 if (prevBook != null) {
                     bookBean.addLink(linkHref(prevBook, locale), LinkRelation.PREV, linkTitle(book));
                 }
 
-                // Next book
+                // Link to next book
                 Book nextBook = book.next();
                 if (nextBook != null) {
                     bookBean.addLink(linkHref(nextBook, locale), LinkRelation.NEXT, linkTitle(book));
                 }
 
-                // Up to Bible
+                // Link to bible
                 Bible bible = book.getBible();
                 BibleBeanBuilder bb = new BibleBeanBuilder();
                 bookBean.addLink(bb.makeHref(bible, locale), LinkRelation.UP, linkTitle(book));
+
+                // Link to book collection
+                bookBean.addLink(
+                    getRootResourceBuilder(uriInfo).path(SUB_PATH_BOOKS).build(bible.getPublicId()).toString(),
+                    LinkRelation.COLLECTION.rel());
+
+                // Embedded bible
+                if (embedBible) {
+                    bookBean.setEmbeddedBible(bb.build(bible));
+                }
 
                 // Chapters
                 List<Chapter> chapters = queryService.getChapters(bible.getPublicId(), book.getOrder());
@@ -410,7 +422,8 @@ public class BiblesResource extends AbstractSpringAwareResource {
             @PathParam("bible") String bibleId,
             @PathParam("book") int bookIndex,
             @QueryParam("lang") Locale locale,
-            @QueryParam("mcr") boolean multipleChoicesRedirect) {
+            @QueryParam("mcr") boolean multipleChoicesRedirect,
+            @QueryParam("embed") List<String> embed) {
         // Does the bible exist?
         Bible bible = queryService.getBibleByPublicId(bibleId);
         if (bible == null) {
@@ -445,8 +458,10 @@ public class BiblesResource extends AbstractSpringAwareResource {
 
         // Build representation
         BookBeanBuilder builder = new BookBeanBuilder();
+        boolean embedAll = embed.contains("*");
         builder.locale = locale;
         builder.self = true;
+        builder.embedBible = embedAll || embed.contains(BookBean.EMBEDDED_BIBLE);
         BookBean bookBean = builder.build(book);
 
         // Send response
