@@ -203,6 +203,18 @@ public class BiblesResource extends AbstractSpringAwareResource {
                 // Link to self
                 chapterBean.addLink(linkHref(chapter, locale), LinkRelation.SELF, linkTitle(chapter));
 
+                // Link to previous chapter
+                Chapter previous = chapter.getPrevious();
+                if (previous != null) {
+                    chapterBean.addLink(linkHref(previous, locale), LinkRelation.PREV, linkTitle(previous));
+                }
+
+                // Link to next chapter
+                Chapter next = chapter.getNext();
+                if (next != null) {
+                    chapterBean.addLink(linkHref(next, locale), LinkRelation.NEXT, linkTitle(next));
+                }
+
                 // Link to book
                 Book book = chapter.getBook();
                 BookBeanBuilder bookBuilder = new BookBeanBuilder();
